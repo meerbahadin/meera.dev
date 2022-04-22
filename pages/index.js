@@ -17,7 +17,7 @@ export default function Home() {
         <meta property="og:type" content="website" />
         <meta name="robots" content="follow, index" />
         <meta property="og:url" content="https://meera.dev/" />
-        <meta name="color-scheme" content="light dark" />
+        <meta name="color-scheme" content="light" />
         <meta
           property="og:title"
           content="Meer Bahadin | Full stack developer - UI / UX Designer"
