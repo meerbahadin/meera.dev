@@ -23,5 +23,5 @@ Create a `.env.local` file similar:
 
 - [Next.js](https://nextjs.org/)
 - [Vercel](https://vercel.com)
-- [AireTable](https://airtable.com/)
+- [AirTable](https://airtable.com/)
 - [ChakraUI](https://chakra-ui.com/)
