@@ -2,7 +2,7 @@
 
 # Meera.dev
 
-My personal portfolio! built using Next.js
+My personal portfolio! built using Next.js (this project needs update)
 
 ## Running Locally
 
