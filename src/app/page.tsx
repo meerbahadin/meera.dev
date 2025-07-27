@@ -24,8 +24,8 @@ export default function Home() {
             mouseRepulsion={true}
             mouseInteraction={true}
             density={1}
-            saturation={0.8}
-            glowIntensity={0.2}
+            saturation={0}
+            glowIntensity={0.1}
             hueShift={240}
             speed={0.1}
             starSpeed={0.2}
@@ -36,15 +36,15 @@ export default function Home() {
           <Image
             src='/logo.svg'
             alt='Next.js logo'
-            width={40}
-            height={40}
+            width={50}
+            height={50}
             priority
           />
 
           <div>
-            <p className='capitalize '>meer bahadin</p>
+            <p className='capitalize text-xl'>meer bahadin</p>
             <p className='text-sm capitalize text-gray-400'>
-              front-end developer
+              senior front-end developer
             </p>
           </div>
         </div>
