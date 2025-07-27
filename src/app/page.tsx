@@ -1,10 +1,10 @@
 import Image from 'next/image'
-import Galaxy from './components/space'
+import DarkVeil from './components/space'
 
 export default function Home() {
   return (
     <>
-      <div className='min-h-screen w-full relative grid place-content-center isolate'>
+      <div className='min-h-screen w-full relative grid isolate'>
         {/* <div
           className='absolute inset-0 -z-10 pointer-events-none'
           style={{
@@ -20,31 +20,31 @@ export default function Home() {
             position: 'absolute',
           }}
         >
-          <Galaxy
-            mouseRepulsion={true}
-            mouseInteraction={true}
-            density={1}
-            saturation={0}
-            glowIntensity={0.1}
-            hueShift={240}
-            speed={0.1}
-            starSpeed={0.2}
-            rotationSpeed={0.1}
-          />
+          <DarkVeil />
         </div>
-        <div className='flex flex-col items-center text-center  gap-4 z-50'>
-          <Image
-            src='/logo.svg'
-            alt='Next.js logo'
-            width={50}
-            height={50}
-            priority
-          />
+        <div className='gap-4 z-50  p-10 container mx-auto max-w-3xl '>
+          <div className='flex justify-between items-center'>
+            <Image
+              src='/logo.svg'
+              alt='Next.js logo'
+              width={40}
+              height={40}
+              priority
+            />
 
-          <div>
-            <p className='capitalize text-xl'>meer bahadin</p>
-            <p className='text-sm capitalize text-gray-400'>
-              senior front-end developer
+            <div>
+              <p className='capitalize text-lg'>meer bahadin</p>
+              <p className='text-sm capitalize text-gray-400'>
+                senior front-end developer
+              </p>
+            </div>
+          </div>
+
+          <div className='mt-20'>
+            <p>
+              Full stack developer - UI / UX Designer, focused on Javascript,
+              Nodejs, React. I work as a full stack developer. You’ve found my
+              personal website on the internet.
             </p>
           </div>
         </div>
