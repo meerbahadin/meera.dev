@@ -19,6 +19,7 @@ uniform float uNoise;
 uniform float uScan;
 uniform float uScanFreq;
 uniform float uWarp;
+uniform float uSaturation;
 #define iTime uTime
 #define iResolution uResolution
 
@@ -34,6 +35,12 @@ vec3 hueShiftRGB(vec3 col,float deg){
     float cosh=cos(rad),sinh=sin(rad);
     vec3 yiqShift=vec3(yiq.x,yiq.y*cosh-yiq.z*sinh,yiq.y*sinh+yiq.z*cosh);
     return clamp(yiq2rgb*yiqShift,0.0,1.0);
+}
+
+// Add saturation adjustment function
+vec3 adjustSaturation(vec3 color, float saturation) {
+    float gray = dot(color, vec3(0.299, 0.587, 0.114));
+    return mix(vec3(gray), color, saturation);
 }
 
 vec4 sigmoid(vec4 x){return 1./(1.+exp(-x));}
@@ -68,6 +75,7 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
 void main(){
     vec4 col;mainImage(col,gl_FragCoord.xy);
     col.rgb=hueShiftRGB(col.rgb,uHueShift);
+    col.rgb=adjustSaturation(col.rgb,uSaturation);
     float scanline_val=sin(gl_FragCoord.y*uScanFreq)*0.5+0.5;
     col.rgb*=1.-(scanline_val*scanline_val)*uScan;
     col.rgb+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;
@@ -82,7 +90,13 @@ type Props = {
   speed?: number
   scanlineFrequency?: number
   warpAmount?: number
+  saturation?: number
   resolutionScale?: number
+}
+
+// Helper function for smooth interpolation
+const lerp = (start: number, end: number, factor: number): number => {
+  return start + (end - start) * factor
 }
 
 export default function DarkVeil({
@@ -92,12 +106,40 @@ export default function DarkVeil({
   speed = 0.5,
   scanlineFrequency = 0,
   warpAmount = 0,
+  saturation = 1.0,
   resolutionScale = 1,
 }: Props) {
   const ref = useRef<HTMLCanvasElement>(null)
+  const rendererRef = useRef<Renderer | null>(null)
+  const programRef = useRef<Program | null>(null)
+  const meshRef = useRef<Mesh | null>(null)
+  const frameRef = useRef<number>(0)
+  const startTimeRef = useRef<number>(0)
+
+  // Smooth interpolation for warpAmount and saturation (hover effects)
+  const animatedValuesRef = useRef({
+    warpAmount: warpAmount,
+    saturation: saturation,
+    targetWarpAmount: warpAmount,
+    targetSaturation: saturation,
+  })
+
+  // Initialize WebGL only once
   useEffect(() => {
-    const canvas = ref.current as HTMLCanvasElement
+    if (!ref.current) return
+
+    const canvas = ref.current
     const parent = canvas.parentElement as HTMLElement
+
+    // Capture current prop values in local variables (excluding animated ones)
+    const currentProps = {
+      hueShift,
+      noiseIntensity,
+      scanlineIntensity,
+      speed,
+      scanlineFrequency,
+      resolutionScale,
+    }
 
     const renderer = new Renderer({
       dpr: Math.min(window.devicePixelRatio, 2),
@@ -113,45 +155,69 @@ export default function DarkVeil({
       uniforms: {
         uTime: { value: 0 },
         uResolution: { value: new Vec2() },
-        uHueShift: { value: hueShift },
-        uNoise: { value: noiseIntensity },
-        uScan: { value: scanlineIntensity },
-        uScanFreq: { value: scanlineFrequency },
-        uWarp: { value: warpAmount },
+        uHueShift: { value: currentProps.hueShift },
+        uNoise: { value: currentProps.noiseIntensity },
+        uScan: { value: currentProps.scanlineIntensity },
+        uScanFreq: { value: currentProps.scanlineFrequency },
+        uWarp: { value: animatedValuesRef.current.warpAmount },
+        uSaturation: { value: animatedValuesRef.current.saturation },
       },
     })
 
     const mesh = new Mesh(gl, { geometry, program })
 
+    // Store refs
+    rendererRef.current = renderer
+    programRef.current = program
+    meshRef.current = mesh
+    startTimeRef.current = performance.now()
+
     const resize = () => {
-      const w = parent.clientWidth,
-        h = parent.clientHeight
-      renderer.setSize(w * resolutionScale, h * resolutionScale)
+      const w = parent.clientWidth
+      const h = parent.clientHeight
+      renderer.setSize(
+        w * currentProps.resolutionScale,
+        h * currentProps.resolutionScale
+      )
       program.uniforms.uResolution.value.set(w, h)
+    }
+
+    const loop = () => {
+      const lerpFactor = 0.08
+
+      // Smooth interpolation for warpAmount and saturation
+      animatedValuesRef.current.warpAmount = lerp(
+        animatedValuesRef.current.warpAmount,
+        animatedValuesRef.current.targetWarpAmount,
+        lerpFactor
+      )
+
+      animatedValuesRef.current.saturation = lerp(
+        animatedValuesRef.current.saturation,
+        animatedValuesRef.current.targetSaturation,
+        lerpFactor
+      )
+
+      // Update all uniforms using current prop values
+      program.uniforms.uTime.value =
+        ((performance.now() - startTimeRef.current) / 1000) * currentProps.speed
+      program.uniforms.uHueShift.value = currentProps.hueShift
+      program.uniforms.uNoise.value = currentProps.noiseIntensity
+      program.uniforms.uScan.value = currentProps.scanlineIntensity
+      program.uniforms.uScanFreq.value = currentProps.scanlineFrequency
+      program.uniforms.uWarp.value = animatedValuesRef.current.warpAmount // Smoothly animated
+      program.uniforms.uSaturation.value = animatedValuesRef.current.saturation // Smoothly animated
+
+      renderer.render({ scene: mesh })
+      frameRef.current = requestAnimationFrame(loop)
     }
 
     window.addEventListener('resize', resize)
     resize()
-
-    const start = performance.now()
-    let frame = 0
-
-    const loop = () => {
-      program.uniforms.uTime.value =
-        ((performance.now() - start) / 1000) * speed
-      program.uniforms.uHueShift.value = hueShift
-      program.uniforms.uNoise.value = noiseIntensity
-      program.uniforms.uScan.value = scanlineIntensity
-      program.uniforms.uScanFreq.value = scanlineFrequency
-      program.uniforms.uWarp.value = warpAmount
-      renderer.render({ scene: mesh })
-      frame = requestAnimationFrame(loop)
-    }
-
     loop()
 
     return () => {
-      cancelAnimationFrame(frame)
+      cancelAnimationFrame(frameRef.current)
       window.removeEventListener('resize', resize)
     }
   }, [
@@ -160,8 +226,16 @@ export default function DarkVeil({
     scanlineIntensity,
     speed,
     scanlineFrequency,
-    warpAmount,
     resolutionScale,
-  ])
+  ]) // Only non-animated props
+
+  // Update targets for smooth animation
+  useEffect(() => {
+    animatedValuesRef.current.targetWarpAmount = warpAmount
+    animatedValuesRef.current.targetSaturation = saturation
+  }, [warpAmount, saturation])
+
+  // Remove the static properties update effect as they're handled in the main effect now
+
   return <canvas ref={ref} className='w-full h-full block' />
 }
