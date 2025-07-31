@@ -1,7 +1,7 @@
 'use client'
 
 import { AnimatedBackground } from '@/components/motion/animated-background'
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 import { usePathname } from 'next/navigation'
 
 export function Links() {
@@ -28,8 +28,8 @@ export function Links() {
             data-id={tab.href}
             type='button'
             className={cn(
-              'px-2 py-0.5 text-white/70 hover:text-white/100 transition-colors duration-200 cursor-pointer text-sm',
-              pathname === tab.href && 'text-white/100'
+              'px-2 py-0.5 text-zinc-200 transition-colors duration-200 cursor-pointer text-sm',
+              pathname === tab.href && 'text-zinc-100'
             )}
           >
             {tab.label}
