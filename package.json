@@ -12,8 +12,6 @@
     "@heroui/button": "^2.2.24",
     "@heroui/system": "^2.4.20",
     "@heroui/theme": "^2.4.20",
-    "@react-three/drei": "^10.6.1",
-    "@react-three/fiber": "^9.3.0",
     "@tabler/icons-react": "^3.34.1",
     "@types/three": "^0.178.1",
     "clsx": "^2.1.1",
@@ -23,8 +21,7 @@
     "ogl": "^1.0.11",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "tailwind-merge": "^3.3.1",
-    "three": "^0.178.0"
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "typescript": "^5",

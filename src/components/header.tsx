@@ -13,12 +13,15 @@ export default function Header() {
   return (
     <>
       <motion.div
-        className='w-full h-full absolute -z-10 pointer-events-none   left-1/2 -translate-x-1/2'
+        className='w-full h-full absolute -z-10  left-0'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <WaveBackground speed={0.2} />
+        <WaveBackground
+          speed={isLogoHovered ? 1.0 : 0.2}
+          saturation={isLogoHovered ? 10 : 0}
+        />
       </motion.div>
 
       <div className='container max-w-3xl'>
