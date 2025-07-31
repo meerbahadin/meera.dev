@@ -18,7 +18,7 @@ export default function Header() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <WaveBackground speed={isLogoHovered ? 0.8 : 0.2} />
+        <WaveBackground speed={0.2} />
       </motion.div>
 
       <div className='container max-w-3xl'>
