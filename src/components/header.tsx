@@ -1,11 +1,11 @@
 'use client'
 
 import Image from 'next/image'
-import WaveBackground from '@/components/wave-background'
 import { Links } from '@/components/links'
 import { motion } from 'motion/react'
 import { useState } from 'react'
 import { Button } from '@heroui/button'
+import ValeBackground from '@/components/vale-background'
 
 export default function Header() {
   const [isLogoHovered, setIsLogoHovered] = useState(false)
@@ -13,12 +13,12 @@ export default function Header() {
   return (
     <>
       <motion.div
-        className='w-full h-full absolute -z-10  left-0'
+        className='w-full h-full absolute -z-10 left-0'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <WaveBackground
+        <ValeBackground
           speed={isLogoHovered ? 1.0 : 0.2}
           saturation={isLogoHovered ? 10 : 0}
         />
