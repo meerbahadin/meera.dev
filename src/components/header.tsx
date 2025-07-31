@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <>
       <motion.div
-        className='w-full h-full absolute -z-10 pointer-events-none lg:container lg:mask-l-from-60% lg:mask-r-from-60% left-1/2 -translate-x-1/2'
+        className='w-full h-full absolute -z-10 pointer-events-none   left-1/2 -translate-x-1/2'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
