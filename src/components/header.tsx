@@ -5,13 +5,13 @@ import { Links } from '@/components/links'
 import { motion } from 'motion/react'
 import { useState } from 'react'
 import { Button } from '@heroui/button'
-import ValeBackground from '@/components/vale-background'
+import ValeBackground from '@/components/backgrounds/vale'
 
 export default function Header() {
   const [isLogoHovered, setIsLogoHovered] = useState(false)
 
   return (
-    <>
+    <header className='min-h-dvh relative isolate'>
       <motion.div
         className='w-full h-full absolute -z-10 left-0'
         initial={{ opacity: 0 }}
@@ -24,8 +24,8 @@ export default function Header() {
         />
       </motion.div>
 
-      <div className='container max-w-3xl'>
-        <div className='flex justify-between items-center p-3 mt-4 bg-gradient-to-br from-white/5 via-transparent to-white/10 outline-1 outline-offset-2 outline-white/20 rounded-xl backdrop-blur-lg'>
+      <div className='container max-w-3xl pt-4'>
+        <div className='flex justify-between items-center p-3 bg-gradient-to-br from-white/5 via-transparent to-white/10 outline-1 outline-offset-2 outline-white/20 rounded-xl backdrop-blur-lg'>
           <motion.div
             onMouseEnter={() => setIsLogoHovered(true)}
             onMouseLeave={() => setIsLogoHovered(false)}
@@ -58,7 +58,7 @@ export default function Header() {
           </div>
         </div>
 
-        <div className='mt-10 space-y-4'>
+        <div className='mt-8 space-y-4'>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -85,6 +85,6 @@ export default function Header() {
           </motion.p>
         </div>
       </div>
-    </>
+    </header>
   )
 }

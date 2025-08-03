@@ -1,7 +1,7 @@
 'use client'
 
 import { AnimatedBackground } from '@/components/motion/animated-background'
-import { cn } from '../../lib/utils'
+import { cn } from '../lib/utils'
 import { usePathname } from 'next/navigation'
 
 export function Links() {

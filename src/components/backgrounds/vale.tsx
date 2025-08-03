@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react'
 import { Renderer, Program, Triangle, Mesh, Vec2 } from 'ogl'
+import { cn } from '@/lib/utils'
 
 const vertex = `
 attribute vec2 position;
@@ -158,13 +159,21 @@ const ValeBackground: React.FC<ValeBackgroundProps> = ({
     targetSaturation: saturation,
   })
 
+  // Define DPR calculation once and reuse it
+  const getDPR = () => {
+    return /Android/i.test(navigator.userAgent)
+      ? 1.0
+      : Math.min(window.devicePixelRatio, 2)
+  }
+
   useEffect(() => {
     if (!ref.current) return
 
     const canvas = ref.current
+    const dpr = getDPR()
 
     const renderer = new Renderer({
-      dpr: Math.min(window.devicePixelRatio, 2),
+      dpr,
       canvas,
       alpha: false,
       antialias: false,
@@ -200,15 +209,16 @@ const ValeBackground: React.FC<ValeBackgroundProps> = ({
       const w = parent.clientWidth
       const h = parent.clientHeight
 
-      const dpr = Math.min(window.devicePixelRatio, 2)
-      canvas.width = w * dpr
-      canvas.height = h * dpr
+      // Use consistent DPR calculation
+      const currentDpr = getDPR()
+      canvas.width = w * currentDpr
+      canvas.height = h * currentDpr
 
       canvas.style.width = w + 'px'
       canvas.style.height = h + 'px'
 
       renderer.setSize(w, h)
-      program.uniforms.uResolution.value.set(w * dpr, h * dpr)
+      program.uniforms.uResolution.value.set(w * currentDpr, h * currentDpr)
     }
 
     const loop = () => {
@@ -259,7 +269,7 @@ const ValeBackground: React.FC<ValeBackgroundProps> = ({
   }, [speed, saturation])
 
   return (
-    <canvas ref={ref} className={`w-full h-full bg-black block ${className}`} />
+    <canvas ref={ref} className={cn(`w-full h-full bg-black`, className)} />
   )
 }
 
