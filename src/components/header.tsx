@@ -5,8 +5,9 @@ import { Links } from '@/components/links'
 import { motion } from 'motion/react'
 import { useState } from 'react'
 import { Button } from '@heroui/button'
-// import ValeBackground from '@/components/backgrounds/vale'
-import DarkVeil from './backgrounds/wave'
+import ValeBackground from '@/components/backgrounds/vale'
+import { Tooltip } from '@heroui/tooltip'
+import Link from 'next/link'
 
 export default function Header() {
   const [isLogoHovered, setIsLogoHovered] = useState(false)
@@ -19,9 +20,9 @@ export default function Header() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <DarkVeil
-          warpAmount={isLogoHovered ? 1.0 : 0.2}
-          saturation={isLogoHovered ? 1 : 0}
+        <ValeBackground
+          speed={isLogoHovered ? 1.0 : 0.2}
+          saturation={isLogoHovered ? 10 : 0}
         />
       </motion.div>
 
@@ -34,20 +35,29 @@ export default function Header() {
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
             className='cursor-pointer'
           >
-            <Image
-              src='/logo.svg'
-              alt='Next.js logo'
-              width={16}
-              height={16}
-              priority
-              className='w-8 h-8 select-none'
-            />
+            <Tooltip
+              content='woww!'
+              placement='right'
+              color='foreground'
+              showArrow
+            >
+              <Image
+                src='/logo.svg'
+                alt='Next.js logo'
+                width={16}
+                height={16}
+                priority
+                className='w-8 h-8 select-none'
+              />
+            </Tooltip>
           </motion.div>
 
           <div className='flex items-center gap-4'>
             <Links />
 
             <Button
+              as={Link}
+              href='mailto:meerbahadin10@gmail.com'
               className='capitalize'
               size='sm'
               color='primary'
@@ -59,7 +69,7 @@ export default function Header() {
           </div>
         </div>
 
-        <div className='mt-8 space-y-4'>
+        <div className='mt-8 space-y-4 text-center'>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -74,15 +84,16 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            {`Hello, World! I'm Meer Bahadin — a Frontend Developer passionate
-              about building fast, accessible, and intuitive user interfaces. I
-              started my journey as a Full Stack Developer and now bring over 5
-              years of experience crafting high-quality web and mobile
-              applications using JavaScript, Node.js, React, Next.js, and
-              TypeScript. While my focus is on frontend development, I
-              occasionally dive into React Native for mobile projects as well.
-              Beyond work, I enjoy exploring new technologies and bringing ideas
-              to life through side projects and experiments on the web.`}
+            {`Hi, I'm Meer Bahadin — a frontend developer who loves creating fast,
+            accessible, and user-friendly interfaces. I got my start as a full
+            stack developer, and over the past 5+ years, I've built a wide range
+            of web and mobile apps using JavaScript, Node.js, React, Next.js,
+            and TypeScript. These days, I mostly focus on frontend work, but I
+            still enjoy jumping into React Native when a mobile project calls
+            for it. Outside of work, I'm always tinkering with new tech and
+            turning ideas into side projects just for the fun of it. Lately,
+            I've been diving into WebGL and exploring creative coding — blending
+            visuals, performance, and interactivity in new ways on the web.`}
           </motion.p>
         </div>
       </div>

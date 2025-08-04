@@ -21,23 +21,6 @@ export default function Experiences() {
       company: 'netspot solutions',
       roles: [
         {
-          title: 'Senior Frontend Developer (Jan 2023 - Jan 2024)',
-          items: [
-            {
-              text: 'Contributed to multiple production apps across the company.',
-              tech: [],
-            },
-            {
-              text: 'Built a centralized account management system with SSO and user-based roles.',
-              tech: [],
-            },
-            {
-              text: "Developed the company's marketing website using Next.js, Lottie, and custom SVG animations.",
-              tech: ['Next.js', 'Lottie', 'SVG'],
-            },
-          ],
-        },
-        {
           title: 'Lead Frontend Developer (Oct 2023 - Apr 2025)',
           items: [
             {
@@ -69,6 +52,24 @@ export default function Experiences() {
             },
           ],
         },
+        {
+          title: 'Senior Frontend Developer (Jan 2023 - Jan 2024)',
+          items: [
+            {
+              text: 'Contributed to multiple production apps across the company.',
+              tech: [],
+            },
+            {
+              text: 'Built a centralized account management system with SSO and user-based roles.',
+              tech: [],
+            },
+            {
+              text: "Developed the company's marketing website using Next.js, Lottie, and custom SVG animations.",
+              tech: ['Next.js', 'Lottie', 'SVG'],
+            },
+          ],
+        },
+
         {
           title: 'Frontend Developer (Sep 2021 - Feb 2023)',
           items: [

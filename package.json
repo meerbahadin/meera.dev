@@ -12,6 +12,7 @@
     "@heroui/button": "^2.2.24",
     "@heroui/system": "^2.4.20",
     "@heroui/theme": "^2.4.20",
+    "@heroui/tooltip": "^2.2.21",
     "@tabler/icons-react": "^3.34.1",
     "@types/three": "^0.178.1",
     "framer-motion": "^12.23.11",
