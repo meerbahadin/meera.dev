@@ -15,6 +15,7 @@
     "@tabler/icons-react": "^3.34.1",
     "@types/three": "^0.178.1",
     "framer-motion": "^12.23.11",
+    "lenis": "^1.3.8",
     "motion": "^12.23.9",
     "next": "15.4.4",
     "ogl": "^1.0.11",

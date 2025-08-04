@@ -99,7 +99,7 @@ const lerp = (start: number, end: number, factor: number): number => {
   return start + (end - start) * factor
 }
 
-export default function WaveBackground({
+export default function DarkVeil({
   hueShift = 0,
   noiseIntensity = 0,
   scanlineIntensity = 0,

@@ -6,26 +6,27 @@ import { motion } from 'motion/react'
 import { useState } from 'react'
 import { Button } from '@heroui/button'
 import ValeBackground from '@/components/backgrounds/vale'
+import DarkVeil from './backgrounds/wave'
 
 export default function Header() {
   const [isLogoHovered, setIsLogoHovered] = useState(false)
 
   return (
-    <header className='min-h-dvh relative isolate'>
+    <header className='relative isolate'>
       <motion.div
-        className='w-full h-full absolute -z-10 left-0'
+        className='w-full h-full absolute -z-10 left-0 mask-b-from-85%'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <ValeBackground
-          speed={isLogoHovered ? 1.0 : 0.2}
-          saturation={isLogoHovered ? 10 : 0}
+        <DarkVeil
+          warpAmount={isLogoHovered ? 1.0 : 0.2}
+          saturation={isLogoHovered ? 1 : 0}
         />
       </motion.div>
 
-      <div className='container max-w-3xl pt-4'>
-        <div className='flex justify-between items-center p-3 bg-gradient-to-br from-white/5 via-transparent to-white/10 outline-1 outline-offset-2 outline-white/20 rounded-xl backdrop-blur-lg'>
+      <div className='container max-w-3xl  flex flex-col justify-between h-dvh pb-8 pt-4'>
+        <div className='flex justify-between sticky items-center p-3 bg-gradient-to-br from-white/5 via-transparent to-white/10 outline-1 outline-offset-2 outline-white/20 rounded-xl backdrop-blur-lg'>
           <motion.div
             onMouseEnter={() => setIsLogoHovered(true)}
             onMouseLeave={() => setIsLogoHovered(false)}
@@ -63,7 +64,7 @@ export default function Header() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <p className='capitalize text-lg'>meer bahadin</p>
+            <p className='capitalize text-3xl'>meer bahadin</p>
             <p className='text-sm capitalize text-default-500'>
               frontend developer
             </p>
