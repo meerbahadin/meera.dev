@@ -16,12 +16,12 @@ export default function Experiences() {
       ],
     },
     {
-      year: 'Sep 2021 - Apr 2025',
+      year: 'Sep 2021 - Mar 2025',
       title: 'Frontend Developer → Senior → Lead',
       company: 'netspot solutions',
       roles: [
         {
-          title: 'Lead Frontend Developer (Oct 2023 - Apr 2025)',
+          title: 'Lead Frontend Developer (Feb 2024 - Mar 2025)',
           items: [
             {
               text: 'Created a custom support application using Next.js with App Router and Server-Side Rendering (SSR) for ultra-fast performance.',
@@ -53,7 +53,7 @@ export default function Experiences() {
           ],
         },
         {
-          title: 'Senior Frontend Developer (Jan 2023 - Jan 2024)',
+          title: 'Senior Frontend Developer (Feb 2023 - Jan 2024)',
           items: [
             {
               text: 'Contributed to multiple production apps across the company.',
@@ -71,7 +71,7 @@ export default function Experiences() {
         },
 
         {
-          title: 'Frontend Developer (Sep 2021 - Feb 2023)',
+          title: 'Frontend Developer (Sep 2021 - Jan 2023)',
           items: [
             {
               text: 'Rewrote the 4G LTE mobile-first self-care application using Next.js with Progressive Web App (PWA) architecture for 500K+ users.',
