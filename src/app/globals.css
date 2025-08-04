@@ -21,16 +21,16 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #282828;
+  background: var(--color-zinc-800);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--color-zinc-600);
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #161616;
+  background: var(--color-zinc-500);
 }

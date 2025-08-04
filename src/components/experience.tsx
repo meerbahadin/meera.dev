@@ -125,12 +125,12 @@ export default function Experiences() {
 
   return (
     <div className='space-y-4 container max-w-3xl py-12'>
-      <h2 className='text-lg font-medium capitalize'>experience</h2>
+      <h2 className='text-3xl font-medium capitalize'>experience</h2>
       <div className='space-y-3'>
         {experiences.map((exp, index) => (
           <div
             key={index}
-            className='flex flex-col gap-3 p-5 bg-black/50 rounded-xl backdrop-blur-xl border border-zinc-900'
+            className='flex flex-col gap-3 p-5 bg-black/50 rounded-xl backdrop-blur-xl border border-zinc-800'
           >
             <div className='flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1'>
               <div>
