@@ -5,7 +5,7 @@ import { Links } from '@/components/links'
 import { motion } from 'motion/react'
 import { useState } from 'react'
 import { Button } from '@heroui/button'
-import ValeBackground from '@/components/backgrounds/vale'
+// import ValeBackground from '@/components/backgrounds/vale'
 import DarkVeil from './backgrounds/wave'
 
 export default function Header() {
