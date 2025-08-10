@@ -269,7 +269,10 @@ const ValeBackground: React.FC<ValeBackgroundProps> = ({
   }, [speed, saturation])
 
   return (
-    <canvas ref={ref} className={cn(`w-full h-full bg-black`, className)} />
+    <canvas
+      ref={ref}
+      className={cn(`w-full h-full bg-background`, className)}
+    />
   )
 }
 

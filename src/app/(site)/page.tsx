@@ -1,13 +1,13 @@
 import Experiences from '@/components/experience'
+import Footer from '@/components/footer'
 import Header from '@/components/header'
-import SmoothScroll from '@/components/smooth-scroll'
 
 export default function Home() {
   return (
     <>
-      <SmoothScroll />
       <Header />
       <Experiences />
+      <Footer />
     </>
   )
 }

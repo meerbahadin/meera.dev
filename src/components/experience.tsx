@@ -3,15 +3,22 @@ export default function Experiences() {
     {
       year: 'Apr 2025 - {{current}}', // will be replaced by a green dot
       title: 'Frontend Engineering Manager',
-      company: 'ruyat.tech',
+      company: 'ruyat tech',
       items: [
         {
-          text: 'Led the development of a payment solution app with biometric authentication and KYC integration.',
-          tech: ['React', 'Vite', 'WebAuthn', 'Tailwind CSS'],
+          text: 'Led the development of a comprehensive digital wallet platform—including mobile app, business dashboard, and KYC identity verification—and personally built the web application frontend.',
+          tech: [
+            'React',
+            'Vite',
+            'WebAuthn',
+            'Tailwind CSS',
+            'Google Mediapipe',
+            'Tanstack Query',
+          ],
         },
         {
-          text: 'Created a lightweight internal face liveness detection library using Google ML Kit.',
-          tech: ['Google ML Kit'],
+          text: 'Created a lightweight internal face liveness detection library using google mediapipe',
+          tech: ['Google Mediapipe'],
         },
       ],
     },
@@ -24,23 +31,19 @@ export default function Experiences() {
           title: 'Lead Frontend Developer (Feb 2024 - Mar 2025)',
           items: [
             {
-              text: 'Created a custom support application using Next.js with App Router and Server-Side Rendering (SSR) for ultra-fast performance.',
+              text: 'Developed a custom support application using Next.js with the App Router and Server-Side Rendering (SSR) to deliver ultra-fast, SEO-friendly performance.',
               tech: ['Next.js', 'Tailwind CSS', 'Hero UI', 'App Router', 'SSR'],
             },
             {
-              text: 'Built a Kanban-style feedback system for tracking feature requests using Next.js and Dnd Kit.',
-              tech: ['Dnd Kit', 'Tailwind', 'App Router', 'SSR'],
-            },
-            {
-              text: 'Led a frontend team of 5+ developers, reviewing pull requests and monitoring application health and performance.',
-              tech: [],
+              text: 'Built a Kanban-style feedback system using Next.js and DnD Kit to track features and issues with intuitive drag-and-drop functionality.',
+              tech: ['Dnd Kit', 'Tailwind', 'App Router'],
             },
             {
               text: 'Developed a WebAuthn-based passkey server for biometric authentication using Node.js and MongoDB.',
-              tech: ['Node.js', 'MongoDB', 'WebAuthn'],
+              tech: ['Node.js', 'MongoDB', 'WebAuthn', 'Backend'],
             },
             {
-              text: "Updated the company's main website with animated SVGs and optimized 3D scenes using Spline and React Three Fiber.",
+              text: 'Refactored and enhanced the company website with animated SVGs and optimized interactive 3D scenes using Spline and React Three Fiber.',
               tech: [
                 'Spline',
                 'Framer Motion',
@@ -50,22 +53,26 @@ export default function Experiences() {
                 'SSR',
               ],
             },
+            {
+              text: 'Led a frontend team of 5+ developers, reviewing pull requests and monitoring application health and performance.',
+              tech: [],
+            },
           ],
         },
         {
           title: 'Senior Frontend Developer (Feb 2023 - Jan 2024)',
           items: [
             {
-              text: 'Contributed to multiple production apps across the company.',
-              tech: [],
-            },
-            {
-              text: 'Built a centralized account management system with SSO and user-based roles.',
-              tech: [],
+              text: 'Built the frontend of a centralized account management system with SSO, user role support, KYC verification, face liveness detection, and advanced webcam integration—enabling seamless authentication across multiple connected apps.',
+              tech: ['Next.js', 'Tailwind Css', 'Google Mediapipe'],
             },
             {
               text: "Developed the company's marketing website using Next.js, Lottie, and custom SVG animations.",
               tech: ['Next.js', 'Lottie', 'SVG'],
+            },
+            {
+              text: 'Contributed to multiple production apps across the company.',
+              tech: [],
             },
           ],
         },
@@ -124,13 +131,16 @@ export default function Experiences() {
   ]
 
   return (
-    <div className='space-y-4 container max-w-3xl py-12'>
+    <section
+      className='space-y-4 container max-w-3xl pt-20'
+      id='experiences-wrapper'
+    >
       <h2 className='text-3xl font-medium capitalize'>experience</h2>
-      <div className='space-y-3'>
+      <div className='space-y-4'>
         {experiences.map((exp, index) => (
           <div
             key={index}
-            className='flex flex-col gap-3 p-5 bg-black/50 rounded-xl backdrop-blur-xl border border-zinc-800'
+            className='flex flex-col gap-3 p-5 rounded-xl outline-1 outline-offset-3 outline-zinc-800 bg-zinc-950'
           >
             <div className='flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1'>
               <div>
@@ -177,7 +187,7 @@ export default function Experiences() {
                               {point.tech.map((tech, techIndex) => (
                                 <span
                                   key={techIndex}
-                                  className='text-xs text-zinc-400 bg-zinc-800/50 px-2 py-0.5 rounded'
+                                  className='text-xs text-zinc-400 bg-zinc-900 px-2 py-0.5 rounded'
                                 >
                                   {tech}
                                 </span>
@@ -201,7 +211,7 @@ export default function Experiences() {
                           {point.tech.map((tech, techIndex) => (
                             <span
                               key={techIndex}
-                              className='text-xs text-zinc-400 bg-zinc-800/50 px-2 py-0.5 rounded'
+                              className='text-xs text-zinc-400 bg-zinc-900 px-2 py-0.5 rounded'
                             >
                               {tech}
                             </span>
@@ -214,6 +224,6 @@ export default function Experiences() {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   )
 }
