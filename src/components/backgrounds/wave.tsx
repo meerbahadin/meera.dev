@@ -1,5 +1,3 @@
-'use client'
-
 import { useRef, useEffect } from 'react'
 import { Renderer, Program, Mesh, Triangle, Vec2 } from 'ogl'
 
@@ -124,12 +122,19 @@ export default function DarkVeil({
     targetSaturation: saturation,
   })
 
+  // Define DPR calculation once and reuse it
+  const getDPR = () => {
+    return /Android/i.test(navigator.userAgent)
+      ? 1.0
+      : Math.min(window.devicePixelRatio, 2)
+  }
+
   // Initialize WebGL only once
   useEffect(() => {
     if (!ref.current) return
 
     const canvas = ref.current
-    const parent = canvas.parentElement as HTMLElement
+    const dpr = getDPR()
 
     // Capture current prop values in local variables (excluding animated ones)
     const currentProps = {
@@ -142,8 +147,11 @@ export default function DarkVeil({
     }
 
     const renderer = new Renderer({
-      dpr: Math.min(window.devicePixelRatio, 2),
+      dpr,
       canvas,
+      alpha: false,
+      antialias: false,
+      powerPreference: 'high-performance',
     })
 
     const gl = renderer.gl
@@ -173,13 +181,22 @@ export default function DarkVeil({
     startTimeRef.current = performance.now()
 
     const resize = () => {
+      if (!canvas.parentElement) return
+
+      const parent = canvas.parentElement
       const w = parent.clientWidth
       const h = parent.clientHeight
-      renderer.setSize(
-        w * currentProps.resolutionScale,
-        h * currentProps.resolutionScale
-      )
-      program.uniforms.uResolution.value.set(w, h)
+
+      // Use consistent DPR calculation
+      const currentDpr = getDPR()
+      canvas.width = w * currentDpr
+      canvas.height = h * currentDpr
+
+      canvas.style.width = w + 'px'
+      canvas.style.height = h + 'px'
+
+      renderer.setSize(w, h)
+      program.uniforms.uResolution.value.set(w * currentDpr, h * currentDpr)
     }
 
     const loop = () => {
@@ -213,12 +230,17 @@ export default function DarkVeil({
     }
 
     window.addEventListener('resize', resize)
+    window.addEventListener('orientationchange', () => {
+      setTimeout(resize, 100)
+    })
+
     resize()
     loop()
 
     return () => {
       cancelAnimationFrame(frameRef.current)
       window.removeEventListener('resize', resize)
+      window.removeEventListener('orientationchange', resize)
     }
   }, [
     hueShift,
@@ -234,8 +256,6 @@ export default function DarkVeil({
     animatedValuesRef.current.targetWarpAmount = warpAmount
     animatedValuesRef.current.targetSaturation = saturation
   }, [warpAmount, saturation])
-
-  // Remove the static properties update effect as they're handled in the main effect now
 
   return <canvas ref={ref} className='w-full h-full block' />
 }

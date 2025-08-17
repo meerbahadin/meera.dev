@@ -2,12 +2,12 @@
 
 import { useState } from 'react'
 import { Button } from '@heroui/button'
-import ValeBackground from '@/components/backgrounds/vale'
 
 // By adding only the specific animation features we need, we reduce the bundle size of the motion component.
 import { LazyMotion, domAnimation } from 'motion/react'
 import * as motion from 'motion/react-m'
 import { IconChevronDown } from '@tabler/icons-react'
+import StarGalaxyBackground from './backgrounds/stars-galaxy'
 
 export default function Header() {
   const [isLogoHovered, setIsLogoHovered] = useState(false)
@@ -16,14 +16,14 @@ export default function Header() {
     <LazyMotion features={domAnimation}>
       <header className='relative isolate'>
         <motion.div
-          className='w-full h-full absolute -z-10 left-0 mask-b-from-85%'
+          className='w-full h-full absolute -z-10 left-0'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
         >
-          <ValeBackground
-            speed={isLogoHovered ? 1.0 : 0.2}
-            saturation={isLogoHovered ? 10 : 0}
+          <StarGalaxyBackground
+            speed={isLogoHovered ? 1.0 : 0.4}
+            // className='mask-b-from-90%'
           />
         </motion.div>
 
@@ -35,13 +35,13 @@ export default function Header() {
           >
             <div>
               <p className='capitalize text-3xl'>meer bahadin</p>
-              <p className='capitalize text-default-500'>frontend developer</p>
+              <p className='capitalize text-zinc-400'>frontend developer</p>
             </div>
-            <p className='leading-relaxed text-lg text-zinc-300'>
+            <p className='leading-relaxed text-md md:text-lg text-zinc-200'>
               {`Hi, I'm Meer Bahadin — a frontend developer passionate about building fast, accessible, high-quality web applications. With 5+ years of experience, I now focus mainly on web and mobile apps using React, Next.js, and TypeScript.`}
             </p>
 
-            <p className='leading-relaxed text-lg text-zinc-300'>
+            <p className='leading-relaxed text-md md:text-lg text-zinc-200'>
               {`I'm passionate about frontend development, especially building smooth, interactive experiences with web animation, Motion library, and WebGL.`}
             </p>
 

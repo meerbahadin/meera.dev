@@ -11,9 +11,9 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className='container max-w-3xl py-8'>
-      <div className='flex sm:justify-between sm:flex-row sm:text-start items-center gap-2 text-center flex-col'>
-        <div className='flex flex-col items-center sm:items-start gap-2'>
+    <footer className='container max-w-3xl screen-line-before'>
+      <div className='flex sm:justify-between sm:flex-row sm:text-start items-center gap-2 text-center flex-col border-s-1 border-e-1 border-default-50 p-4 '>
+        <div className='flex flex-col items-center sm:items-start gap-2 screen-line-before screen-line-after py-4'>
           <Link href='/'>
             <Image
               src='/logo.svg'

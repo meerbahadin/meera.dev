@@ -131,16 +131,19 @@ export default function Experiences() {
   ]
 
   return (
-    <section
-      className='space-y-4 container max-w-3xl pt-20'
-      id='experiences-wrapper'
-    >
-      <h2 className='text-3xl font-medium capitalize'>experience</h2>
-      <div className='space-y-4'>
+    <section className='container max-w-3xl pt-18 ' id='experiences-wrapper'>
+      <div className='space-y-2 screen-line-before screen-line-after border-s-1 border-e-1 border-default-50 p-4'>
+        <p className='text-2xl'>Experience</p>
+        <p className='text-zinc-400 text-balance'>
+          A journey through frontend engineering, team leadership, and building
+          scalable web applications
+        </p>
+      </div>
+      <div className='space-y-4 screen-line-after border-s-1 border-e-1 border-default-50'>
         {experiences.map((exp, index) => (
           <div
             key={index}
-            className='flex flex-col gap-3 p-5 rounded-xl outline-1 outline-offset-3 outline-zinc-800 bg-zinc-950'
+            className='flex flex-col gap-3 p-5 via-transparent to-zinc-950 screen-line-before screen-line-after'
           >
             <div className='flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1'>
               <div>
