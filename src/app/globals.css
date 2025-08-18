@@ -16,7 +16,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--meeradev-background));
+    background: hsl(var(--meeradev-default-100));
   }
 
   ::-webkit-scrollbar-thumb {

@@ -46,6 +46,7 @@ export default function Header() {
             </p>
 
             <Button
+              aria-label='view work eperience'
               variant='light'
               endContent={
                 <IconChevronDown className='animate-pulse' size={18} />
