@@ -26,6 +26,7 @@ const Navbar = () => {
             href='mailto:meerbahadin10@gmail.com'
             size='sm'
             color='primary'
+            className='text-sm'
           >
             Contact Me
           </Button>

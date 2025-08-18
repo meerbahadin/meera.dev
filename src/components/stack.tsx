@@ -26,7 +26,7 @@ const techStack: TechItem[] = [
   { name: 'Remix', icon: 'remix/white', category: 'frontend' },
   { name: 'React Router', icon: 'reactrouter', category: 'frontend' },
   {
-    name: 'Framer Motion',
+    name: 'Motion',
     icon: '/motion.svg',
     category: 'frontend',
     isLocal: true,
@@ -97,7 +97,9 @@ const Stack = () => {
   return (
     <section className='container max-w-3xl'>
       <div className='space-y-3 screen-line-before screen-line-after p-4 border-s-1 border-e-1 border-default-50'>
-        <p className='text-2xl'>Tech Stack</p>
+        <p className='text-2xl screen-line-before screen-line-after'>
+          Tech Stack
+        </p>
         <p className='text-zinc-400 text-balance leading-relaxed'>
           Technologies and tools I use to build modern, scalable applications
         </p>
@@ -116,7 +118,7 @@ const Stack = () => {
                 >
                   {categoryLabels[category as keyof typeof categoryLabels]}
                 </span>
-                <div className='h-px flex-1 bg-gradient-to-r from-zinc-700 to-transparent' />
+                <div className='h-px flex-1 bg-gradient-to-r from-zinc-800 to-transparent' />
               </div>
 
               <div className='flex gap-4 flex-wrap'>

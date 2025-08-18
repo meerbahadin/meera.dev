@@ -24,7 +24,7 @@ export default function Footer() {
               className='select-none opacity-75 aspect-square'
             />
           </Link>
-          <p className='text-tiny text-default-400 text-balance'>
+          <p className='text-xs text-default-400 text-balance'>
             Created by me. the source code is available on{' '}
             <a
               className='text-default-600'

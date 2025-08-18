@@ -27,7 +27,7 @@ export default function Header() {
           />
         </motion.div>
 
-        <div className='container max-w-3xl flex flex-col justify-end h-dvh pb-8 pt-4'>
+        <div className='container max-w-3xl flex flex-col justify-end h-dvh pb-8 pt-4 '>
           <motion.div
             className='mt-8 space-y-4 text-center justify-self-end'
             initial={{ opacity: 0.5, filter: 'blur(10px)' }}
@@ -35,7 +35,7 @@ export default function Header() {
           >
             <div>
               <p className='capitalize text-3xl'>meer bahadin</p>
-              <p className='capitalize text-zinc-400'>frontend developer</p>
+              <p className='capitalize text-zinc-300'>frontend developer</p>
             </div>
             <p className='leading-relaxed text-md md:text-lg text-zinc-200'>
               {`Hi, I'm Meer Bahadin — a frontend developer passionate about building fast, accessible, high-quality web applications. With 5+ years of experience, I now focus mainly on web and mobile apps using React, Next.js, and TypeScript.`}
@@ -46,7 +46,7 @@ export default function Header() {
             </p>
 
             <Button
-              variant='flat'
+              variant='light'
               endContent={
                 <IconChevronDown className='animate-pulse' size={18} />
               }

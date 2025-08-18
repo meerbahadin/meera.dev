@@ -1,5 +1,6 @@
 import { heroui } from '@heroui/theme'
 export default heroui({
+  prefix: 'meeradev',
   themes: {
     light: {
       colors: {

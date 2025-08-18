@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
-@theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --font-family-sans: var(--font-geist-sans);
+  --font-family-mono: var(--font-geist-mono);
 }
 
 @utility container {
@@ -10,53 +10,55 @@
   padding-inline: 1.2rem;
 }
 
+@layer base {
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--meeradev-background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--meeradev-default-200));
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--meeradev-default-300));
+  }
+}
+
+@utility screen-line-before {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    z-index: -1;
+    height: 1px;
+    width: 200vw;
+    background-color: hsl(var(--meeradev-default-50));
+  }
+}
+
+@utility screen-line-after {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -100vw;
+    z-index: -1;
+    height: 1px;
+    width: 200vw;
+    background-color: hsl(var(--meeradev-default-50));
+  }
+}
+
 @plugin './hero.ts';
 @source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
-@custom-variant dark (&:is(.dark *));
-
-::-webkit-scrollbar {
-  width: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-zinc-800);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-zinc-600);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-zinc-500);
-}
-
-.screen-line-before {
-  position: relative;
-}
-
-.screen-line-before::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100vw;
-  z-index: -1;
-  height: 1px;
-  width: 200vw;
-  background-color: hsl(var(--heroui-default-50));
-}
-
-.screen-line-after {
-  position: relative;
-}
-
-.screen-line-after::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: -100vw;
-  z-index: -1;
-  height: 1px;
-  width: 200vw;
-  background-color: hsl(var(--heroui-default-50));
-}
+@variant dark (&:is(.dark *));

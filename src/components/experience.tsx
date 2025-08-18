@@ -1,3 +1,5 @@
+import { cn } from '@heroui/theme'
+
 export default function Experiences() {
   const experiences = [
     {
@@ -46,7 +48,7 @@ export default function Experiences() {
               text: 'Refactored and enhanced the company website with animated SVGs and optimized interactive 3D scenes using Spline and React Three Fiber.',
               tech: [
                 'Spline',
-                'Framer Motion',
+                'Motion',
                 'React Three Fiber',
                 'Next.js',
                 'App Router',
@@ -97,7 +99,7 @@ export default function Experiences() {
                 'Chakra UI',
                 'useSWR',
                 'next-auth',
-                'Framer Motion',
+                ' Motion',
                 'FCM',
               ],
             },
@@ -131,19 +133,24 @@ export default function Experiences() {
   ]
 
   return (
-    <section className='container max-w-3xl pt-18 ' id='experiences-wrapper'>
+    <section className='container max-w-3xl pt-18' id='experiences-wrapper'>
       <div className='space-y-2 screen-line-before screen-line-after border-s-1 border-e-1 border-default-50 p-4'>
-        <p className='text-2xl'>Experience</p>
+        <p className='text-2xl screen-line-after screen-line-before'>
+          Experience
+        </p>
         <p className='text-zinc-400 text-balance'>
           A journey through frontend engineering, team leadership, and building
           scalable web applications
         </p>
       </div>
-      <div className='space-y-4 screen-line-after border-s-1 border-e-1 border-default-50'>
+      <div className='space-y-4 border-s-1 border-e-1 border-default-50'>
         {experiences.map((exp, index) => (
           <div
             key={index}
-            className='flex flex-col gap-3 p-5 via-transparent to-zinc-950 screen-line-before screen-line-after'
+            className={cn(
+              'flex flex-col gap-3 p-5  via-transparent to-zinc-950 screen-line-after',
+              { 'screen-line-before': index !== 0 }
+            )}
           >
             <div className='flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1'>
               <div>
@@ -160,8 +167,8 @@ export default function Experiences() {
                     <span>{exp.year.split('-')[0]}</span>
                     <span>-</span>
                     <span className='relative flex size-3'>
-                      <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75'></span>
-                      <span className='relative inline-flex size-3 rounded-full bg-green-500'></span>
+                      <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75' />
+                      <span className='relative inline-flex size-3 rounded-full bg-green-500' />
                     </span>
                   </span>
                 ) : (
