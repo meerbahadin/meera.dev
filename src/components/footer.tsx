@@ -40,6 +40,8 @@ export default function Footer() {
 
         <div className='flex gap-2 '>
           <Button
+            as={Link}
+            href='https://github.com/meerbahadin'
             variant='flat'
             isIconOnly
             size='sm'
@@ -47,6 +49,8 @@ export default function Footer() {
           />
 
           <Button
+            as={Link}
+            href='https://www.linkedin.com/in/meerbahadin/'
             variant='flat'
             isIconOnly
             size='sm'
@@ -54,6 +58,8 @@ export default function Footer() {
           />
 
           <Button
+            as={Link}
+            href='mailto:meerbahadin10@gmail.com'
             variant='flat'
             isIconOnly
             size='sm'

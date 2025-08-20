@@ -23,7 +23,7 @@ const Navbar = () => {
 
           <Button
             as={Link}
-            href='mailto:meerbahadin10@gmail.com'
+            href='https://wa.link/oonm1g'
             size='sm'
             color='primary'
             className='text-sm'
