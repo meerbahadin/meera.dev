@@ -10,6 +10,27 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Meer - Front End Developer',
   description: `Hi, I'm Meer, A front-end developer specializing in React, Next.js. welcome to my corner of the Internet, where I showcase my work, craft, unfinished or imperfect projects, and the many other things I'm exploring.`,
+  metadataBase: new URL('https://www.danyiar.com/'),
+  openGraph: {
+    type: 'website',
+    url: 'https://www.danyiar.com/',
+    title: 'Meer - Front End Developer',
+    description: `Hi, I'm Meer, A front-end developer specializing in React, Next.js. welcome to my corner of the Internet, where I showcase my work, craft, unfinished or imperfect projects, and the many other things I'm exploring.`,
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Meer - Front End Developer',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Meer - Front End Developer',
+    description: `Hi, I'm Meer, A front-end developer specializing in React, Next.js. welcome to my corner of the Internet, where I showcase my work, craft, unfinished or imperfect projects, and the many other things I'm exploring.`,
+    images: ['/og.png'],
+  },
 }
 
 export default function RootLayout({

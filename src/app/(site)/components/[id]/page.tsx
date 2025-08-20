@@ -49,7 +49,6 @@ export default async function Page({
           </h1>
           <p className='text-zinc-400 text-balance'>{item.description}</p>
 
-          {/* Tags */}
           {item.tags && item.tags.length > 0 && (
             <div className='flex flex-wrap justify-between items-center'>
               <div className='flex flex-wrap gap-2 items-center'>
