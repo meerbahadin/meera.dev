@@ -30,8 +30,7 @@ const ComponentList = () => {
         </h1>
         <p className='text-zinc-400 text-balance'>
           A curated collection of reusable components and visually striking
-          shader backgrounds, transformed into animated React components by
-          talented shader creators.
+          shader backgrounds, transformed into animated React.
         </p>
       </div>
 
