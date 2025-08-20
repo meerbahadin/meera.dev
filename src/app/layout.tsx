@@ -10,10 +10,10 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Meer - Front End Developer',
   description: `Hi, I'm Meer, A front-end developer specializing in React, Next.js. welcome to my corner of the Internet, where I showcase my work, craft, unfinished or imperfect projects, and the many other things I'm exploring.`,
-  metadataBase: new URL('https://www.danyiar.com/'),
+  metadataBase: new URL('https://www.meera.dev/'),
   openGraph: {
     type: 'website',
-    url: 'https://www.danyiar.com/',
+    url: 'https://www.meera.dev/',
     title: 'Meer - Front End Developer',
     description: `Hi, I'm Meer, A front-end developer specializing in React, Next.js. welcome to my corner of the Internet, where I showcase my work, craft, unfinished or imperfect projects, and the many other things I'm exploring.`,
     images: [
