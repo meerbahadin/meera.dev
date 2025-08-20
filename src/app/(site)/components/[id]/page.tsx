@@ -50,7 +50,7 @@ export default async function Page({
           <p className='text-zinc-400 text-balance'>{item.description}</p>
 
           {item.tags && item.tags.length > 0 && (
-            <div className='flex flex-wrap justify-between items-center'>
+            <div className='flex flex-wrap justify-between items-center gap-2'>
               <div className='flex flex-wrap gap-2 items-center'>
                 {item.tags.map((tag) => (
                   <span
