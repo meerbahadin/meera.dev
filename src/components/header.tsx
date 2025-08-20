@@ -7,7 +7,7 @@ import { Button } from '@heroui/button'
 import { LazyMotion, domAnimation } from 'motion/react'
 import * as motion from 'motion/react-m'
 import { IconChevronDown } from '@tabler/icons-react'
-import StarGalaxyBackground from './backgrounds/stars-galaxy'
+import StarGalaxyBackground from './shaders/galaxy'
 
 export default function Header() {
   const [isLogoHovered, setIsLogoHovered] = useState(false)
@@ -21,13 +21,10 @@ export default function Header() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
         >
-          <StarGalaxyBackground
-            speed={isLogoHovered ? 1.0 : 0.4}
-            // className='mask-b-from-90%'
-          />
+          <StarGalaxyBackground speed={isLogoHovered ? 1.0 : 0.4} />
         </motion.div>
 
-        <div className='container max-w-3xl flex flex-col justify-end h-dvh pb-8 pt-4 '>
+        <div className='container max-w-3xl flex flex-col justify-end h-dvh pb-8 pt-4'>
           <motion.div
             className='mt-8 space-y-4 text-center justify-self-end'
             initial={{ opacity: 0.5, filter: 'blur(10px)' }}

@@ -95,8 +95,8 @@ const Stack = () => {
   }, {} as Record<string, TechItem[]>)
 
   return (
-    <section className='container max-w-3xl'>
-      <div className='space-y-3 screen-line-before screen-line-after p-4 border-s-1 border-e-1 border-default-50'>
+    <section className='container max-w-3xl apply-edge'>
+      <div className='space-y-3 screen-line-before screen-line-after p-4 apply-edge'>
         <p className='text-2xl screen-line-before screen-line-after'>
           Tech Stack
         </p>
@@ -105,7 +105,7 @@ const Stack = () => {
         </p>
       </div>
 
-      <div className='screen-line-after p-4 border-s-1 border-e-1 border-default-50'>
+      <div className='screen-line-after p-4 apply-edge'>
         <div className='space-y-8'>
           {Object.entries(groupedTech).map(([category, techs]) => (
             <div key={category} className='space-y-4'>
@@ -123,7 +123,7 @@ const Stack = () => {
 
               <div className='flex gap-4 flex-wrap'>
                 {techs.map((tech) => (
-                  <Tooltip content={tech.name} key={tech.name}>
+                  <Tooltip showArrow content={tech.name} key={tech.name}>
                     <div className='flex items-center justify-center w-12 h-12 rounded-lg bg-zinc-900/50 border border-zinc-800'>
                       <Image
                         alt={tech.name}

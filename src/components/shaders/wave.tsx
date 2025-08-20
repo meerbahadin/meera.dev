@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef, useEffect } from 'react'
 import { Renderer, Program, Mesh, Triangle, Vec2 } from 'ogl'
 
@@ -114,7 +116,6 @@ export default function DarkVeil({
   const frameRef = useRef<number>(0)
   const startTimeRef = useRef<number>(0)
 
-  // Smooth interpolation for warpAmount and saturation (hover effects)
   const animatedValuesRef = useRef({
     warpAmount: warpAmount,
     saturation: saturation,
@@ -136,7 +137,6 @@ export default function DarkVeil({
     const canvas = ref.current
     const dpr = getDPR()
 
-    // Capture current prop values in local variables (excluding animated ones)
     const currentProps = {
       hueShift,
       noiseIntensity,
@@ -187,7 +187,6 @@ export default function DarkVeil({
       const w = parent.clientWidth
       const h = parent.clientHeight
 
-      // Use consistent DPR calculation
       const currentDpr = getDPR()
       canvas.width = w * currentDpr
       canvas.height = h * currentDpr
@@ -251,7 +250,6 @@ export default function DarkVeil({
     resolutionScale,
   ]) // Only non-animated props
 
-  // Update targets for smooth animation
   useEffect(() => {
     animatedValuesRef.current.targetWarpAmount = warpAmount
     animatedValuesRef.current.targetSaturation = saturation

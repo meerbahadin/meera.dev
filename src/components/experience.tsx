@@ -133,8 +133,11 @@ export default function Experiences() {
   ]
 
   return (
-    <section className='container max-w-3xl pt-18' id='experiences-wrapper'>
-      <div className='space-y-2 screen-line-before screen-line-after border-s-1 border-e-1 border-default-50 p-4'>
+    <section
+      className='container max-w-3xl pt-20 apply-edge'
+      id='experiences-wrapper'
+    >
+      <div className='space-y-2 screen-line-before screen-line-after apply-edge p-4'>
         <p className='text-2xl screen-line-after screen-line-before'>
           Experience
         </p>
@@ -143,14 +146,13 @@ export default function Experiences() {
           scalable web applications
         </p>
       </div>
-      <div className='space-y-4 border-s-1 border-e-1 border-default-50'>
+      <div className='space-y-4 apply-edge'>
         {experiences.map((exp, index) => (
           <div
             key={index}
-            className={cn(
-              'flex flex-col gap-3 p-5  via-transparent to-zinc-950 screen-line-after',
-              { 'screen-line-before': index !== 0 }
-            )}
+            className={cn('flex flex-col gap-3 p-5 screen-line-after', {
+              'screen-line-before': index !== 0,
+            })}
           >
             <div className='flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1'>
               <div>

@@ -30,7 +30,7 @@ export function Links() {
             data-id={tab.href}
             className={cn(
               'px-2 py-0.5 text-zinc-300 transition-colors duration-200 cursor-pointer text-sm',
-              pathname === tab.href && 'text-zinc-100'
+              pathname === tab.href && 'text-zinc-100 font-semibold'
             )}
           >
             {tab.label}

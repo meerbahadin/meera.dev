@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef, useEffect } from 'react'
 import { Renderer, Program, Triangle, Mesh, Vec2 } from 'ogl'
 import { cn } from '@/lib/utils'

@@ -10,13 +10,19 @@
   padding-inline: 1.2rem;
 }
 
+@utility apply-edge {
+  border-inline-start-width: 1px;
+  border-inline-end-width: 1px;
+  border-color: theme(colors.default.50);
+}
+
 @layer base {
   ::-webkit-scrollbar {
     width: 5px;
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--meeradev-default-100));
+    background: hsl(var(--meeradev-default-50));
   }
 
   ::-webkit-scrollbar-thumb {

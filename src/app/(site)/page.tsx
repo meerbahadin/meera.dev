@@ -9,13 +9,9 @@ export default function Home() {
     <main className='overflow-x-hidden'>
       <Header />
       <Experiences />
-
       <Divider />
-
       <Stack />
-
       <Divider />
-
       <Footer />
     </main>
   )
