@@ -76,7 +76,7 @@ export default async function Page({
           )}
         </div>
 
-        <div className='p-2 screen-line-before screen-line-after apply-edge'>
+        <div className='p-2 apply-edge'>
           <ComponentPreview component={<DynamicComponent />} hasReTrigger />
         </div>
 

@@ -34,7 +34,7 @@ const ComponentList = () => {
         </p>
       </div>
 
-      <div className='flex gap-2 p-4 screen-line-before screen-line-after apply-edge'>
+      <div className='flex gap-2 py-2 px-4 screen-line-before screen-line-after apply-edge mt-2'>
         {Object.entries(Categories).map(([key, label]) => (
           <Button
             key={key}
