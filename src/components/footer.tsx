@@ -11,7 +11,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className='container max-w-3xl screen-line-before apply-edge'>
+    <footer className='container max-w-3xl screen-line-before screen-line-after apply-edge'>
       <div className='flex sm:justify-between sm:flex-row sm:text-start items-center gap-2 text-center flex-col apply-edge p-4 '>
         <div className='flex flex-col items-center sm:items-start gap-2 screen-line-before screen-line-after py-4'>
           <Link href='/'>
