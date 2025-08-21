@@ -12,6 +12,7 @@ export default heroui({
     },
     dark: {
       colors: {
+        background: '#09090b',
         primary: {
           DEFAULT: '#fff',
           foreground: '#000000',

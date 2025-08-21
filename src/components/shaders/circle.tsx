@@ -168,7 +168,7 @@ interface InteractiveCircleShaderProps {
   className?: string
 }
 
-// Export presets for external use
+// import these presets and you can pass them to the component
 export const SHADER_PRESETS = {
   default: {
     speed: 1.0,
@@ -257,7 +257,6 @@ const InteractiveCircleShader: React.FC<InteractiveCircleShaderProps> = ({
   const mouseRef = useRef<Vec2>(new Vec2(0, 0))
   const isMouseOverRef = useRef<boolean>(false)
 
-  // Use props directly instead of state
   const animatedValuesRef = useRef({
     speed: speed,
     opacity: opacity,
@@ -330,17 +329,14 @@ const InteractiveCircleShader: React.FC<InteractiveCircleShaderProps> = ({
     lastFrameTimeRef.current = performance.now()
     timeAccumulatorRef.current = 0
 
-    // Fixed mouse tracking with proper coordinate conversion
     const handleMouseMove = (event: MouseEvent) => {
       if (!canvas) return
 
       const rect = canvas.getBoundingClientRect()
 
-      // Convert mouse position to normalized coordinates (-1 to 1)
       const x = ((event.clientX - rect.left) / rect.width) * 2 - 1
       const y = (1 - (event.clientY - rect.top) / rect.height) * 2 - 1
 
-      // Convert to shader space (matching the UV calculation)
       const aspectRatio = rect.width / rect.height
       const normalizedX = x * Math.max(1, aspectRatio) * 1.1
       const normalizedY = y * Math.max(1, 1 / aspectRatio) * 1.1

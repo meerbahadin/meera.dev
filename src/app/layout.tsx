@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={`dark text-foreground bg-[#09090b] ${firaCode.className} antialiased`}
+      className={`dark text-foreground bg-background ${firaCode.className} antialiased`}
     >
       <body>{children}</body>
     </html>

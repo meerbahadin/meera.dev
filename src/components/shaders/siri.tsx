@@ -1,8 +1,8 @@
 'use client'
 
-import { cn } from '@heroui/theme'
-import { Mesh, Program, Renderer, Transform, Triangle } from 'ogl'
 import React, { useEffect, useRef } from 'react'
+import { Mesh, Program, Renderer, Transform, Triangle } from 'ogl'
+import { cn } from '@heroui/theme'
 
 const vertex = `
 attribute vec2 position;
@@ -180,7 +180,6 @@ export default function Siri({
   const mouseTarget = useRef({ x: 0, y: 0 })
   const mouseUniform = useRef({ x: 0, y: 0 })
 
-  // DPR function matching InteractiveCircleShader
   const getDPR = () => {
     return /Android/i.test(navigator.userAgent)
       ? 1.0
@@ -240,7 +239,7 @@ export default function Siri({
       const w = parent.clientWidth
       const h = parent.clientHeight
 
-      const currentDpr = getDPR() // Use the same DPR function
+      const currentDpr = getDPR()
       canvas.width = w * currentDpr
       canvas.height = h * currentDpr
 
@@ -252,24 +251,23 @@ export default function Siri({
     }
     setSize()
 
-    // Event listeners matching InteractiveCircleShader
     const onMouseMove = (e: MouseEvent) => {
       if (!canvas) return
 
       const rect = canvas.getBoundingClientRect()
-      const currentDpr = getDPR() // Use the same DPR function
+      const currentDpr = getDPR()
 
       mouseTarget.current.x = (e.clientX - rect.left) * currentDpr
       mouseTarget.current.y =
         (rect.height - (e.clientY - rect.top)) * currentDpr
     }
 
-    const resize = () => setSize() // Simplified resize function
+    const resize = () => setSize()
 
     canvas.addEventListener('mousemove', onMouseMove, { passive: true })
     window.addEventListener('resize', resize)
     window.addEventListener('orientationchange', () => {
-      setTimeout(resize, 100) // Match the timeout from InteractiveCircleShader
+      setTimeout(resize, 100)
     })
 
     const start = performance.now()
@@ -294,7 +292,7 @@ export default function Siri({
     return () => {
       cancelAnimationFrame(rafRef.current)
       window.removeEventListener('resize', resize)
-      window.removeEventListener('orientationchange', resize) // Added missing cleanup
+      window.removeEventListener('orientationchange', resize)
       canvas.removeEventListener('mousemove', onMouseMove)
     }
   }, [

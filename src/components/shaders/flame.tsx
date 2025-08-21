@@ -170,7 +170,6 @@ const lerp = (start: number, end: number, factor: number): number => {
   return start + (end - start) * factor
 }
 
-// Define DPR calculation once and reuse it
 const getDPR = () => {
   return /Android/i.test(navigator.userAgent)
     ? 1.0
@@ -219,7 +218,6 @@ export default function Flame({
     const gl = renderer.gl
     const geometry = new Triangle(gl)
 
-    // Create noise texture
     const createNoiseTexture = () => {
       const size = 256
       const data = new Uint8Array(size * size * 4)

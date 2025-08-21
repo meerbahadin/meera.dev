@@ -161,7 +161,6 @@ const ValeBackground: React.FC<ValeBackgroundProps> = ({
     targetSaturation: saturation,
   })
 
-  // Define DPR calculation once and reuse it
   const getDPR = () => {
     return /Android/i.test(navigator.userAgent)
       ? 1.0
@@ -211,7 +210,6 @@ const ValeBackground: React.FC<ValeBackgroundProps> = ({
       const w = parent.clientWidth
       const h = parent.clientHeight
 
-      // Use consistent DPR calculation
       const currentDpr = getDPR()
       canvas.width = w * currentDpr
       canvas.height = h * currentDpr

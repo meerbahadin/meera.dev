@@ -3,7 +3,7 @@ import ComponentPreview from '@/components/component-preview'
 import { componentPreviewItems } from '@/constant/component-preview'
 import { notFound } from 'next/navigation'
 import { Button } from '@heroui/button'
-import { IconBrandGithub } from '@tabler/icons-react'
+import { IconCode } from '@tabler/icons-react'
 import Link from 'next/link'
 
 const getDynamicComponent = (c: string) =>
@@ -66,12 +66,10 @@ export default async function Page({
                 as={Link}
                 target='_blank'
                 href={`https://github.com/meerbahadin/meera.dev/blob/main/src/components/shaders/${item.id}.tsx`}
-                size='sm'
                 variant='flat'
-                startContent={<IconBrandGithub />}
-              >
-                source code
-              </Button>
+                isIconOnly
+                startContent={<IconCode />}
+              />
             </div>
           )}
         </div>
