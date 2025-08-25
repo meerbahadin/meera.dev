@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Fira_Code } from 'next/font/google'
 
-const firaCode = Fira_Code({
+const inter = Fira_Code({
   subsets: ['latin'],
 })
 
@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={`dark text-foreground bg-background ${firaCode.className} antialiased`}
+      className={`dark text-foreground bg-background ${inter.className} antialiased`}
     >
       <body>{children}</body>
     </html>

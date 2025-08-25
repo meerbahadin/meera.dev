@@ -5,16 +5,16 @@ import { Links } from './links'
 
 const Navbar = () => {
   return (
-    <nav className='flex fixed -translate-x-1/2 top-2 left-1/2 w-full max-w-3xl px-4 z-50'>
-      <div className='flex justify-between items-center w-full p-3 bg-gradient-to-br from-white/5 via-transparent to-white/10 outline-1 outline-offset-2 outline-white/20 rounded-lg backdrop-blur-lg'>
+    <nav className='flex fixed -translate-x-1/2 top-2 left-1/2 w-full max-w-md px-4 z-50'>
+      <div className='overflow-hidden flex justify-between items-center w-full p-3 bg-background/30 outline-1 outline-offset-2 outline-white/15 rounded-lg backdrop-blur-lg'>
         <Link href='/'>
           <Image
             src='/logo.svg'
             alt='logo'
-            width={16}
-            height={16}
+            width={8}
+            height={8}
             priority
-            className='w-8 h-8 select-none hover:scale-110 active:scale-105 transition-transform'
+            className='w-8 h-8 select-none hover:scale-110 active:scale-105 transition-transform mask-t-from-20%'
           />
         </Link>
 
@@ -24,11 +24,12 @@ const Navbar = () => {
           <Button
             as={Link}
             href='https://wa.link/oonm1g'
+            target='_blank'
             size='sm'
             color='primary'
-            className='text-sm'
+            className='text-xs capitalize'
           >
-            Contact Me
+            contact me
           </Button>
         </div>
       </div>

@@ -1,8 +1,8 @@
 'use client'
 
-import { cn } from '../lib/utils'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 export function Links() {
   const pathname = usePathname()
@@ -16,7 +16,7 @@ export function Links() {
       {TABS.map((tab) => (
         <Link
           href={tab.href}
-          key={tab.href}
+          key={tab.id}
           data-id={tab.href}
           className={cn(
             'px-2 py-0.5 text-zinc-300 hover:text-zinc-200 rounded-lg bg-transparent hover:bg-white/10 transition-colors duration-200 cursor-pointer text-sm',

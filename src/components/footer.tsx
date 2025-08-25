@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@heroui/button'
 import {
@@ -7,7 +8,6 @@ import {
   IconBrandLinkedinFilled,
   IconMail,
 } from '@tabler/icons-react'
-import Link from 'next/link'
 
 export default function Footer() {
   return (
@@ -21,7 +21,7 @@ export default function Footer() {
               width={22}
               height={22}
               priority
-              className='select-none opacity-75 aspect-square'
+              className='select-none mask-t-from-20% aspect-square'
             />
           </Link>
           <p className='text-xs text-zinc-400 text-balance'>

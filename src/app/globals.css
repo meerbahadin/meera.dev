@@ -16,25 +16,6 @@
   border-color: theme(colors.default.50);
 }
 
-@layer base {
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--meeradev-default-50));
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--meeradev-default-200));
-    border-radius: 5px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--meeradev-default-300));
-  }
-}
-
 @utility screen-line-before {
   position: relative;
 
