@@ -177,7 +177,7 @@ const getDPR = () => {
 }
 
 export default function Flame({
-  speed = 1.0,
+  speed = 0.4,
   intensity = 1.0,
   saturation = 1.0,
   className = '',
