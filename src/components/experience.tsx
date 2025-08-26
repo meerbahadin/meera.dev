@@ -185,7 +185,7 @@ export default function Experiences() {
                     <div key={roleIndex} className='space-y-2'>
                       <p className='text-white font-medium'>{role.title}</p>
                       {role.items.map((point, pointIndex) => (
-                        <div key={pointIndex} className='flex flex-col gap-1'>
+                        <div key={pointIndex} className='flex flex-col gap-2'>
                           <div className='flex items-start gap-2'>
                             <span className='text-zinc-400 text-xs mt-1.5'>
                               •
@@ -199,7 +199,7 @@ export default function Experiences() {
                               {point.tech.map((tech, techIndex) => (
                                 <span
                                   key={techIndex}
-                                  className='text-xs text-zinc-400 bg-zinc-900 px-2 py-0.5 rounded'
+                                  className='text-xs text-zinc-200 bg-zinc-800 px-2 py-0.5 rounded'
                                 >
                                   {tech}
                                 </span>
@@ -211,7 +211,7 @@ export default function Experiences() {
                     </div>
                   ))
                 : exp.items?.map((point, pointIndex) => (
-                    <div key={pointIndex} className='flex flex-col gap-1'>
+                    <div key={pointIndex} className='flex flex-col gap-2'>
                       <div className='flex items-start gap-2'>
                         <span className='text-zinc-400 text-xs mt-1.5'>•</span>
                         <p className='text-sm text-zinc-300 leading-relaxed'>
@@ -223,7 +223,7 @@ export default function Experiences() {
                           {point.tech.map((tech, techIndex) => (
                             <span
                               key={techIndex}
-                              className='text-xs text-zinc-400 bg-zinc-900 px-2 py-0.5 rounded'
+                              className='text-xs text-zinc-200 bg-zinc-800 px-2 py-0.5 rounded'
                             >
                               {tech}
                             </span>

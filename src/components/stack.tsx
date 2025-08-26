@@ -124,7 +124,7 @@ const Stack = () => {
               <div className='flex gap-4 flex-wrap'>
                 {techs.map((tech) => (
                   <Tooltip showArrow content={tech.name} key={tech.name}>
-                    <div className='flex items-center justify-center w-12 h-12 rounded-lg bg-zinc-900/50 border border-zinc-800'>
+                    <div className='flex items-center justify-center w-12 h-12 rounded-lg bg-zinc-900 outline-1 outline-offset-2 outline-zinc-800 '>
                       <Image
                         alt={tech.name}
                         height={20}
