@@ -1,6 +1,6 @@
 'use client'
 
-import { componentPreviewItems } from '@/constant/component-preview'
+import { componentPreviewItems } from '@/constant'
 import { Button } from '@heroui/button'
 import Image from 'next/image'
 import Link from 'next/link'

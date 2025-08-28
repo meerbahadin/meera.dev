@@ -6,7 +6,7 @@ import { Links } from './links'
 const Navbar = () => {
   return (
     <nav className='flex fixed -translate-x-1/2 top-2 left-1/2 w-full max-w-md px-4 z-50'>
-      <div className='overflow-hidden flex justify-between items-center w-full p-3 bg-background/20 outline-1 outline-offset-2 outline-white/20 rounded-lg backdrop-blur-lg'>
+      <div className='overflow-hidden flex justify-between items-center w-full p-3 bg-background/20 outline-1 outline-offset-2 outline-white/15 rounded-lg backdrop-blur-lg'>
         <Link href='/'>
           <Image
             src='/logo.svg'

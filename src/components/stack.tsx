@@ -40,7 +40,7 @@ const techStack: TechItem[] = [
 
   // Mobile
   { name: 'Expo', icon: 'expo/white', category: 'mobile' },
-  { name: 'Appwrite', icon: 'appwrite', category: 'mobile' },
+  { name: 'Supabase', icon: 'supabase', category: 'mobile' },
   { name: 'Firebase', icon: 'firebase', category: 'mobile' },
 
   // Backend
@@ -124,7 +124,7 @@ const Stack = () => {
               <div className='flex gap-4 flex-wrap'>
                 {techs.map((tech) => (
                   <Tooltip showArrow content={tech.name} key={tech.name}>
-                    <div className='flex items-center justify-center w-12 h-12 rounded-lg bg-zinc-900 outline-1 outline-offset-2 outline-zinc-800 '>
+                    <div className='flex items-center justify-center w-12 h-12 rounded-lg  outline-1 outline-offset-1 outline-zinc-800 bg-gradient-to-br from-zinc-900 via-transparent to-zinc-900/60'>
                       <Image
                         alt={tech.name}
                         height={20}

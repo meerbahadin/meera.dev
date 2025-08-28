@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import ComponentPreview from '@/components/component-preview'
-import { componentPreviewItems } from '@/constant/component-preview'
+import { componentPreviewItems } from '@/constant'
 import { notFound } from 'next/navigation'
 import { Button } from '@heroui/button'
 import { IconCode } from '@tabler/icons-react'
