@@ -4,7 +4,7 @@ import { experiences } from '@/constant'
 export default function Experiences() {
   return (
     <section
-      className='container max-w-3xl pt-20 apply-edge'
+      className='container max-w-3xl pt-18 apply-edge'
       id='experiences-wrapper'
     >
       <div className='space-y-2 screen-line-before screen-line-after apply-edge p-4'>

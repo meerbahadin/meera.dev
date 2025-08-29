@@ -1,8 +1,8 @@
 'use client'
 
+import { Button } from '@heroui/button'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Button } from '@heroui/button'
 import {
   IconBrandGithub,
   IconBrandLinkedinFilled,

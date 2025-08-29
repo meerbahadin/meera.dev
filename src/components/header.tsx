@@ -24,7 +24,7 @@ export default function Header() {
           <StarGalaxyBackground speed={isLogoHovered ? 1.0 : 0.4} />
         </motion.div>
 
-        <div className='container max-w-3xl flex flex-col justify-end h-dvh pb-8 pt-4'>
+        <div className='container max-w-3xl flex flex-col justify-end min-h-screen pb-8 pt-4'>
           <motion.div
             className='mt-8 space-y-4 text-center justify-self-end'
             initial={{ opacity: 0.5, filter: 'blur(10px)' }}
@@ -34,11 +34,11 @@ export default function Header() {
               <p className='capitalize text-3xl'>meer bahadin</p>
               <p className='capitalize text-zinc-300'>frontend developer</p>
             </div>
-            <p className='leading-relaxed text-md md:text-lg text-zinc-200'>
+            <p className='leading-relaxed text-sm md:text-lg text-zinc-200'>
               {`Hi, I'm Meer Bahadin — a frontend developer passionate about building fast, accessible, high-quality web applications. With 5+ years of experience, I now focus mainly on web and mobile apps using React, Next.js, and TypeScript.`}
             </p>
 
-            <p className='leading-relaxed text-md md:text-lg text-zinc-200'>
+            <p className='leading-relaxed text-sm md:text-lg text-zinc-200'>
               {`I'm passionate about frontend development, especially building smooth, interactive experiences with web animation, Motion library, and WebGL.`}
             </p>
 
