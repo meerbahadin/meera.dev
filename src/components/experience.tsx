@@ -1,5 +1,5 @@
 import { cn } from '@heroui/theme'
-import { experiences } from '@/constant'
+import { EXPERIENCES } from '@/constant'
 
 export default function Experiences() {
   return (
@@ -17,7 +17,7 @@ export default function Experiences() {
         </p>
       </div>
       <ul className='space-y-4 apply-edge'>
-        {experiences.map((exp, index) => (
+        {EXPERIENCES.map((exp, index) => (
           <li
             key={index}
             className={cn('flex flex-col gap-2 p-4 screen-line-after', {
@@ -56,7 +56,7 @@ export default function Experiences() {
                       <p className='font-medium'>{role.title}</p>
                       <ul className='space-y-2 ml-4 list-disc marker:text-zinc-600'>
                         {role.items.map((point, pointIndex) => (
-                          <li key={pointIndex} className='space-y-1'>
+                          <li key={pointIndex}>
                             <p className='text-sm leading-relaxed'>
                               {point.text}
                             </p>
@@ -79,7 +79,7 @@ export default function Experiences() {
                 : exp.items && (
                     <ul className='space-y-2 ml-4 list-disc marker:text-zinc-600'>
                       {exp.items.map((point, pointIndex) => (
-                        <li key={pointIndex} className='space-y-1 '>
+                        <li key={pointIndex}>
                           <p className='text-sm leading-relaxed'>
                             {point.text}
                           </p>

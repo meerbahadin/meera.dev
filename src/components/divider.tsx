@@ -9,7 +9,7 @@ const Divider = (props: Props) => {
   return (
     <div
       className={cn(
-        'h-10 w-full bg-default-50/40 relative text-white my-2 border-t-1 border-b-1 border-default-50',
+        'h-8 w-full bg-default-50/40 relative text-white my-2 border-t-1 border-b-1 border-default-50',
         props.className
       )}
     >

@@ -1,27 +1,8 @@
-import { IconLink, IconBrandGithub } from '@tabler/icons-react'
 import Image from 'next/image'
+import { IconLink, IconBrandGithub } from '@tabler/icons-react'
+import { RECENT_WORKS } from '@/constant'
 
 export default function RecentWork() {
-  const projects = [
-    {
-      title: 'My Portfolio',
-      description:
-        'Personal portfolio website showcasing my work and skills in frontend engineering',
-      url: 'https://meera.dev',
-      image: 'https://meera.dev/og.jpg',
-      github: 'https://github.com/meerbahadin/meera.dev',
-      isLive: true,
-    },
-    {
-      title: "Danyiar's Portfolio",
-      description: 'A beautifully crafted portfolio website Danyiar',
-      url: 'https://danyiar.com',
-      image: 'https://danyiar.com/og/meta.jpg',
-      github: '',
-      isLive: true,
-    },
-  ]
-
   return (
     <section
       className='container max-w-3xl apply-edge'
@@ -38,7 +19,7 @@ export default function RecentWork() {
         </div>
 
         <div className='grid gap-4 md:grid-cols-2'>
-          {projects.map((project, index) => (
+          {RECENT_WORKS.map((project, index) => (
             <div
               key={index}
               className='group relative overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm transition-all duration-300 hover:border-zinc-700 hover:bg-zinc-900/70'

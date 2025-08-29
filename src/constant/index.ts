@@ -1,6 +1,6 @@
-import { ComponentPreviewItems } from '@/types'
+import { ComponentPreviewItems, Experience, RecentWork } from '@/types'
 
-export const componentPreviewItems: ComponentPreviewItems[] = [
+export const COMPONENT_PREVIEW_ITEMS: ComponentPreviewItems[] = [
   {
     id: 'siri',
     title: 'Siri',
@@ -49,7 +49,7 @@ export const componentPreviewItems: ComponentPreviewItems[] = [
   },
 ]
 
-export const experiences = [
+export const EXPERIENCES: Experience[] = [
   {
     year: 'Apr 2025 - {{current}}', // will be replaced by a green dot
     title: 'Frontend Engineering Manager',
@@ -177,5 +177,25 @@ export const experiences = [
         tech: [],
       },
     ],
+  },
+]
+
+export const RECENT_WORKS: RecentWork[] = [
+  {
+    title: 'My Portfolio',
+    description:
+      'Personal portfolio website showcasing my work and skills in frontend engineering',
+    url: 'https://meera.dev',
+    image: 'https://meera.dev/og.jpg',
+    github: 'https://github.com/meerbahadin/meera.dev',
+    isLive: true,
+  },
+  {
+    title: "Danyiar's Portfolio",
+    description: 'A beautifully crafted portfolio website Danyiar',
+    url: 'https://danyiar.com',
+    image: 'https://danyiar.com/og/meta.jpg',
+    github: '',
+    isLive: true,
   },
 ]

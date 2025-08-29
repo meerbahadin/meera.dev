@@ -1,10 +1,10 @@
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import ComponentPreview from '@/components/component-preview'
-import { componentPreviewItems } from '@/constant'
-import { notFound } from 'next/navigation'
 import { Button } from '@heroui/button'
 import { IconCode } from '@tabler/icons-react'
-import Link from 'next/link'
+import { COMPONENT_PREVIEW_ITEMS } from '@/constant'
 
 const getDynamicComponent = (c: string) =>
   dynamic(
@@ -32,7 +32,7 @@ export default async function Page({
     return notFound()
   }
 
-  const item = componentPreviewItems.find((item) => item.id === id)
+  const item = COMPONENT_PREVIEW_ITEMS.find((item) => item.id === id)
 
   if (!item) {
     return notFound()

@@ -1,10 +1,11 @@
 'use client'
 
-import { componentPreviewItems } from '@/constant'
-import { Button } from '@heroui/button'
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { Button } from '@heroui/button'
+
+import { COMPONENT_PREVIEW_ITEMS } from '@/constant'
 
 const Categories = {
   all: 'All',
@@ -18,7 +19,7 @@ const ComponentList = () => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryKey>('all')
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
-  const filteredComponents = componentPreviewItems.filter(
+  const filteredComponents = COMPONENT_PREVIEW_ITEMS.filter(
     (item) => selectedCategory === 'all' || item.category === selectedCategory
   )
 
