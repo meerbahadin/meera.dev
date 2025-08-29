@@ -9,7 +9,7 @@ const Divider = (props: Props) => {
   return (
     <div
       className={cn(
-        'h-8 w-full bg-default-50/40 relative text-white my-2 border-t-1 border-b-1 border-default-50',
+        'h-10 w-full bg-default-50/25 relative text-white my-2 border-t-1 border-b-1 border-default-50',
         props.className
       )}
     >
@@ -17,7 +17,7 @@ const Divider = (props: Props) => {
         className='absolute inset-0 z-0 pointer-events-none'
         style={{
           backgroundImage: `
-        repeating-linear-gradient(30deg, 
+          repeating-linear-gradient(30deg, 
           rgba(156, 163, 175, 0.1) 0, 
           rgba(156, 163, 175, 0.1) 1px, 
           transparent 1px, 
