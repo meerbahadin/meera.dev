@@ -5,6 +5,9 @@ import { Renderer, Program, Triangle, Mesh, Vec2 } from 'ogl'
 import { cn } from '@heroui/theme'
 
 const vertex = `
+// License CC0: Stars and galaxy
+// the glsl code is by https://www.shadertoy.com/user/mrange (only did the conversion to React component)
+
 attribute vec2 position;
 void main() {
   gl_Position = vec4(position, 0.0, 1.0);

@@ -24,29 +24,30 @@ export default function Experiences() {
               'screen-line-before': index !== 0,
             })}
           >
-            <div className='flex flex-col sm:flex-row sm:justify-between sm:items-start'>
-              <div>
-                <h3 className='font-medium text-xl capitalize text-white'>
-                  {exp.title}
-                </h3>
+            <div className='space-y-2'>
+              <h3 className='font-medium text-xl capitalize text-white'>
+                {exp.title}
+              </h3>
+
+              <div className='flex items-center justify-between w-full'>
                 <p className='text-sm text-zinc-400 capitalize'>
                   {exp.company}
                 </p>
-              </div>
-              <span className='text-sm text-zinc-400 shrink-0'>
-                {exp.year.includes('{{current}}') ? (
-                  <span className='flex items-center gap-2'>
-                    <span>{exp.year.split('-')[0]}</span>
-                    <span>-</span>
-                    <span className='relative flex size-3'>
-                      <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75' />
-                      <span className='relative inline-flex size-3 rounded-full bg-green-500' />
+                <span className='text-xs text-zinc-400 shrink-0'>
+                  {exp.year.includes('{{current}}') ? (
+                    <span className='flex items-center gap-2'>
+                      <span>{exp.year.split('-')[0]}</span>
+                      <span>-</span>
+                      <span className='relative flex size-3'>
+                        <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75' />
+                        <span className='relative inline-flex size-3 rounded-full bg-green-500' />
+                      </span>
                     </span>
-                  </span>
-                ) : (
-                  exp.year
-                )}
-              </span>
+                  ) : (
+                    exp.year
+                  )}
+                </span>
+              </div>
             </div>
 
             <div className='space-y-4'>
