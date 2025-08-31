@@ -5,6 +5,7 @@ import ComponentPreview from '@/components/component-preview'
 import { Button } from '@heroui/button'
 import { IconCode } from '@tabler/icons-react'
 import { COMPONENT_PREVIEW_ITEMS } from '@/constant'
+import SectionHeader from '@/components/section-header'
 
 const getDynamicComponent = (c: string) =>
   dynamic(
@@ -42,39 +43,35 @@ export default async function Page({
 
   return (
     <main className='overflow-x-hidden'>
-      <section className='container max-w-3xl apply-edge pt-20 '>
-        <div className='space-y-2 screen-line-before screen-line-after p-4 container max-w-3xl apply-edge'>
-          <h1 className='text-2xl screen-line-after screen-line-before'>
-            {item.title}
-          </h1>
-          <p className='text-zinc-400 text-balance'>{item.description}</p>
+      <section className='container max-w-3xl apply-edge pt-20'>
+        <SectionHeader title={item.title} description={item.description} />
 
-          {item.tags && item.tags.length > 0 && (
-            <div className='flex flex-wrap justify-between items-center gap-2'>
-              <div className='flex flex-wrap gap-2 items-center'>
-                {item.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className='px-2 capitalize py-1 text-xs rounded-md bg-zinc-800/50 text-zinc-400 border border-zinc-700/50'
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <Button
-                as={Link}
-                target='_blank'
-                href={`https://github.com/meerbahadin/meera.dev/blob/main/src/components/shaders/${item.id}.tsx`}
-                variant='flat'
-                isIconOnly
-                startContent={<IconCode />}
-              />
+        {item.tags && item.tags.length > 0 && (
+          <div className='flex flex-wrap justify-between items-center mt-2 py-2 gap-2 px-4 apply-edge screen-line-before screen-line-after'>
+            <div className='flex flex-wrap gap-2 items-center'>
+              {item.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className='px-2 capitalize py-1 text-xs rounded-md bg-zinc-800/50 text-zinc-400 border border-zinc-700/50'
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-          )}
-        </div>
 
-        <div className='p-2 apply-edge'>
+            <Button
+              as={Link}
+              target='_blank'
+              href={`https://github.com/meerbahadin/meera.dev/blob/main/src/components/shaders/${item.id}.tsx`}
+              variant='flat'
+              isIconOnly
+              size='sm'
+              startContent={<IconCode size={18} />}
+            />
+          </div>
+        )}
+
+        <div className='p-4 apply-edge'>
           <ComponentPreview component={<DynamicComponent />} hasReTrigger />
         </div>
 

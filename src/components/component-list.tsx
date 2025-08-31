@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Button } from '@heroui/button'
 
 import { COMPONENT_PREVIEW_ITEMS } from '@/constant'
+import SectionHeader from './section-header'
 
 const Categories = {
   all: 'All',
@@ -24,16 +25,12 @@ const ComponentList = () => {
   )
 
   return (
-    <section className='container max-w-3xl apply-edge pt-20 '>
-      <div className='space-y-2 screen-line-before screen-line-after p-4 container max-w-3xl apply-edge'>
-        <h1 className='text-2xl screen-line-after screen-line-before'>
-          Components
-        </h1>
-        <p className='text-zinc-400 text-balance'>
-          A curated collection of reusable components and visually striking
-          shader backgrounds, transformed into React Component.
-        </p>
-      </div>
+    <section className='container max-w-3xl apply-edge pt-20'>
+      <SectionHeader
+        title='components'
+        description='A curated collection of reusable components and visually striking
+          shader backgrounds, transformed into React Component.'
+      />
 
       <div className='flex gap-2 py-2 px-4 screen-line-before screen-line-after apply-edge mt-2'>
         {Object.entries(Categories).map(([key, label]) => (

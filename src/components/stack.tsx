@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { Tooltip } from '@heroui/tooltip'
+import SectionHeader from './section-header'
 
 const imageLoader = ({ src }: { src: string }) => {
   return `https://cdn.simpleicons.org/${src}`
@@ -96,14 +97,10 @@ const Stack = () => {
 
   return (
     <section className='container max-w-3xl apply-edge'>
-      <div className='space-y-3 screen-line-before screen-line-after p-4 apply-edge'>
-        <p className='text-2xl screen-line-before screen-line-after'>
-          Tech Stack
-        </p>
-        <p className='text-zinc-400 text-balance leading-relaxed'>
-          Technologies and tools I use to build modern, scalable applications
-        </p>
-      </div>
+      <SectionHeader
+        title='tech stack'
+        description='Technologies and tools I use to build modern, scalable applications'
+      />
 
       <div className='screen-line-after p-4 apply-edge'>
         <div className='space-y-8'>

@@ -1,5 +1,6 @@
 import { cn } from '@heroui/theme'
 import { EXPERIENCES } from '@/constant'
+import SectionHeader from './section-header'
 
 export default function Experiences() {
   return (
@@ -7,15 +8,12 @@ export default function Experiences() {
       className='container max-w-3xl pt-18 apply-edge'
       id='experiences-wrapper'
     >
-      <div className='space-y-2 screen-line-before screen-line-after apply-edge p-4'>
-        <p className='text-2xl screen-line-after screen-line-before'>
-          Experience
-        </p>
-        <p className='text-zinc-400 text-balance'>
-          A journey through frontend engineering, team leadership, and building
-          scalable web applications
-        </p>
-      </div>
+      <SectionHeader
+        title='experience'
+        description='A journey through frontend engineering, team leadership, and building
+          scalable web applications'
+      />
+
       <ul className='space-y-4 apply-edge'>
         {EXPERIENCES.map((exp, index) => (
           <li
