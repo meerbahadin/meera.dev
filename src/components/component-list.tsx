@@ -84,7 +84,7 @@ const ComponentList = () => {
                   </div>
                 </div>
 
-                <div className='space-y-2'>
+                <div className='space-y-1 px-1'>
                   <div className='flex items-center justify-between'>
                     <h3 className='font-semibold text-zinc-100 group-hover:text-primary transition-colors'>
                       {item.title}
