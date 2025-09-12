@@ -16,20 +16,20 @@ export default function Header() {
     <LazyMotion features={domAnimation}>
       <header className='relative isolate'>
         <motion.div
-          className='w-full h-full absolute -z-10 left-0'
+          className='w-full h-full absolute -z-10 left-0 mask-b-from-75%'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
         >
           <GradFlow
             config={{
-              color1: { r: 0, g: 0, b: 0 },
-              color2: { r: 114, g: 146, b: 223 },
-              color3: { r: 0, g: 0, b: 0 },
-              speed: 0.3,
+              color1: { r: 10, g: 16, b: 30 },
+              color2: { r: 211, g: 93, b: 54 },
+              color3: { r: 255, g: 186, b: 66 },
+              speed: 0.6,
               scale: 1,
-              type: 'algorithmic',
-              noise: 0.2,
+              type: 'animated',
+              noise: 0.25,
             }}
           />
         </motion.div>
