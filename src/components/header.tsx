@@ -1,17 +1,17 @@
 'use client'
 
-import { useState } from 'react'
 import { Button } from '@heroui/button'
 
 // By adding only the specific animation features we need, we reduce the bundle size of the motion component.
 import { LazyMotion, domAnimation } from 'motion/react'
 import * as motion from 'motion/react-m'
 import { IconChevronDown } from '@tabler/icons-react'
-import StarGalaxyBackground from './shaders/galaxy'
+
+// check out my gradflow project at: https://grad-flow.vercel.app/
+import GradFlow from './grad-flow'
+import Link from 'next/link'
 
 export default function Header() {
-  const [isLogoHovered, setIsLogoHovered] = useState(false)
-
   return (
     <LazyMotion features={domAnimation}>
       <header className='relative isolate'>
@@ -21,7 +21,17 @@ export default function Header() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
         >
-          <StarGalaxyBackground speed={isLogoHovered ? 1.0 : 0.4} />
+          <GradFlow
+            config={{
+              color1: { r: 0, g: 0, b: 0 },
+              color2: { r: 114, g: 146, b: 223 },
+              color3: { r: 0, g: 0, b: 0 },
+              speed: 0.3,
+              scale: 1,
+              type: 'algorithmic',
+              noise: 0.2,
+            }}
+          />
         </motion.div>
 
         <div className='container max-w-3xl flex flex-col justify-end min-h-screen pb-8 pt-4'>
@@ -48,8 +58,6 @@ export default function Header() {
               endContent={
                 <IconChevronDown className='animate-pulse' size={18} />
               }
-              onMouseEnter={() => setIsLogoHovered(true)}
-              onMouseLeave={() => setIsLogoHovered(false)}
               onPress={() => {
                 const element = document.getElementById('experiences-wrapper')
                 element?.scrollIntoView({ behavior: 'smooth' })
@@ -57,6 +65,17 @@ export default function Header() {
             >
               Work Experience
             </Button>
+
+            <p className='text-xs'>
+              Want to create stunning gradients like this? Check out{' '}
+              <Link
+                href='https://grad-flow.vercel.app/'
+                target='_blank'
+                className='text-white/70 hover:text-white underline transition-colors font-semibold'
+              >
+                GradFlow
+              </Link>
+            </p>
           </motion.div>
         </div>
       </header>
