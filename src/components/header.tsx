@@ -23,13 +23,13 @@ export default function Header() {
         >
           <GradFlow
             config={{
-              color1: { r: 10, g: 16, b: 30 },
-              color2: { r: 211, g: 93, b: 54 },
-              color3: { r: 255, g: 186, b: 66 },
-              speed: 0.6,
-              scale: 1,
-              type: 'animated',
-              noise: 0.25,
+              color1: { r: 0, g: 0, b: 0 },
+              color2: { r: 0, g: 0, b: 0 },
+              color3: { r: 151, g: 204, b: 226 },
+              speed: 0.5,
+              scale: 0.7,
+              type: 'algorithmic',
+              noise: 0.1,
             }}
           />
         </motion.div>
