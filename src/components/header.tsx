@@ -66,7 +66,7 @@ export default function Header() {
               Work Experience
             </Button>
 
-            <p className='text-xs'>
+            <p className='text-xs text-balance'>
               Want to create stunning gradients like this? Check out{' '}
               <Link
                 href='https://grad-flow.vercel.app/'
