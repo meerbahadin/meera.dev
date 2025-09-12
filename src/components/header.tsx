@@ -25,11 +25,11 @@ export default function Header() {
             config={{
               color1: { r: 0, g: 0, b: 0 },
               color2: { r: 0, g: 0, b: 0 },
-              color3: { r: 151, g: 204, b: 226 },
-              speed: 0.5,
-              scale: 0.7,
+              color3: { r: 87, g: 160, b: 255 },
+              speed: 0.2,
+              scale: 0.8,
               type: 'algorithmic',
-              noise: 0.1,
+              noise: 0.15,
             }}
           />
         </motion.div>
