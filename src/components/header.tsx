@@ -8,7 +8,7 @@ import * as motion from 'motion/react-m'
 import { IconChevronDown } from '@tabler/icons-react'
 
 // check out my gradflow project at: https://grad-flow.vercel.app/
-import GradFlow from './grad-flow'
+import Silk from './silk'
 import Link from 'next/link'
 
 export default function Header() {
@@ -21,14 +21,13 @@ export default function Header() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
         >
-          <GradFlow
+          <Silk
             config={{
               color1: { r: 0, g: 0, b: 0 },
               color2: { r: 0, g: 0, b: 0 },
               color3: { r: 87, g: 160, b: 255 },
-              speed: 0.2,
+              speed: 0.4,
               scale: 0.8,
-              type: 'algorithmic',
               noise: 0.15,
             }}
           />

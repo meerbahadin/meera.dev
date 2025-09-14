@@ -11,16 +11,6 @@ export const COMPONENT_PREVIEW_ITEMS: ComponentPreviewItems[] = [
     dependency: ['ogl'],
   },
   {
-    id: 'galaxy',
-    title: 'Galaxy',
-    description:
-      'A dynamic galaxy background filled with stars and cosmic dust',
-    image: '/shader-previews/galaxy.png',
-    category: 'shader',
-    tags: ['animation', 'space', 'background'],
-    dependency: ['ogl'],
-  },
-  {
     id: 'vale',
     title: 'Vale',
     description: 'A mystical valley scene',

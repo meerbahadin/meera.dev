@@ -61,13 +61,16 @@ export default function Experiences() {
                             </p>
                             {point.tech?.length > 0 && (
                               <ul className='flex flex-wrap gap-2'>
-                                {point.tech.map((tech, techIndex) => (
-                                  <li key={techIndex}>
-                                    <span className='text-xs text-zinc-200 bg-zinc-800 px-2 py-0.5 rounded'>
-                                      {tech}
+                                <div className='flex flex-wrap gap-2'>
+                                  {point.tech.map((e) => (
+                                    <span
+                                      key={e}
+                                      className='px-2 py-1 text-xs rounded-md bg-default-100 text-default-600 text-muted-foreground dark:inset-shadow-[1px_1px_1px,0px_0px_1px] dark:inset-shadow-white/20'
+                                    >
+                                      {e}
                                     </span>
-                                  </li>
-                                ))}
+                                  ))}
+                                </div>
                               </ul>
                             )}
                           </li>
@@ -84,13 +87,20 @@ export default function Experiences() {
                           </p>
                           {point.tech?.length > 0 && (
                             <ul className='flex flex-wrap gap-2'>
-                              {point.tech.map((tech, techIndex) => (
-                                <li key={techIndex}>
-                                  <span className='text-xs text-zinc-200 bg-zinc-800 px-2 py-0.5 rounded'>
-                                    {tech}
-                                  </span>
-                                </li>
-                              ))}
+                              {point.tech?.length > 0 && (
+                                <ul className='flex flex-wrap gap-2'>
+                                  <div className='flex flex-wrap gap-2'>
+                                    {point.tech.map((e) => (
+                                      <span
+                                        key={e}
+                                        className='px-2 py-1 text-xs rounded-md bg-default-100 text-muted-foreground dark:inset-shadow-[1px_1px_1px,0px_0px_1px] dark:inset-shadow-white/20'
+                                      >
+                                        {e}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </ul>
+                              )}
                             </ul>
                           )}
                         </li>
