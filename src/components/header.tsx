@@ -24,11 +24,11 @@ export default function Header() {
           <Silk
             config={{
               color1: { r: 0, g: 0, b: 0 },
-              color2: { r: 0, g: 0, b: 0 },
-              color3: { r: 87, g: 160, b: 255 },
+              color2: { r: 73, g: 136, b: 238 },
+              color3: { r: 14, g: 26, b: 72 },
               speed: 0.4,
-              scale: 0.8,
-              noise: 0.15,
+              scale: 1,
+              noise: 0.1,
             }}
           />
         </motion.div>
