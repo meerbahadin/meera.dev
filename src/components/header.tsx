@@ -27,7 +27,7 @@ export default function Header() {
               color2: { r: 73, g: 136, b: 238 },
               color3: { r: 14, g: 26, b: 72 },
               speed: 0.4,
-              scale: 1,
+              scale: 0.8,
               noise: 0.1,
             }}
           />
@@ -68,7 +68,7 @@ export default function Header() {
             <p className='text-xs text-balance'>
               Want to create stunning gradients like this? Check out{' '}
               <Link
-                href='https://grad-flow.vercel.app/'
+                href='https://gradflow.meera.dev/'
                 target='_blank'
                 className='text-white/70 hover:text-white underline transition-colors font-semibold'
               >
