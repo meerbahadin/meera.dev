@@ -9,6 +9,7 @@ import { IconChevronDown } from '@tabler/icons-react'
 
 // check out my gradflow project at: https://grad-flow.vercel.app/
 import Silk from './silk'
+import Link from 'next/link'
 
 export default function Header() {
   return (
@@ -42,11 +43,11 @@ export default function Header() {
               <p className='capitalize text-3xl'>meer bahadin</p>
               <p className='capitalize text-zinc-300'>frontend developer</p>
             </div>
-            <p className='leading-relaxed  md:text-lg text-zinc-200'>
+            <p className='leading-relaxed md:text-lg text-zinc-200'>
               {`Hi, I'm Meer Bahadin — a frontend developer passionate about building fast, accessible, high-quality web applications. With 5+ years of experience, I now focus mainly on web and mobile apps using React, Next.js, and TypeScript.`}
             </p>
 
-            <p className='leading-relaxed  md:text-lg text-zinc-200'>
+            <p className='leading-relaxed md:text-lg text-zinc-200'>
               {`I'm passionate about frontend development, especially building smooth, interactive experiences with web animation, Motion library, and WebGL.`}
             </p>
 
@@ -63,6 +64,17 @@ export default function Header() {
             >
               Work Experience
             </Button>
+
+            <p className='text-xs text-balance'>
+              Want to create stunning backgrounds like this? Check out{' '}
+              <Link
+                href='https://gradflow.meera.dev/'
+                target='_blank'
+                className='text-white/70 hover:text-white underline transition-colors font-semibold'
+              >
+                GradFlow
+              </Link>
+            </p>
           </motion.div>
         </div>
       </header>
