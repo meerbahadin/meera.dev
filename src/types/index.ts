@@ -1,13 +1,3 @@
-export type ComponentPreviewItems = {
-  id: string
-  title: string
-  description: string
-  image: string
-  category: 'shader' | 'component'
-  tags: string[]
-  dependency: string[]
-}
-
 // New types for EXPERIENCES
 export type ExperienceItem = {
   text: string

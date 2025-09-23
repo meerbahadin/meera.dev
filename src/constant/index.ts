@@ -1,43 +1,4 @@
-import { ComponentPreviewItems, Experience, RecentWork } from '@/types'
-
-export const COMPONENT_PREVIEW_ITEMS: ComponentPreviewItems[] = [
-  {
-    id: 'siri',
-    title: 'Siri',
-    description: 'A glowing visual inspired by Apple Intelligence aesthetics',
-    image: '/shader-previews/siri.png',
-    category: 'shader',
-    tags: ['glow', 'apple', 'siri'],
-    dependency: ['ogl'],
-  },
-  {
-    id: 'vale',
-    title: 'Vale',
-    description: 'A mystical valley scene',
-    image: '/shader-previews/vale.png',
-    category: 'shader',
-    tags: ['gradient', 'atmospheric', 'ambient'],
-    dependency: ['ogl'],
-  },
-  {
-    id: 'circle',
-    title: 'Circle',
-    description: 'A glowing circle that reacts to mouse movement',
-    image: '/shader-previews/circle.png',
-    category: 'shader',
-    tags: ['gradient', 'sphere', 'glow'],
-    dependency: ['ogl'],
-  },
-  {
-    id: 'flame',
-    title: 'Flame',
-    description: 'A stylized flame shader with dynamic movement and light',
-    image: '/shader-previews/flame.png',
-    category: 'shader',
-    tags: ['fire', 'wave', 'light'],
-    dependency: ['ogl'],
-  },
-]
+import { Experience, RecentWork } from '@/types'
 
 export const EXPERIENCES: Experience[] = [
   {
@@ -186,6 +147,14 @@ export const RECENT_WORKS: RecentWork[] = [
     url: 'https://danyiar.com',
     image: 'https://danyiar.com/og/meta.jpg',
     github: '',
+    isLive: true,
+  },
+  {
+    title: 'GradFlow',
+    description: 'An advanced gradient generator built with WebGL and React',
+    url: 'https://gradflow.meera.dev',
+    image: 'https://gradflow.meera.dev/og.jpg',
+    github: 'https://github.com/meerbahadin/grad-flow',
     isLive: true,
   },
 ]

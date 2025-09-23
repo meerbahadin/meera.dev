@@ -5,9 +5,26 @@ const nextConfig: import('next').NextConfig = {
 
   images: {
     remotePatterns: [
-      new URL('https://cdn.simpleicons.org/**'),
-      new URL('https://meera.dev/**'),
-      new URL('https://danyiar.com/**'),
+      {
+        protocol: 'https',
+        hostname: 'cdn.simpleicons.org',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'meera.dev',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.meera.dev',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'danyiar.com',
+        pathname: '/**',
+      },
     ],
   },
 }

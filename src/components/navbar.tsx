@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@heroui/button'
-import { Links } from './links'
 
 const Navbar = () => {
   return (
@@ -19,7 +18,7 @@ const Navbar = () => {
         </Link>
 
         <div className='flex items-center gap-4'>
-          <Links />
+          {/* <Links /> */}
 
           <Button
             as={Link}
