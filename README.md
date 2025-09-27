@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# meera.dev
 
-## Getting Started
+A modern portfolio website showcasing Meer Bahadin's work as a frontend developer and designer. Built with Next.js 15, TypeScript, and Tailwind CSS, featuring smooth animations and WebGL experiences.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Modern Tech Stack**: Next.js 15, React 19, TypeScript
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Interactive UI**: HeroUI components with smooth animations using Motion
+- **WebGL Graphics**: Interactive experiences powered by OGL
+- **Performance Optimized**: Built for speed and SEO
+- **Analytics**: Integrated Vercel Analytics
+- **MDX Support**: Content authoring with MDX
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15.5.2
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS 4
+- **UI Components**: HeroUI (buttons, tooltips, system)
+- **Icons**: Tabler Icons React
+- **Animations**: Motion (Framer Motion successor)
+- **WebGL**: OGL
+- **Content**: MDX
+- **Analytics**: Vercel Analytics
+- **Package Manager**: Bun
+- **Deployment**: Vercel
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── (site)/
+│   │   ├── layout.tsx    # Site layout
+│   │   └── page.tsx      # Home page
+│   ├── layout.tsx        # Root layout
+│   └── hero.ts           # Hero configuration
+├── components/
+│   ├── navbar.tsx        # Navigation component
+│   ├── header.tsx        # Hero section
+│   ├── experience.tsx    # Work experience
+│   ├── recent-work.tsx   # Portfolio showcase
+│   ├── stack.tsx         # Technology stack
+│   ├── lets-work-together.tsx  # Contact section
+│   ├── footer.tsx        # Footer
+│   ├── divider.tsx       # Section dividers
+│   └── silk.tsx          # WebGL effects
+└── types/
+    └── index.ts          # TypeScript definitions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18+ or Bun
+- Git
 
-## Learn More
+### Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone the repository:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+git clone https://github.com/meerbahadin/meera.dev.git
+cd meera.dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Install dependencies:
 
-## Deploy on Vercel
+```bash
+bun install
+# or
+npm install
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Start the development server:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+bun dev
+# or
+npm run dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📝 Available Scripts
+
+- `bun dev` - Start development server
+- `bun build` - Build for production
+- `bun start` - Start production server
+- `bun lint` - Run ESLint
+
+## 🎨 Features Overview
+
+### Portfolio Sections
+
+- **Header**: Interactive hero section with WebGL effects
+- **Experience**: Professional work history and achievements
+- **Recent Work**: Showcase of selected projects
+- **Stack**: Technologies and tools used
+- **Contact**: Call-to-action for collaboration
+
+### Technical Highlights
+
+- **Performance**: Optimized for Core Web Vitals
+- **Accessibility**: ARIA labels and semantic HTML
+- **SEO**: Meta tags and structured data
+- **Mobile-First**: Responsive design for all devices
+- **Type Safety**: Full TypeScript coverage
+
+## 🤝 Contact
+
+**Meer Bahadin**
+
+- Email: [meerbahadin@gmail.com](mailto:meerbahadin@gmail.com)
+- GitHub: [@meerbahadin](https://github.com/meerbahadin)
+- LinkedIn: [meerbahadin](https://linkedin.com/in/meerbahadin)
+
+## 📄 License
+
+This project is open source and available under the MIT License. Feel free to use it as inspiration or build upon it for your own projects.
