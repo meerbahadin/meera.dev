@@ -53,7 +53,7 @@ export default function Experiences() {
                 ? exp.roles.map((role, roleIndex) => (
                     <div key={roleIndex} className='space-y-2'>
                       <p className='font-medium'>{role.title}</p>
-                      <ul className='space-y-2 ml-4 list-disc marker:text-zinc-600'>
+                      <ul className='space-y-2 ml-6 list-disc marker:text-zinc-600'>
                         {role.items.map((point, pointIndex) => (
                           <li key={pointIndex}>
                             <p className='text-sm leading-relaxed'>
@@ -79,7 +79,7 @@ export default function Experiences() {
                     </div>
                   ))
                 : exp.items && (
-                    <ul className='space-y-2 ml-4 list-disc marker:text-zinc-600'>
+                    <ul className='space-y-2 ml-6 list-disc marker:text-zinc-600'>
                       {exp.items.map((point, pointIndex) => (
                         <li key={pointIndex}>
                           <p className='text-sm leading-relaxed'>

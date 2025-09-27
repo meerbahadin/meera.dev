@@ -18,12 +18,12 @@
     "@next/mdx": "^15.5.2",
     "@tabler/icons-react": "^3.34.1",
     "@types/mdx": "^2.0.13",
+    "@vercel/analytics": "^1.5.0",
     "motion": "^12.23.12",
     "next": "15.5.2",
     "ogl": "^1.0.11",
     "react": "19.1.1",
-    "react-dom": "19.1.1",
-    "react-ogl": "^0.15.1"
+    "react-dom": "19.1.1"
   },
   "devDependencies": {
     "typescript": "^5",

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import { Fira_Code } from 'next/font/google'
 
-const inter = Fira_Code({
+const fira = Fira_Code({
   subsets: ['latin'],
 })
 
@@ -41,9 +42,12 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={`dark text-foreground bg-background ${inter.className} antialiased`}
+      className={`dark text-foreground bg-background ${fira.className} antialiased`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }
