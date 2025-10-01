@@ -40,29 +40,27 @@ export default function LetsWorkTogether() {
                 Get in touch
               </Button>
 
-              <div className='flex gap-3'>
-                <Button
-                  as='a'
-                  href='https://github.com/meerbahadin'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  isIconOnly
-                  aria-label='GitHub profile'
-                >
-                  <IconBrandGithub size={20} />
-                </Button>
+              <Button
+                as='a'
+                href='https://github.com/meerbahadin'
+                target='_blank'
+                rel='noopener noreferrer'
+                isIconOnly
+                aria-label='GitHub profile'
+              >
+                <IconBrandGithub size={20} />
+              </Button>
 
-                <Button
-                  as='a'
-                  href='https://linkedin.com/in/meerbahadin'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  isIconOnly
-                  aria-label='LinkedIn profile'
-                >
-                  <IconBrandLinkedin size={20} />
-                </Button>
-              </div>
+              <Button
+                as='a'
+                href='https://linkedin.com/in/meerbahadin'
+                target='_blank'
+                rel='noopener noreferrer'
+                isIconOnly
+                aria-label='LinkedIn profile'
+              >
+                <IconBrandLinkedin size={20} />
+              </Button>
             </div>
           </div>
 
@@ -109,6 +107,11 @@ export default function LetsWorkTogether() {
                 <li className='flex items-center gap-2'>
                   <span className='text-green-400'>•</span>
                   Dashboard and admin interfaces
+                </li>
+
+                <li className='flex items-center gap-2'>
+                  <span className='text-green-400'>•</span>
+                  Mobile App (iOS & Android) using React Native
                 </li>
               </ul>
             </div>

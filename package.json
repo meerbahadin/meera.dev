@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@code-hike/mdx": "^0.9.0",
     "@heroui/button": "^2.2.25",
     "@heroui/system": "^2.4.21",
     "@heroui/theme": "^2.4.21",
@@ -23,17 +24,19 @@
     "next": "15.5.2",
     "ogl": "^1.0.11",
     "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "react-dom": "19.1.1",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
-    "@eslint/eslintrc": "^3"
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

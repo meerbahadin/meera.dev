@@ -1,8 +1,9 @@
+import { remarkCodeHike } from '@code-hike/mdx'
 import createMDX from '@next/mdx'
+import remarkGfm from 'remark-gfm'
 
 const nextConfig: import('next').NextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
-
   images: {
     remotePatterns: [
       {
@@ -30,7 +31,10 @@ const nextConfig: import('next').NextConfig = {
 }
 
 const withMDX = createMDX({
-  // Add markdown plugins here, as desired
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkGfm, [remarkCodeHike, { theme: 'css-variables' }]],
+  },
 })
 
 export default withMDX(nextConfig)
