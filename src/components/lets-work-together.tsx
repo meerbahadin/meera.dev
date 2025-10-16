@@ -118,9 +118,8 @@ export default function LetsWorkTogether() {
           </div>
 
           <div className='text-center pt-6'>
-            <p className='text-sm text-zinc-400 text-balance'>
-              Typically respond within 24 hours. Available for projects starting
-              immediately
+            <p className='text-xs text-zinc-400 text-balance'>
+              Typically respond within 24 hours.
             </p>
           </div>
         </div>
