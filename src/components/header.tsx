@@ -23,11 +23,11 @@ export default function Header() {
         >
           <Silk
             config={{
-              color1: { r: 255, g: 5, b: 101 },
-              color2: { r: 94, g: 24, b: 59 },
-              color3: { r: 19, g: 11, b: 55 },
-              speed: 0.4,
-              scale: 1.2,
+              color1: { r: 0, g: 0, b: 0 },
+              color2: { r: 138, g: 140, b: 255 },
+              color3: { r: 0, g: 0, b: 0 },
+              speed: 0.5,
+              scale: 0.9,
               noise: 0.08,
             }}
           />
