@@ -1,6 +1,9 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@heroui/button'
+// import { ThemeToggle } from './theme-toggle'
 
 const Navbar = () => {
   return (
@@ -19,7 +22,7 @@ const Navbar = () => {
           </Link>
 
           <div className='flex items-center gap-4'>
-            {/* <Links /> */}
+            {/* <ThemeToggle /> */}
 
             <Button
               as={Link}

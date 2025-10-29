@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { Fira_Code } from 'next/font/google'
+import { ThemeProvider } from '@/components/theme-provider'
 
 const fira = Fira_Code({
   subsets: ['latin'],
@@ -40,12 +41,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang='en'
-      className={`dark text-foreground bg-background ${fira.className} antialiased`}
-    >
-      <body>
-        {children}
+    <html lang='en' suppressHydrationWarning>
+      <body
+        className={`${fira.className} antialiased text-foreground bg-background`}
+      >
+        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+          {children}
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

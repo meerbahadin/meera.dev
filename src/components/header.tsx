@@ -10,6 +10,7 @@ import { IconChevronDown } from '@tabler/icons-react'
 // check out my gradflow project at: https://grad-flow.vercel.app/
 import Silk from './silk'
 import Link from 'next/link'
+import { ThemeToggle } from './theme-toggle'
 
 export default function Header() {
   return (
@@ -34,6 +35,9 @@ export default function Header() {
         </motion.div>
 
         <div className='container max-w-3xl flex flex-col justify-end min-h-screen pb-8 pt-4'>
+          <div className='absolute top-4 right-4'>
+            <ThemeToggle />
+          </div>
           <motion.div
             className='mt-8 space-y-4 text-center justify-self-end'
             initial={{ opacity: 0.5, filter: 'blur(10px)' }}
