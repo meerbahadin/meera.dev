@@ -12,9 +12,9 @@ import {
 export default function Footer() {
   return (
     <footer className='relative overflow-hidden'>
-      <div className='h-96 w-full bg-radial from-indigo-400/20   absolute blur-3xl z-10 left-1/2 -translate-x-1/2 top-20' />
+      <div className='h-96 w-full pointer-events-none bg-radial from-indigo-400/20  absolute blur-3xl z-10 left-1/2 -translate-x-1/2 top-20' />
       <div className='container max-w-3xl screen-line-before screen-line-after apply-edge '>
-        <div className='flex   items-center gap-2 text-center flex-col apply-edge p-4'>
+        <div className='flex  items-center gap-2 text-center flex-col apply-edge p-4'>
           <div className='flex flex-col items-center  gap-2 screen-line-before screen-line-after py-4'>
             <Link href='/'>
               <Image
