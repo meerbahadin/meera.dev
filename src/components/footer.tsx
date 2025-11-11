@@ -27,7 +27,7 @@ export default function Footer() {
               />
             </Link>
             <p className='text-xs text-zinc-400 text-balance leading-relaxed'>
-              The source code is available on{' '}
+              Feel free to use this website code for your own. view{' '}
               <a
                 className='text-zinc-200 font-semibold'
                 href='https://github.com/meerbahadin/meera.dev'
