@@ -22,7 +22,6 @@ export default function Footer() {
                 alt='logo'
                 width={22}
                 height={22}
-                priority
                 className='select-none mask-t-from-20% aspect-square invert dark:invert-0'
               />
             </Link>

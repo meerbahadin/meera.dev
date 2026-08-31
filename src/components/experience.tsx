@@ -70,7 +70,7 @@ export default function Experiences() {
             })}
           >
             <div className='grid gap-4 md:grid-cols-[10.5rem_1fr]'>
-              <div className='label tabular-nums md:pt-1 whitespace-nowrap'>
+              <div className='label tabular-nums text-default-500 md:pt-1 whitespace-nowrap'>
                 <YearLabel year={exp.year} />
               </div>
 

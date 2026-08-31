@@ -10,7 +10,7 @@ const SectionHeader = ({ index, title, description }: Props) => {
   return (
     <div className='screen-line-before screen-line-after apply-edge px-4'>
       <div className='flex items-baseline gap-3 screen-line-after py-2'>
-        <span className='label tabular-nums'>{index}</span>
+        <span className='label tabular-nums text-default-500'>{index}</span>
         <h2 className='text-section uppercase tracking-tight'>{title}</h2>
         <span className='h-px flex-1 bg-default-50' aria-hidden='true' />
       </div>

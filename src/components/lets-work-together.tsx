@@ -12,12 +12,12 @@ const SERVICES = [
   'Frontend architecture with React, Next.js and TypeScript',
   'Interactive animation and WebGL experiences',
   'Performance, accessibility and SEO work on existing apps',
-  'React Native apps for iOS and Android',
+  'Cross-platform mobile apps with React Native and Expo',
 ]
 
 export default function LetsWorkTogether() {
   return (
-    <section className='container max-w-3xl apply-edge'>
+    <section className='container max-w-3xl apply-edge' id='contact'>
       <SectionHeader
         index='04'
         title="let's work together"
@@ -87,7 +87,7 @@ export default function LetsWorkTogether() {
           </div>
         </div>
 
-        <p className='label pt-6'>Typically responds within 24 hours</p>
+        <p className='label text-default-500 pt-6'>Typically responds within 24 hours</p>
       </div>
     </section>
   )

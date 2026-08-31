@@ -39,7 +39,7 @@ const techStack: TechItem[] = [
   { name: 'Tailwind CSS', icon: 'tailwindcss', category: 'frontend' },
   { name: 'shadcn/ui', icon: 'shadcnui', mono: true, category: 'frontend' },
   { name: 'HeroUI', icon: 'heroui', mono: true, category: 'frontend' },
-  { name: 'Chakra UI', icon: 'chakraui', mono: true, category: 'frontend' },
+  { name: 'Chakra UI', icon: 'chakraui', category: 'frontend' },
   { name: 'WebGL', icon: 'webgl', category: 'frontend' },
 
   // Mobile
@@ -55,7 +55,7 @@ const techStack: TechItem[] = [
 
   // Database
   { name: 'MongoDB', icon: 'mongodb', category: 'database' },
-  { name: 'Mysql', icon: 'mysql', mono: true, category: 'database' },
+  { name: 'Mysql', icon: 'mysql', category: 'database' },
   { name: 'Redis', icon: 'redis', category: 'database' },
 
   // Tools
@@ -90,7 +90,7 @@ const Stack = () => {
   }, {} as Record<string, TechItem[]>)
 
   return (
-    <section className='container max-w-3xl apply-edge'>
+    <section className='container max-w-3xl apply-edge' id='tech-stack'>
       <SectionHeader
         index='03'
         title='tech stack'
@@ -103,11 +103,11 @@ const Stack = () => {
             <div key={category} className='space-y-4'>
               {/* Category Header */}
               <div className='flex items-center gap-3'>
-                <span className='label'>
+                <span className='label text-default-500'>
                   {categoryLabels[category as keyof typeof categoryLabels]}
                 </span>
                 <div className='h-px flex-1 bg-default-50' />
-                <span className='label tabular-nums'>
+                <span className='label tabular-nums text-default-500'>
                   {String(techs.length).padStart(2, '0')}
                 </span>
               </div>

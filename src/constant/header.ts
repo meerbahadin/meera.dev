@@ -90,12 +90,12 @@ export const GLASS = {
   roll: 0.05,
   shift: 0.12,
   /** On-screen height of the mark in world units (drives the scale). */
-  height: 1.55,
+  height: 1.35,
   /** Cap on the mark's width as a fraction of the visible frustum — keeps it
    *  inside the frame on narrow screens where world units alone overflow. */
   maxWidthFraction: 0.55,
   /** Centred, sitting in the upper half above the copy. */
-  position: [0, 0.5, 0] as [number, number, number],
+  position: [0, 0.95, 0] as [number, number, number],
 
   /**
    * drei HDRI presets — a real environment is what makes glass read as glass,
@@ -105,8 +105,10 @@ export const GLASS = {
   envDark: 'studio' as const,
   envLight: 'park' as const,
   envIntensity: 3.2,
-  /** Radians/sec the environment map spins, travelling the reflections. */
-  envSpin: 0.07,
+  /** Rate of the mark's continuous yaw, which travels the reflections. */
+  envSpin: 0.35,
+  /** Amplitude of that yaw, in radians. */
+  sway: 0.32,
   /** Gradient glow behind the mark — what the glass actually transmits. */
   glowInner: '#c9caff' as const,
   glowOuter: '#4b3fd0' as const,

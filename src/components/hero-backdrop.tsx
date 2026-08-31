@@ -60,18 +60,21 @@ function InteractiveGrid() {
       frame = requestAnimationFrame(() => {
         frame = 0
         const r = el.getBoundingClientRect()
+        const inside =
+          e.clientY >= r.top &&
+          e.clientY <= r.bottom &&
+          e.clientX >= r.left &&
+          e.clientX <= r.right
         el.style.setProperty('--x', `${e.clientX - r.left}px`)
         el.style.setProperty('--y', `${e.clientY - r.top}px`)
-        el.style.setProperty('--on', '1')
+        el.style.setProperty('--on', inside ? '1' : '0')
       })
     }
-    const onLeave = () => el.style.setProperty('--on', '0')
-
+    // `pointerleave` does not bubble, so a document listener never fires for
+    // this element — bounds-check inside the move handler instead.
     window.addEventListener('pointermove', onMove, { passive: true })
-    document.addEventListener('pointerleave', onLeave)
     return () => {
       window.removeEventListener('pointermove', onMove)
-      document.removeEventListener('pointerleave', onLeave)
       if (frame) cancelAnimationFrame(frame)
     }
   }, [])
@@ -88,7 +91,7 @@ function InteractiveGrid() {
       */}
       <div className='absolute inset-0 overflow-hidden'>
         <div
-          className='absolute -inset-y-12 inset-x-0 opacity-60 motion-safe:animate-[grid-drift_9s_linear_infinite]'
+          className='absolute -inset-y-12 inset-x-0 opacity-60 motion-safe:animate-[grid-drift_3s_linear_infinite]'
           style={{
             ...GRID_VARS,
             backgroundImage: GRID_LINES,

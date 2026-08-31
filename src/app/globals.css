@@ -53,6 +53,7 @@
     height: 1px;
     width: 200vw;
     background-color: hsl(var(--meeradev-default-50));
+    pointer-events: none;
   }
 }
 
@@ -67,6 +68,7 @@
     height: 1px;
     width: 200vw;
     background-color: hsl(var(--meeradev-default-50));
+    pointer-events: none;
   }
 }
 
@@ -76,7 +78,6 @@
   line-height: var(--text-label--line-height);
   letter-spacing: var(--text-label--letter-spacing);
   text-transform: uppercase;
-  color: hsl(var(--meeradev-default-500));
 }
 
 /* corner ticks — drafting-table registration marks on a bordered box */

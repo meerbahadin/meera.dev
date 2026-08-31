@@ -11,13 +11,13 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Meer - Front End Developer',
-  description: `Hi, I'm Meer, A front-end developer specializing in React, Next.js. welcome to my corner of the Internet, where I showcase my work, craft, unfinished or imperfect projects, and the many other things I'm exploring.`,
+  description: `Hi, I'm Meer, a front-end and mobile developer specializing in React, Next.js, React Native and Expo. Welcome to my corner of the Internet, where I showcase my work, craft, unfinished or imperfect projects, and the many other things I'm exploring.`,
   metadataBase: new URL('https://www.meera.dev/'),
   openGraph: {
     type: 'website',
     url: 'https://www.meera.dev/',
     title: 'Meer - Front End Developer',
-    description: `Hi, I'm Meer, A front-end developer specializing in React, Next.js. welcome to my corner of the Internet, where I showcase my work, craft, unfinished or imperfect projects, and the many other things I'm exploring.`,
+    description: `Hi, I'm Meer, a front-end and mobile developer specializing in React, Next.js, React Native and Expo. Welcome to my corner of the Internet, where I showcase my work, craft, unfinished or imperfect projects, and the many other things I'm exploring.`,
     images: [
       {
         url: '/og.jpg',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Meer - Front End Developer',
-    description: `Hi, I'm Meer, A front-end developer specializing in React, Next.js. welcome to my corner of the Internet, where I showcase my work, craft, unfinished or imperfect projects, and the many other things I'm exploring.`,
+    description: `Hi, I'm Meer, a front-end and mobile developer specializing in React, Next.js, React Native and Expo. Welcome to my corner of the Internet, where I showcase my work, craft, unfinished or imperfect projects, and the many other things I'm exploring.`,
     images: ['/og.jpg'],
   },
 }

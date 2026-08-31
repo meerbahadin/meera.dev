@@ -5,7 +5,7 @@ import SectionHeader from './section-header'
 
 export default function RecentWork() {
   return (
-    <section className='container max-w-3xl apply-edge'>
+    <section className='container max-w-3xl apply-edge' id='recent-work'>
       <SectionHeader
         index='02'
         title='recent work'
@@ -16,7 +16,7 @@ export default function RecentWork() {
         {RECENT_WORKS.map((project, index) => (
           <article
             key={index}
-            className='group relative border-default-50 p-4 border-b md:[&:nth-last-child(-n+2)]:border-b-0 md:odd:border-r last:border-b-0'
+            className='group relative border-default-50 p-4 border-b last:border-b-0 md:odd:not-last:border-r'
           >
             <div className='aspect-video overflow-hidden relative border border-default-50 bg-default-100'>
               <Image
@@ -32,7 +32,7 @@ export default function RecentWork() {
               <div className='flex items-baseline justify-between gap-2'>
                 <h3 className='text-title font-medium'>{project.title}</h3>
                 {project.isLive && (
-                  <span className='label flex items-center gap-1.5 shrink-0'>
+                  <span className='label text-default-500 flex items-center gap-1.5 shrink-0'>
                     <span className='size-1.5 rounded-full bg-emerald-500' />
                     live
                   </span>

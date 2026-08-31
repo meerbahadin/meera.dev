@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useRef, useMemo } from 'react'
+import { Suspense, useRef, useMemo, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { MeshTransmissionMaterial, Environment, useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
@@ -8,20 +8,6 @@ import { useTheme } from 'next-themes'
 import { GLASS } from '@/constant/header'
 
 type Mouse = { x: number; y: number }
-
-/**
- * Slowly spins the scene's environment map. Because the glass reflects and
- * refracts that map, the highlights travel across the mark instead of sitting
- * frozen — the single biggest thing that makes it read as a real material.
- */
-function SpinEnvironment() {
-  useFrame((state, delta) => {
-    if (state.scene.environmentRotation) {
-      state.scene.environmentRotation.y += delta * GLASS.envSpin
-    }
-  })
-  return null
-}
 
 function Glow() {
   const material = useMemo(
@@ -71,6 +57,8 @@ function Glow() {
 function LogoMesh({ mouse }: { mouse: React.RefObject<Mouse> }) {
   const gltf = useGLTF('/logo.gltf')
   const group = useRef<THREE.Group>(null)
+  const spin = useRef(0)
+  const reduceMotion = useRef(false)
 
   const { viewport } = useThree()
 
@@ -79,6 +67,7 @@ function LogoMesh({ mouse }: { mouse: React.RefObject<Mouse> }) {
     gltf.scene.traverse((o) => {
       if ((o as THREE.Mesh).isMesh) meshes.push(o as THREE.Mesh)
     })
+    if (!meshes.length) return { geometry: null, baseScale: 1, width: 1 }
     const geo = meshes[0].geometry.clone()
     geo.center()
     geo.computeVertexNormals()
@@ -98,12 +87,30 @@ function LogoMesh({ mouse }: { mouse: React.RefObject<Mouse> }) {
     (viewport.width * GLASS.maxWidthFraction) / width
   )
 
-  useFrame((state) => {
+  useEffect(() => {
+    reduceMotion.current = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
+    // Set once: the JSX `position` prop would be re-applied on every render and
+    // snap the mark back mid-lerp (theme change, resize).
+    group.current?.position.set(...GLASS.position)
+  }, [])
+
+  useFrame((state, delta) => {
     const g = group.current
     if (!g) return
+    if (reduceMotion.current) return
     const m = mouse.current ?? { x: 0, y: 0 }
     const k = GLASS.follow
-    g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, m.x * GLASS.tilt, k)
+    // A continuous yaw under the cursor tilt: the mark turns past the fixed
+    // environment, so highlights travel across it. (Rotating the environment
+    // itself does not stick — drei re-applies environmentRotation each render.)
+    spin.current += delta * GLASS.envSpin
+    g.rotation.y = THREE.MathUtils.lerp(
+      g.rotation.y,
+      m.x * GLASS.tilt + Math.sin(spin.current) * GLASS.sway,
+      k
+    )
     g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, m.y * GLASS.tilt, k)
     // A slight roll and lateral shift make the response read as parallax
     // rather than a flat hinge.
@@ -122,8 +129,10 @@ function LogoMesh({ mouse }: { mouse: React.RefObject<Mouse> }) {
     )
   })
 
+  if (!geometry) return null
+
   return (
-    <group ref={group} scale={scale} position={GLASS.position} dispose={null}>
+    <group ref={group} scale={scale} dispose={null}>
       <mesh geometry={geometry}>
         <MeshTransmissionMaterial
           thickness={GLASS.thickness}
@@ -150,25 +159,41 @@ export default function Logo3D() {
   const mouse = useRef<Mouse>({ x: 0, y: 0 })
   const dark = resolvedTheme !== 'light'
 
-  const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    mouse.current = {
-      x: (e.clientX / window.innerWidth) * 2 - 1,
-      y: -(e.clientY / window.innerHeight) * 2 + 1,
+  useEffect(() => {
+    // Listen on window, not the canvas wrapper: the hero copy paints above the
+    // canvas, so a handler on the wrapper only fires over the bare margins.
+    const onMove = (e: PointerEvent) => {
+      mouse.current = {
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: -(e.clientY / window.innerHeight) * 2 + 1,
+      }
     }
-  }
+    const onLeave = () => (mouse.current = { x: 0, y: 0 })
+    window.addEventListener('pointermove', onMove, { passive: true })
+    document.addEventListener('pointerleave', onLeave)
+    return () => {
+      window.removeEventListener('pointermove', onMove)
+      document.removeEventListener('pointerleave', onLeave)
+    }
+  }, [])
 
   return (
-    <div
-      className='absolute inset-0 -z-10 h-full w-full mask-b-from-80% animate-[fade-in_800ms_ease-out_both]'
-      onPointerMove={onMove}
-      onPointerLeave={() => (mouse.current = { x: 0, y: 0 })}
-    >
+    <div className='absolute inset-0 -z-10 h-full w-full mask-b-from-80% animate-[fade-in_800ms_ease-out_both]'>
       <Canvas
         style={{ width: '100%', height: '100%' }}
         gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
         dpr={[1, 2]}
         camera={{ position: [0, 0, 5], fov: 45 }}
       >
+        {/* Own boundary: a preset swap on theme change re-suspends, and a
+            shared boundary would blank the mark until the HDRI downloads. */}
+        <Suspense fallback={null}>
+          <Environment
+            preset={dark ? GLASS.envDark : GLASS.envLight}
+            background={false}
+            environmentIntensity={GLASS.envIntensity}
+          />
+        </Suspense>
         <Suspense fallback={null}>
           <ambientLight intensity={1.2} />
           <directionalLight position={[4, 5, 6]} intensity={3} />
@@ -180,12 +205,7 @@ export default function Logo3D() {
             material a whole environment to refract and reflect. `background`
             stays false so only the mark is lit, not the page.
           */}
-          <Environment
-            preset={dark ? GLASS.envDark : GLASS.envLight}
-            background={false}
-            environmentIntensity={GLASS.envIntensity}
-          />
-          <SpinEnvironment />
+
         </Suspense>
       </Canvas>
     </div>

@@ -16,22 +16,22 @@ import { HEADER_VARIANT, HERO_BACKDROP } from '@/constant/header'
 const NAME = 'Meer Bahadin'
 
 const META = [
-  { label: 'role', value: 'Frontend Developer' },
+  { label: 'role', value: 'Frontend & Mobile' },
   { label: 'exp', value: '5+ years' },
-  { label: 'stack', value: 'React · Next.js · TS' },
+  { label: 'stack', value: 'React · Next.js · Expo' },
   { label: 'status', value: 'Available' },
 ]
 
 const INTRO = [
-  `Hi, I'm Meer Bahadin — a frontend developer building fast, accessible, high-quality web applications with React, Next.js and TypeScript.`,
+  `Hi, I'm Meer Bahadin — a frontend developer building fast, accessible, high-quality web applications with React, Next.js and TypeScript, and mobile apps with React Native and Expo.`,
   `I care most about the interactive edge of the craft — smooth motion, WebGL, and interfaces that feel considered.`,
 ]
 
 const CONTENTS = [
   { n: '01', title: 'Experience', note: 'Where I have worked', id: 'experiences-wrapper' },
-  { n: '02', title: 'Recent Work', note: 'What I have shipped', id: 'experiences-wrapper' },
-  { n: '03', title: 'Tech Stack', note: 'What I build with', id: 'experiences-wrapper' },
-  { n: '04', title: "Let's Work Together", note: 'How to reach me', id: 'experiences-wrapper' },
+  { n: '02', title: 'Recent Work', note: 'What I have shipped', id: 'recent-work' },
+  { n: '03', title: 'Tech Stack', note: 'What I build with', id: 'tech-stack' },
+  { n: '04', title: "Let's Work Together", note: 'How to reach me', id: 'contact' },
 ]
 
 const scrollTo = (id: string) =>
@@ -128,14 +128,14 @@ export default function Header() {
               <div className='flex flex-col items-center text-center min-h-[78svh]'>
                 {/* Reserved space the 3D mark renders into. */}
                 <div
-                  className='w-full flex-1 min-h-[17rem] sm:min-h-[19rem]'
+                  className='w-full flex-1 min-h-[19rem] sm:min-h-[22rem]'
                   aria-hidden='true'
                 />
 
                 <div className='space-y-4 sm:space-y-5 max-w-2xl'>
                   <div className='space-y-2'>
                     <p className={`label ${dim}`}>
-                      frontend developer · 5+ years
+                      frontend & mobile developer · 5+ years
                     </p>
                     <h1 className='capitalize text-display font-medium'>
                       {NAME}
@@ -195,7 +195,9 @@ export default function Header() {
               <div className='space-y-6'>
                 <div className='space-y-1'>
                   <h1 className='capitalize text-display font-medium'>{NAME}</h1>
-                  <p className={`label ${dim}`}>frontend developer · 5+ years</p>
+                  <p className={`label ${dim}`}>
+                      frontend & mobile developer · 5+ years
+                    </p>
                 </div>
                 <Intro />
                 <ul className={`border-t ${hairline}`}>
@@ -245,7 +247,9 @@ export default function Header() {
                 <div className='flex items-start justify-between gap-4'>
                   <div className='space-y-1'>
                     <h1 className='capitalize text-display font-medium'>{NAME}</h1>
-                    <p className={`label ${dim}`}>frontend developer · 5+ years</p>
+                    <p className={`label ${dim}`}>
+                      frontend & mobile developer · 5+ years
+                    </p>
                   </div>
                   <span className={`label ${dim} tabular-nums shrink-0`}>2026</span>
                 </div>
@@ -280,7 +284,9 @@ export default function Header() {
               <>
                 <div className='space-y-1'>
                   <h1 className='capitalize text-display font-medium'>{NAME}</h1>
-                  <p className={`label ${dim}`}>frontend developer · 5+ years</p>
+                  <p className={`label ${dim}`}>
+                      frontend & mobile developer · 5+ years
+                    </p>
                 </div>
                 <Intro />
               </>
