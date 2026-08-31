@@ -83,26 +83,32 @@ export const SILK_CONFIG: Record<
  */
 export const GLASS = {
   /** How far the mark tilts toward the cursor, in radians at the edge. */
-  tilt: 0.32,
+  tilt: 0.16,
   /** Damping toward the cursor target; higher = snappier. */
   follow: 0.07,
   /** Extra roll and lateral drift, so the response reads as parallax. */
-  roll: 0.05,
-  shift: 0.12,
+  roll: 0.02,
+  shift: 0.05,
   /** On-screen height of the mark in world units (drives the scale). */
   height: 1.55,
   /** Cap on the mark's width as a fraction of the visible frustum — keeps it
    *  inside the frame on narrow screens where world units alone overflow. */
-  maxWidthFraction: 0.55,
+  maxWidthFraction: 0.9,
   /** Desktop resting position, centred above the copy. */
-  position: [0, 0.7, 0] as [number, number, number],
+  position: [0, 0.55, 0] as [number, number, number],
   /**
    * On narrow screens the frustum is short and the copy sits closer, so the
    * mark is lifted and shrunk to keep clear of it.
    */
   mobile: {
-    position: [0, 0.75, 0] as [number, number, number],
-    height: 1.15,
+    position: [0, 0.5, 0] as [number, number, number],
+    /**
+     * NOTE: on phones the width cap below always wins over `height` (the
+     * frustum is much narrower than it is tall), so THIS is the mobile size
+     * control — `height` is effectively ignored here.
+     */
+    maxWidthFraction: 0.78,
+    height: 1.5,
     /** Below this viewport width (px) the mobile values apply. */
     breakpoint: 640,
   },

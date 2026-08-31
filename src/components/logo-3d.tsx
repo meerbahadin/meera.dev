@@ -67,8 +67,16 @@ function useFraming() {
   return useMemo(
     () =>
       isMobile
-        ? { position: GLASS.mobile.position, height: GLASS.mobile.height }
-        : { position: GLASS.position, height: GLASS.height },
+        ? {
+            position: GLASS.mobile.position,
+            height: GLASS.mobile.height,
+            maxWidthFraction: GLASS.mobile.maxWidthFraction,
+          }
+        : {
+            position: GLASS.position,
+            height: GLASS.height,
+            maxWidthFraction: GLASS.maxWidthFraction,
+          },
     [isMobile]
   )
 }
@@ -78,7 +86,11 @@ function LogoMesh({
   framing,
 }: {
   mouse: React.RefObject<Mouse>
-  framing: { position: [number, number, number]; height: number }
+  framing: {
+    position: [number, number, number]
+    height: number
+    maxWidthFraction: number
+  }
 }) {
   const gltf = useGLTF('/logo.gltf')
   const group = useRef<THREE.Group>(null)
@@ -109,7 +121,7 @@ function LogoMesh({
   // keeps it inside the frame on phones, where the frustum is much narrower.
   const scale = Math.min(
     baseScale,
-    (viewport.width * GLASS.maxWidthFraction) / width
+    (viewport.width * framing.maxWidthFraction) / width
   )
 
   useEffect(() => {

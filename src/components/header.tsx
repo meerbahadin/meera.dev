@@ -24,7 +24,6 @@ const META = [
 
 const INTRO = [
   `Hi, I'm Meer Bahadin — a frontend developer building fast, accessible, high-quality web applications with React, Next.js and TypeScript, and mobile apps with React Native and Expo.`,
-  `I care most about the interactive edge of the craft — smooth motion, WebGL, and interfaces that feel considered.`,
 ]
 
 const CONTENTS = [
@@ -104,7 +103,7 @@ export default function Header() {
         <HeroBackdrop variant={HERO_BACKDROP} />
 
         <div
-          className={`container max-w-3xl flex flex-col pb-8 pt-16 ${
+          className={`container max-w-3xl flex flex-col pb-8 pt-12 sm:pt-16 ${
             compact ? 'min-h-[68svh] justify-end' : 'min-h-svh justify-between'
           }`}
         >
@@ -125,14 +124,14 @@ export default function Header() {
                 Scene occupies the upper half of the hero; the copy sits beneath
                 it, centred on the same axis, so the two read as one column.
               */
-              <div className='flex flex-col items-center text-center min-h-[78svh]'>
+              <div className='flex flex-col items-center text-center min-h-[70svh] sm:min-h-[78svh]'>
                 {/* Reserved space the 3D mark renders into. */}
                 <div
-                  className='w-full flex-1 min-h-[19rem] sm:min-h-[22rem]'
+                  className='w-full flex-1 min-h-[17rem] sm:min-h-[22rem]'
                   aria-hidden='true'
                 />
 
-                <div className='space-y-4 sm:space-y-5 max-w-2xl'>
+                <div className='space-y-3 sm:space-y-5 max-w-2xl'>
                   <div className='space-y-2'>
                     <p className={`label ${dim}`}>
                       frontend & mobile developer · 5+ years
@@ -150,14 +149,36 @@ export default function Header() {
                     ))}
                   </div>
 
-                  <dl className={`grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3 border-t ${hairline} pt-4`}>
-                    {META.map((m) => (
-                      <div key={m.label}>
-                        <dt className={`label ${dim}`}>{m.label}</dt>
-                        <dd className={`text-meta ${body}`}>{m.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
+                  {/*
+                    One inline status line instead of a four-column label/value
+                    table: the same facts, but it reads as a sentence and does
+                    not compete with the name. Wraps naturally on phones.
+                  */}
+                  <div
+                    className={`flex flex-wrap items-center justify-center gap-x-3 gap-y-2 border-t ${hairline} pt-4`}
+                  >
+                    <span className={`label ${dim}`}>React · Next.js · Expo</span>
+                    <span
+                      className={`${dim} select-none hidden sm:inline`}
+                      aria-hidden='true'
+                    >
+                      /
+                    </span>
+                    <span className={`label ${dim}`}>5+ years</span>
+                    <span
+                      className={`${dim} select-none hidden sm:inline`}
+                      aria-hidden='true'
+                    >
+                      /
+                    </span>
+                    <span className='label inline-flex items-center gap-1.5'>
+                      <span className='relative flex size-1.5'>
+                        <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75' />
+                        <span className='relative inline-flex size-1.5 rounded-full bg-emerald-500' />
+                      </span>
+                      <span className={body}>Available for work</span>
+                    </span>
+                  </div>
                 </div>
               </div>
             ) : v === 'terminal' ? (
@@ -294,7 +315,7 @@ export default function Header() {
 
             <div
               className={`flex items-center gap-3 flex-wrap ${
-                v === 'aside' ? 'justify-center pt-6' : ''
+                v === 'aside' ? 'justify-center pt-4 sm:pt-6' : ''
               }`}
             >
               <WorkButton />
