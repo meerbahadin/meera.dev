@@ -90,12 +90,22 @@ export const GLASS = {
   roll: 0.05,
   shift: 0.12,
   /** On-screen height of the mark in world units (drives the scale). */
-  height: 1.35,
+  height: 1.55,
   /** Cap on the mark's width as a fraction of the visible frustum — keeps it
    *  inside the frame on narrow screens where world units alone overflow. */
   maxWidthFraction: 0.55,
-  /** Centred, sitting in the upper half above the copy. */
-  position: [0, 0.95, 0] as [number, number, number],
+  /** Desktop resting position, centred above the copy. */
+  position: [0, 0.7, 0] as [number, number, number],
+  /**
+   * On narrow screens the frustum is short and the copy sits closer, so the
+   * mark is lifted and shrunk to keep clear of it.
+   */
+  mobile: {
+    position: [0, 0.75, 0] as [number, number, number],
+    height: 1.15,
+    /** Below this viewport width (px) the mobile values apply. */
+    breakpoint: 640,
+  },
 
   /**
    * drei HDRI presets — a real environment is what makes glass read as glass,

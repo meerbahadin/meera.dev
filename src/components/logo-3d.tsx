@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useRef, useMemo, useEffect } from 'react'
+import { Suspense, useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { MeshTransmissionMaterial, Environment, useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
@@ -9,7 +9,7 @@ import { GLASS } from '@/constant/header'
 
 type Mouse = { x: number; y: number }
 
-function Glow() {
+function Glow({ position }: { position: [number, number, number] }) {
   const material = useMemo(
     () =>
       new THREE.ShaderMaterial({
@@ -45,7 +45,7 @@ function Glow() {
 
   return (
     <mesh
-      position={[GLASS.position[0], GLASS.position[1], -1.1]}
+      position={[position[0], position[1], -1.1]}
       scale={[GLASS.glowSize, GLASS.glowSize, 1]}
       material={material}
     >
@@ -54,7 +54,32 @@ function Glow() {
   )
 }
 
-function LogoMesh({ mouse }: { mouse: React.RefObject<Mouse> }) {
+/** Framing for the current viewport: mobile is lifted and smaller. */
+function useFraming() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${GLASS.mobile.breakpoint - 1}px)`)
+    const sync = () => setIsMobile(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+  return useMemo(
+    () =>
+      isMobile
+        ? { position: GLASS.mobile.position, height: GLASS.mobile.height }
+        : { position: GLASS.position, height: GLASS.height },
+    [isMobile]
+  )
+}
+
+function LogoMesh({
+  mouse,
+  framing,
+}: {
+  mouse: React.RefObject<Mouse>
+  framing: { position: [number, number, number]; height: number }
+}) {
   const gltf = useGLTF('/logo.gltf')
   const group = useRef<THREE.Group>(null)
   const spin = useRef(0)
@@ -77,8 +102,8 @@ function LogoMesh({ mouse }: { mouse: React.RefObject<Mouse> }) {
     const box = geo.boundingBox
     const h = box ? box.max.y - box.min.y : 1
     const w = box ? box.max.x - box.min.x : 1
-    return { geometry: geo, baseScale: GLASS.height / h, width: w }
-  }, [gltf])
+    return { geometry: geo, baseScale: framing.height / h, width: w }
+  }, [gltf, framing.height])
 
   // Never let the mark exceed a fraction of the visible width — this is what
   // keeps it inside the frame on phones, where the frustum is much narrower.
@@ -93,8 +118,8 @@ function LogoMesh({ mouse }: { mouse: React.RefObject<Mouse> }) {
     ).matches
     // Set once: the JSX `position` prop would be re-applied on every render and
     // snap the mark back mid-lerp (theme change, resize).
-    group.current?.position.set(...GLASS.position)
-  }, [])
+    group.current?.position.set(...framing.position)
+  }, [framing.position])
 
   useFrame((state, delta) => {
     const g = group.current
@@ -117,12 +142,12 @@ function LogoMesh({ mouse }: { mouse: React.RefObject<Mouse> }) {
     g.rotation.z = THREE.MathUtils.lerp(g.rotation.z, -m.x * GLASS.roll, k)
     g.position.x = THREE.MathUtils.lerp(
       g.position.x,
-      GLASS.position[0] + m.x * GLASS.shift,
+      framing.position[0] + m.x * GLASS.shift,
       k
     )
     g.position.y = THREE.MathUtils.lerp(
       g.position.y,
-      GLASS.position[1] +
+      framing.position[1] +
         m.y * GLASS.shift * 0.6 +
         Math.sin(state.clock.elapsedTime * 0.4) * 0.03,
       k
@@ -158,6 +183,7 @@ export default function Logo3D() {
   const { resolvedTheme } = useTheme()
   const mouse = useRef<Mouse>({ x: 0, y: 0 })
   const dark = resolvedTheme !== 'light'
+  const framing = useFraming()
 
   useEffect(() => {
     // Listen on window, not the canvas wrapper: the hero copy paints above the
@@ -198,8 +224,8 @@ export default function Logo3D() {
           <ambientLight intensity={1.2} />
           <directionalLight position={[4, 5, 6]} intensity={3} />
           <directionalLight position={[-5, 2, 3]} intensity={2} color='#8a8cff' />
-          <Glow />
-          <LogoMesh mouse={mouse} />
+          <Glow position={framing.position} />
+          <LogoMesh mouse={mouse} framing={framing} />
           {/*
             A real HDRI is what makes glass look like glass: it gives the
             material a whole environment to refract and reflect. `background`
