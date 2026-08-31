@@ -136,8 +136,8 @@ export const RECENT_WORKS: RecentWork[] = [
     title: 'My Portfolio',
     description:
       'Personal portfolio website showcasing my work and skills in frontend engineering',
-    url: 'https://meera.dev',
-    image: 'https://meera.dev/og.jpg',
+    url: 'https://meerbahadin.dev',
+    image: 'https://meerbahadin.dev/og.jpg',
     github: 'https://github.com/meerbahadin/meera.dev',
     isLive: true,
   },
@@ -152,8 +152,8 @@ export const RECENT_WORKS: RecentWork[] = [
   {
     title: 'GradFlow',
     description: 'An advanced gradient generator built with WebGL and React',
-    url: 'https://gradflow.meera.dev',
-    image: 'https://gradflow.meera.dev/og.jpg',
+    url: 'https://gradflow.meerbahadin.dev',
+    image: 'https://gradflow.meerbahadin.dev/og.jpg',
     github: 'https://github.com/meerbahadin/grad-flow',
     isLive: true,
   },

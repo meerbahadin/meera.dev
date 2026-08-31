@@ -8,7 +8,12 @@ const nextConfig: import('next').NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'meera.dev',
+        hostname: 'meerbahadin.dev',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.meerbahadin.dev',
         pathname: '/**',
       },
       {

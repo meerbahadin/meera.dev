@@ -4,6 +4,31 @@
 @theme {
   --font-family-sans: var(--font-geist-sans);
   --font-family-mono: var(--font-geist-mono);
+
+  /* type scale — technical, tight, monospace-friendly */
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.12em;
+
+  --text-meta: 0.75rem;
+  --text-meta--line-height: 1.5;
+
+  --text-body: 0.875rem;
+  --text-body--line-height: 1.7;
+
+  --text-lead: 1rem;
+  --text-lead--line-height: 1.7;
+
+  --text-title: 1.0625rem;
+  --text-title--line-height: 1.4;
+
+  --text-section: 1.375rem;
+  --text-section--line-height: 1.2;
+  --text-section--letter-spacing: -0.01em;
+
+  --text-display: clamp(1.75rem, 6vw, 2.5rem);
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
 }
 
 @utility container {
@@ -14,7 +39,7 @@
 @utility apply-edge {
   border-inline-start-width: 1px;
   border-inline-end-width: 1px;
-  border-color: theme(colors.default.50);
+  border-color: hsl(var(--meeradev-default-50));
 }
 
 @utility screen-line-before {
@@ -25,7 +50,6 @@
     position: absolute;
     top: 0;
     left: -100vw;
-    z-index: -1;
     height: 1px;
     width: 200vw;
     background-color: hsl(var(--meeradev-default-50));
@@ -40,10 +64,66 @@
     position: absolute;
     bottom: 0;
     left: -100vw;
-    z-index: -1;
     height: 1px;
     width: 200vw;
     background-color: hsl(var(--meeradev-default-50));
+  }
+}
+
+/* uppercase tracked label — section numbers, category names, metadata */
+@utility label {
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+  color: hsl(var(--meeradev-default-500));
+}
+
+/* corner ticks — drafting-table registration marks on a bordered box */
+@utility tick-corners {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border: 1px solid hsl(var(--meeradev-default-300));
+    pointer-events: none;
+  }
+
+  &::before {
+    top: -3px;
+    left: -3px;
+    border-right: 0;
+    border-bottom: 0;
+  }
+
+  &::after {
+    bottom: -3px;
+    right: -3px;
+    border-left: 0;
+    border-top: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Travels exactly one grid cell (48px), so the loop is seamless. */
+@keyframes grid-drift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(48px);
   }
 }
 

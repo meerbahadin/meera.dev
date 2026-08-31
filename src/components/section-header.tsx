@@ -1,15 +1,22 @@
 import React from 'react'
 
 type Props = {
+  index: string
   title: string
   description: string
 }
 
-const SectionHeader = ({ title, description }: Props) => {
+const SectionHeader = ({ index, title, description }: Props) => {
   return (
     <div className='screen-line-before screen-line-after apply-edge px-4'>
-      <p className='text-2xl screen-line-after py-1 capitalize'>{title}</p>
-      <p className='text-zinc-400 text-balance py-1'>{description}</p>
+      <div className='flex items-baseline gap-3 screen-line-after py-2'>
+        <span className='label tabular-nums'>{index}</span>
+        <h2 className='text-section uppercase tracking-tight'>{title}</h2>
+        <span className='h-px flex-1 bg-default-50' aria-hidden='true' />
+      </div>
+      <p className='text-meta text-default-500 text-balance py-2 max-w-prose'>
+        {description}
+      </p>
     </div>
   )
 }

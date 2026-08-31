@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { IconLink, IconBrandGithub } from '@tabler/icons-react'
+import { IconArrowUpRight, IconBrandGithub } from '@tabler/icons-react'
 import { RECENT_WORKS } from '@/constant'
 import SectionHeader from './section-header'
 
@@ -7,68 +7,66 @@ export default function RecentWork() {
   return (
     <section className='container max-w-3xl apply-edge'>
       <SectionHeader
+        index='02'
         title='recent work'
-        description='Showcasing my latest projects and collaborations in web development'
+        description='Selected projects and collaborations.'
       />
 
-      <div className='grid gap-4 md:grid-cols-2 p-4 apply-edge screen-line-after'>
+      <div className='grid md:grid-cols-2 apply-edge screen-line-after'>
         {RECENT_WORKS.map((project, index) => (
-          <div
+          <article
             key={index}
-            className='group relative scree overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm transition-all duration-300 hover:border-zinc-700 hover:bg-zinc-900/70'
+            className='group relative border-default-50 p-4 border-b md:[&:nth-last-child(-n+2)]:border-b-0 md:odd:border-r last:border-b-0'
           >
-            <div className='aspect-video overflow-hidden relative'>
+            <div className='aspect-video overflow-hidden relative border border-default-50 bg-default-100'>
               <Image
                 src={project.image}
                 alt={`${project.title} preview`}
                 fill
-                className='object-cover transition-transform duration-300 group-hover:scale-105'
+                sizes='(min-width: 768px) 50vw, 100vw'
+                className='object-cover transition-transform duration-500 group-hover:scale-[1.03]'
               />
             </div>
 
-            <div className='p-4 space-y-3'>
-              <div className='flex items-center justify-between'>
-                <h3 className='text-lg font-semibold text-white'>
-                  {project.title}
-                </h3>
+            <div className='pt-3 space-y-2'>
+              <div className='flex items-baseline justify-between gap-2'>
+                <h3 className='text-title font-medium'>{project.title}</h3>
                 {project.isLive && (
-                  <div className='flex items-center gap-1.5'>
-                    <div className='h-2 w-2 rounded-full bg-green-500 animate-pulse'></div>
-                    <span className='text-xs text-green-400 font-medium'>
-                      Live
-                    </span>
-                  </div>
+                  <span className='label flex items-center gap-1.5 shrink-0'>
+                    <span className='size-1.5 rounded-full bg-emerald-500' />
+                    live
+                  </span>
                 )}
               </div>
 
-              <p className='text-sm text-zinc-400 line-clamp-2'>
+              <p className='text-meta text-default-500 line-clamp-2'>
                 {project.description}
               </p>
 
-              <div className='flex items-center gap-2 pt-2'>
+              <div className='flex items-center gap-4 pt-1'>
                 <a
                   href={project.url}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-zinc-800 hover:bg-zinc-700 rounded-md transition-colors'
+                  className='label inline-flex items-center gap-1 text-default-600 hover:text-foreground transition-colors'
                 >
-                  <IconLink size={12} />
-                  Visit Site
+                  visit
+                  <IconArrowUpRight size={12} stroke={2} />
                 </a>
                 {project.github && (
                   <a
                     href={project.github}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-zinc-300 hover:text-white border border-zinc-700 hover:border-zinc-600 rounded-md transition-colors'
+                    className='label inline-flex items-center gap-1 text-default-600 hover:text-foreground transition-colors'
                   >
-                    <IconBrandGithub size={12} />
-                    Code
+                    <IconBrandGithub size={12} stroke={2} />
+                    source
                   </a>
                 )}
               </div>
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>

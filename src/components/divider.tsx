@@ -9,25 +9,21 @@ const Divider = (props: Props) => {
   return (
     <div
       className={cn(
-        'h-10 w-full bg-default-50/25 relative text-white my-2 border-t-1 border-b-1 border-default-50',
+        'h-8 w-full relative border-t border-b border-default-50 my-2',
         props.className
       )}
+      aria-hidden='true'
     >
       <div
-        className='absolute inset-0 z-0 pointer-events-none'
+        className='absolute inset-0 z-0 pointer-events-none opacity-60'
         style={{
-          backgroundImage: `
-          repeating-linear-gradient(30deg, 
-          rgba(156, 163, 175, 0.1) 0, 
-          rgba(156, 163, 175, 0.1) 1px, 
-          transparent 1px, 
-          transparent 10px,
-          rgba(156, 163, 175, 0.15) 11px, 
-          rgba(156, 163, 175, 0.15) 12px, 
-          transparent 12px, 
-          transparent 40px
-        )
-      `,
+          backgroundImage: `repeating-linear-gradient(
+            -45deg,
+            hsl(var(--meeradev-default-300) / 0.5) 0,
+            hsl(var(--meeradev-default-300) / 0.5) 1px,
+            transparent 1px,
+            transparent 7px
+          )`,
         }}
       />
     </div>

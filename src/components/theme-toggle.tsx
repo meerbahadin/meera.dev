@@ -14,17 +14,19 @@ export function ThemeToggle() {
   }, [])
 
   if (!mounted) {
-    return null
+    return <div className='size-8' aria-hidden='true' />
   }
 
   return (
     <Button
       isIconOnly
+      size='sm'
+      radius='none'
       variant='light'
       aria-label='Toggle theme'
       onPress={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
     >
-      {theme === 'dark' ? <IconSun size={20} /> : <IconMoon size={20} />}
+      {theme === 'dark' ? <IconSun size={16} /> : <IconMoon size={16} />}
     </Button>
   )
 }

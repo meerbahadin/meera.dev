@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { Tooltip } from '@heroui/tooltip'
+import { cn } from '@heroui/theme'
 import SectionHeader from './section-header'
 
 const imageLoader = ({ src }: { src: string }) => {
@@ -13,6 +14,8 @@ interface TechItem {
   icon: string
   category: 'frontend' | 'backend' | 'mobile' | 'database' | 'tools' | 'design'
   isLocal?: boolean
+  /** Single-colour logo: rendered dark on light, inverted to white on dark. */
+  mono?: boolean
 }
 
 const techStack: TechItem[] = [
@@ -21,10 +24,10 @@ const techStack: TechItem[] = [
   { name: 'TypeScript', icon: 'typescript', category: 'frontend' },
   { name: 'React', icon: 'react', category: 'frontend' },
   { name: 'Vite', icon: 'vite', category: 'frontend' },
-  { name: 'SWR', icon: 'swr/white', category: 'frontend' },
+  { name: 'SWR', icon: 'swr', mono: true, category: 'frontend' },
   { name: 'React Query', icon: 'reactquery', category: 'frontend' },
-  { name: 'Next.js', icon: 'next.js/white', category: 'frontend' },
-  { name: 'Remix', icon: 'remix/white', category: 'frontend' },
+  { name: 'Next.js', icon: 'next.js', mono: true, category: 'frontend' },
+  { name: 'Remix', icon: 'remix', mono: true, category: 'frontend' },
   { name: 'React Router', icon: 'reactrouter', category: 'frontend' },
   {
     name: 'Motion',
@@ -34,33 +37,33 @@ const techStack: TechItem[] = [
   },
   { name: 'Redux', icon: 'redux', category: 'frontend' },
   { name: 'Tailwind CSS', icon: 'tailwindcss', category: 'frontend' },
-  { name: 'shadcn/ui', icon: 'shadcnui/white', category: 'frontend' },
-  { name: 'HeroUI', icon: 'heroui/white', category: 'frontend' },
-  { name: 'Chakra UI', icon: 'chakraui/white', category: 'frontend' },
+  { name: 'shadcn/ui', icon: 'shadcnui', mono: true, category: 'frontend' },
+  { name: 'HeroUI', icon: 'heroui', mono: true, category: 'frontend' },
+  { name: 'Chakra UI', icon: 'chakraui', mono: true, category: 'frontend' },
   { name: 'WebGL', icon: 'webgl', category: 'frontend' },
 
   // Mobile
-  { name: 'Expo', icon: 'expo/white', category: 'mobile' },
+  { name: 'Expo', icon: 'expo', mono: true, category: 'mobile' },
   { name: 'Supabase', icon: 'supabase', category: 'mobile' },
   { name: 'Firebase', icon: 'firebase', category: 'mobile' },
 
   // Backend
   { name: 'Node.js', icon: 'node.js', category: 'backend' },
   { name: 'Go', icon: 'go', category: 'backend' },
-  { name: 'Socket.io', icon: 'socket.io/white', category: 'backend' },
-  { name: 'Bun', icon: 'bun/white', category: 'backend' },
+  { name: 'Socket.io', icon: 'socket.io', mono: true, category: 'backend' },
+  { name: 'Bun', icon: 'bun', mono: true, category: 'backend' },
 
   // Database
   { name: 'MongoDB', icon: 'mongodb', category: 'database' },
-  { name: 'Mysql', icon: 'mysql/white', category: 'database' },
+  { name: 'Mysql', icon: 'mysql', mono: true, category: 'database' },
   { name: 'Redis', icon: 'redis', category: 'database' },
 
   // Tools
   { name: 'Cypress', icon: 'cypress', category: 'tools' },
   { name: 'Storybook', icon: 'storybook', category: 'tools' },
-  { name: 'Vercel', icon: 'vercel/white', category: 'tools' },
+  { name: 'Vercel', icon: 'vercel', mono: true, category: 'tools' },
   { name: 'Git', icon: 'git', category: 'tools' },
-  { name: 'GitHub', icon: 'github/white', category: 'tools' },
+  { name: 'GitHub', icon: 'github', mono: true, category: 'tools' },
   { name: 'Docker', icon: 'docker', category: 'tools' },
 
   // Design
@@ -76,15 +79,6 @@ const categoryLabels = {
   design: 'Design',
 }
 
-const categoryColors = {
-  frontend: 'bg-blue-500/10 text-blue-400',
-  backend: 'bg-green-500/10 text-green-400',
-  mobile: 'bg-purple-500/10 text-purple-400',
-  database: 'bg-orange-500/10 text-orange-400',
-  tools: 'bg-gray-500/10 text-gray-400',
-  design: 'bg-pink-500/10 text-pink-400',
-}
-
 const Stack = () => {
   // Group technologies by category
   const groupedTech = techStack.reduce((acc, tech) => {
@@ -98,35 +92,38 @@ const Stack = () => {
   return (
     <section className='container max-w-3xl apply-edge'>
       <SectionHeader
+        index='03'
         title='tech stack'
-        description='Technologies and tools I use to build modern, scalable applications'
+        description='Technologies and tools I build with.'
       />
 
       <div className='screen-line-after p-4 apply-edge'>
-        <div className='space-y-8'>
+        <div className='space-y-7'>
           {Object.entries(groupedTech).map(([category, techs]) => (
             <div key={category} className='space-y-4'>
               {/* Category Header */}
               <div className='flex items-center gap-3'>
-                <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    categoryColors[category as keyof typeof categoryColors]
-                  }`}
-                >
+                <span className='label'>
                   {categoryLabels[category as keyof typeof categoryLabels]}
                 </span>
-                <div className='h-px flex-1 bg-gradient-to-r from-zinc-800 to-transparent' />
+                <div className='h-px flex-1 bg-default-50' />
+                <span className='label tabular-nums'>
+                  {String(techs.length).padStart(2, '0')}
+                </span>
               </div>
 
-              <div className='flex gap-4 flex-wrap'>
+              <div className='flex gap-2 flex-wrap'>
                 {techs.map((tech) => (
                   <Tooltip showArrow content={tech.name} key={tech.name}>
-                    <div className='flex items-center justify-center w-12 h-12 rounded-lg  outline-1 outline-offset-1 outline-zinc-800 bg-gradient-to-br from-zinc-900 via-transparent to-zinc-900/60'>
+                    <div className='flex items-center justify-center size-11 border border-default-50 bg-default-100/40 transition-colors hover:border-default-300 hover:bg-default-100'>
                       <Image
                         alt={tech.name}
                         height={20}
                         width={20}
-                        className='transition-transform'
+                        className={cn('transition-transform', {
+                          'dark:invert': tech.mono,
+                          'invert dark:invert-0': tech.isLocal,
+                        })}
                         {...(tech.isLocal
                           ? { src: tech.icon }
                           : { loader: imageLoader, src: tech.icon })}

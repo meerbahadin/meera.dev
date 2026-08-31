@@ -8,47 +8,67 @@ import {
 } from '@tabler/icons-react'
 import SectionHeader from './section-header'
 
+const SERVICES = [
+  'Frontend architecture with React, Next.js and TypeScript',
+  'Interactive animation and WebGL experiences',
+  'Performance, accessibility and SEO work on existing apps',
+  'React Native apps for iOS and Android',
+]
+
 export default function LetsWorkTogether() {
   return (
     <section className='container max-w-3xl apply-edge'>
       <SectionHeader
+        index='04'
         title="let's work together"
-        description={`Ready to bring your ideas to life? I'm available for freelance projects and opportunities`}
+        description='Available for freelance projects and select full-time roles.'
       />
 
       <div className='p-4 apply-edge screen-line-after'>
-        <div className='bg-gradient-to-br outline-1 outline-default-50 p-6 rounded-2xl relative overflow-hidden isolate'>
-          <div className='space-y-6'>
-            <div className='space-y-4'>
-              <h3 className='text-xl font-semibold text-white'>
-                Have a project in mind?
-              </h3>
-              <p className='text-zinc-300 leading-relaxed max-w-2xl'>
-                {`I'm always excited to work on interesting projects and collaborate with talented teams.
-              Whether you need a complete web application, want to improve your existing frontend,
-              or need help with performance optimization, I'd love to hear from you.`}
-              </p>
-            </div>
+        <div className='grid gap-6 md:grid-cols-[1fr_auto] md:items-start'>
+          <div className='space-y-4 max-w-prose'>
+            <p className='text-lead text-default-600'>
+              {`I'm always interested in hearing about projects that need careful frontend work — whether that's a new application, an existing one that needs to feel faster, or something more experimental.`}
+            </p>
 
-            <div className='flex gap-2 items-center'>
-              <Button
-                as='a'
-                href='mailto:meerbahadin@gmail.com'
-                color='primary'
-                startContent={<IconMail size={20} />}
-              >
-                Get in touch
-              </Button>
+            <ul className='space-y-1.5'>
+              {SERVICES.map((service) => (
+                <li key={service} className='grid grid-cols-[1ch_1fr] gap-x-3'>
+                  <span
+                    className='text-default-400 select-none'
+                    aria-hidden='true'
+                  >
+                    —
+                  </span>
+                  <span className='text-body text-default-600'>{service}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
+          <div className='flex gap-2 items-center md:flex-col md:items-stretch'>
+            <Button
+              as='a'
+              href='mailto:meerbahadin10@gmail.com'
+              color='primary'
+              radius='none'
+              startContent={<IconMail size={18} />}
+            >
+              Get in touch
+            </Button>
+
+            <div className='flex gap-2'>
               <Button
                 as='a'
                 href='https://github.com/meerbahadin'
                 target='_blank'
                 rel='noopener noreferrer'
+                variant='bordered'
+                radius='none'
                 isIconOnly
                 aria-label='GitHub profile'
               >
-                <IconBrandGithub size={20} />
+                <IconBrandGithub size={18} />
               </Button>
 
               <Button
@@ -56,73 +76,18 @@ export default function LetsWorkTogether() {
                 href='https://linkedin.com/in/meerbahadin'
                 target='_blank'
                 rel='noopener noreferrer'
+                variant='bordered'
+                radius='none'
                 isIconOnly
                 aria-label='LinkedIn profile'
               >
-                <IconBrandLinkedin size={20} />
+                <IconBrandLinkedin size={18} />
               </Button>
             </div>
           </div>
-
-          <div className='grid gap-6 pt-8'>
-            <div className='space-y-2'>
-              <h4 className='font-semibold text-white'>
-                What I can help with:
-              </h4>
-              <ul className='space-y-2 text-sm text-zinc-300'>
-                <li className='flex items-center gap-2'>
-                  <span className='text-blue-400'>•</span>
-                  Frontend development with React, Next.js, and TypeScript
-                </li>
-                <li className='flex items-center gap-2'>
-                  <span className='text-blue-400'>•</span>
-                  Performance optimization and SEO improvements
-                </li>
-                <li className='flex items-center gap-2'>
-                  <span className='text-blue-400'>•</span>
-                  Interactive animations and WebGL experiences
-                </li>
-                <li className='flex items-center gap-2'>
-                  <span className='text-blue-400'>•</span>
-                  Mobile-first responsive design
-                </li>
-              </ul>
-            </div>
-
-            <div className='space-y-2'>
-              <h4 className='font-semibold text-white'>Project types:</h4>
-              <ul className='space-y-2 text-sm text-zinc-300'>
-                <li className='flex items-center gap-2'>
-                  <span className='text-green-400'>•</span>
-                  Web applications and PWAs
-                </li>
-                <li className='flex items-center gap-2'>
-                  <span className='text-green-400'>•</span>
-                  Portfolio and marketing websites
-                </li>
-                <li className='flex items-center gap-2'>
-                  <span className='text-green-400'>•</span>
-                  E-commerce platforms
-                </li>
-                <li className='flex items-center gap-2'>
-                  <span className='text-green-400'>•</span>
-                  Dashboard and admin interfaces
-                </li>
-
-                <li className='flex items-center gap-2'>
-                  <span className='text-green-400'>•</span>
-                  Mobile App (iOS & Android) using React Native
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className='text-center pt-6'>
-            <p className='text-xs text-zinc-400 text-balance'>
-              Typically respond within 24 hours.
-            </p>
-          </div>
         </div>
+
+        <p className='label pt-6'>Typically responds within 24 hours</p>
       </div>
     </section>
   )
