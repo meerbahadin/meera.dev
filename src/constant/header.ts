@@ -121,6 +121,17 @@ export const GLASS = {
   envDark: 'studio' as const,
   envLight: 'park' as const,
   envIntensity: 3.2,
+  /** PMREM size for the environment. Low-roughness glass only ever samples the
+   *  sharpest mip, so anything above this is built and stored for nothing. */
+  envResolution: 128,
+  /**
+   * Frame cap for the whole scene. THIS is the primary GPU dial — on a 120Hz
+   * ProMotion display an uncapped loop does twice the work of this for motion
+   * almost nobody can see on a slow, drifting mark. Lower it before touching
+   * `samples`, `resolution`, or `maxDpr`, all of which cost image quality.
+   */
+  fps: 60,
+
   /** Rate of the mark's continuous yaw, which travels the reflections. */
   envSpin: 0.35,
   /** Amplitude of that yaw, in radians. */
@@ -141,7 +152,20 @@ export const GLASS = {
   temporalDistortion: 0,
   backside: false,
 
-  /** Cost dials: more samples = cleaner refraction, more frame time. */
+  /** Cost dials: more samples = cleaner refraction, more frame time.
+   *  The transmission pass re-renders the scene into a `resolution`² buffer and
+   *  blurs it with `samples` taps per fragment, so these two are multiplicative
+   *  and dominate the cost of a SINGLE frame.
+   *
+   *  They are back at full quality on purpose: `fps` caps how many frames are
+   *  drawn at all, which on a high-refresh display saves far more than these
+   *  ever did. Cap the RATE first; only then trade away quality. */
   samples: 10,
   resolution: 1024,
+
+  /** Device-pixel-ratio cap for the canvas. This governs how clean the mark's
+   *  SILHOUETTE is: the transmission blur hides interior detail, but the
+   *  outline is a hard edge against the page. Kept at full 2 — capping `fps`
+   *  bought back the headroom, and this is what stops the edge crawling. */
+  maxDpr: 2,
 } as const

@@ -43,11 +43,16 @@ function Glow({ position }: { position: [number, number, number] }) {
     []
   )
 
+  // The glow is static: it never animates, so let it render into the
+  // transmission buffer without also being re-uploaded each frame.
+  useEffect(() => () => material.dispose(), [material])
+
   return (
     <mesh
       position={[position[0], position[1], -1.1]}
       scale={[GLASS.glowSize, GLASS.glowSize, 1]}
       material={material}
+      frustumCulled={false}
     >
       <planeGeometry args={[1, 1]} />
     </mesh>
@@ -79,6 +84,49 @@ function useFraming() {
           },
     [isMobile]
   )
+}
+
+/**
+ * True only while the canvas is actually on screen AND the tab is foregrounded.
+ * The transmission pass is the most expensive thing on the page, so rendering
+ * it for a hero the user has scrolled past is pure waste — this is the single
+ * biggest saving here, because the hero leaves the viewport almost immediately.
+ */
+function useIsVisible(ref: React.RefObject<HTMLElement | null>) {
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    let onScreen = true
+    let focused = !document.hidden
+    const sync = () => setVisible(onScreen && focused)
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        onScreen = entry.isIntersecting
+        sync()
+      },
+      // A small margin keeps it running just off-screen so scrolling back up
+      // never catches a stalled frame.
+      { rootMargin: '100px' }
+    )
+    io.observe(el)
+
+    const onVis = () => {
+      focused = !document.hidden
+      sync()
+    }
+    document.addEventListener('visibilitychange', onVis)
+
+    return () => {
+      io.disconnect()
+      document.removeEventListener('visibilitychange', onVis)
+    }
+  }, [ref])
+
+  return visible
 }
 
 function LogoMesh({
@@ -191,11 +239,84 @@ function LogoMesh({
   )
 }
 
+/**
+ * Drives the render loop at a FIXED cap instead of letting it run free.
+ *
+ * This is the dial that actually governs GPU load. On a ProMotion Mac the
+ * display refreshes at 120Hz, so an uncapped loop renders 120 transmission
+ * passes a second and will happily consume whatever headroom you free up —
+ * which is why making each frame cheaper did not lower GPU usage. Capping the
+ * RATE is the only change here that reduces total work rather than
+ * redistributing it.
+ *
+ * The canvas runs on 'demand' and we invalidate on a throttled rAF, which
+ * gives an exact cap. A parked canvas still gets the couple of frames it needs
+ * to paint the mark at rest.
+ */
+function RenderLoop({ parked, fps }: { parked: boolean; fps: number }) {
+  const invalidate = useThree((s) => s.invalidate)
+  const size = useThree((s) => s.size)
+
+  useEffect(() => {
+    if (parked) {
+      // Two frames: the first fills the transmission FBO, the second
+      // composites the mark against it.
+      invalidate()
+      const id = requestAnimationFrame(() => invalidate())
+      return () => cancelAnimationFrame(id)
+    }
+
+    const interval = 1000 / fps
+    let last = -Infinity
+    let id = 0
+
+    // Opt-in probe: run `localStorage.logo3dfps = 1` in the console and reload
+    // to have the ACTUAL achieved render rate logged once a second. This is the
+    // number that matters on a high-refresh display — GPU load tracks it far
+    // more closely than any of the quality dials.
+    const probe =
+      typeof localStorage !== 'undefined' && !!localStorage.getItem('logo3dfps')
+    let drawn = 0
+    let windowStart = performance.now()
+
+    const tick = (now: number) => {
+      id = requestAnimationFrame(tick)
+      if (now - last < interval) return
+      last = now
+      invalidate()
+
+      if (!probe) return
+      drawn++
+      if (now - windowStart >= 1000) {
+        console.log(`[logo3d] rendered ${drawn} fps (cap ${fps})`)
+        drawn = 0
+        windowStart = now
+      }
+    }
+    id = requestAnimationFrame(tick)
+
+    return () => cancelAnimationFrame(id)
+  }, [parked, fps, invalidate, size.width, size.height])
+
+  return null
+}
+
 export default function Logo3D() {
   const { resolvedTheme } = useTheme()
   const mouse = useRef<Mouse>({ x: 0, y: 0 })
   const dark = resolvedTheme !== 'light'
   const framing = useFraming()
+  const wrapper = useRef<HTMLDivElement>(null)
+  const visible = useIsVisible(wrapper)
+  const [reduceMotion, setReduceMotion] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const sync = () => setReduceMotion(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
 
   useEffect(() => {
     // Listen on window, not the canvas wrapper: the hero copy paints above the
@@ -216,19 +337,45 @@ export default function Logo3D() {
   }, [])
 
   return (
-    <div className='absolute inset-0 -z-10 h-full w-full mask-b-from-80% animate-[fade-in_800ms_ease-out_both]'>
+    <div
+      ref={wrapper}
+      className='absolute inset-0 -z-10 h-full w-full mask-b-from-80% animate-[fade-in_800ms_ease-out_both]'
+    >
       <Canvas
         style={{ width: '100%', height: '100%' }}
-        gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
-        dpr={[1, 2]}
+        // MSAA stays ON. The transmission blur only softens what is INSIDE the
+        // mark — its silhouette is a hard edge against the page with nothing
+        // behind it, so without MSAA the stair-steps crawl visibly as it turns.
+        // It is also the cheap half of the budget here: MSAA costs only at
+        // edges, and this scene is one small shape.
+        gl={{
+          alpha: true,
+          antialias: true,
+          powerPreference: 'high-performance',
+        }}
+        // Capped just below 2: see GLASS.maxDpr. Trades a little fragment cost
+        // back for a clean silhouette — this and `antialias` are what keep the
+        // moving edge from crawling.
+        dpr={[1, GLASS.maxDpr]}
+        // Always 'demand': RenderLoop supplies frames at a fixed cap, and stops
+        // supplying them when scrolled away, backgrounded, or under reduced
+        // motion. 'always' would hand pacing back to the display's refresh rate.
+        frameloop='demand'
         camera={{ position: [0, 0, 5], fov: 45 }}
       >
         {/* Own boundary: a preset swap on theme change re-suspends, and a
             shared boundary would blank the mark until the HDRI downloads. */}
         <Suspense fallback={null}>
+          {/* `resolution` caps the PMREM the preset HDRI is convolved into.
+              The default is far larger than a smooth, low-roughness glass
+              material can show — at roughness 0.02 the mark samples only the
+              sharpest mip, so the extra levels are built and sampled for
+              nothing. 128 is plenty and cuts both the one-off convolution and
+              the per-frame lookup cost. */}
           <Environment
             preset={dark ? GLASS.envDark : GLASS.envLight}
             background={false}
+            resolution={GLASS.envResolution}
             environmentIntensity={GLASS.envIntensity}
           />
         </Suspense>
@@ -238,6 +385,7 @@ export default function Logo3D() {
           <directionalLight position={[-5, 2, 3]} intensity={2} color='#8a8cff' />
           <Glow position={framing.position} />
           <LogoMesh mouse={mouse} framing={framing} />
+          <RenderLoop parked={!visible || reduceMotion} fps={GLASS.fps} />
           {/*
             A real HDRI is what makes glass look like glass: it gives the
             material a whole environment to refract and reflect. `background`
