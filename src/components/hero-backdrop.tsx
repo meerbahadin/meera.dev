@@ -2,12 +2,9 @@
 
 import { useEffect, useRef } from 'react'
 import { useTheme } from 'next-themes'
-import dynamic from 'next/dynamic'
 import Silk from './silk'
+import LogoMark from './logo-mark'
 import { SILK_CONFIG, GRID_SPOTLIGHT, type HeroBackdrop } from '@/constant/header'
-
-// three/R3F is ~180KB: keep it out of the initial bundle and off the server.
-const Logo3D = dynamic(() => import('./logo-3d'), { ssr: false })
 
 /**
  * 48px cells: the max-w-3xl content column is 768px, so exactly 16 cells span it.
@@ -137,14 +134,14 @@ export default function HeroBackdrop({ variant }: { variant: HeroBackdrop }) {
   }
 
   if (variant === 'logo') {
-    // The mark composes over the grid: the paper gives the glass something to
-    // refract, and the two together read as one system.
+    // The mark is an SVG figure drawn on the grid: the paper is its drafting
+    // surface and the guidelines tie the two together as one drawing.
     return (
       <>
         <div className='absolute inset-0 -z-20'>
           <InteractiveGrid />
         </div>
-        <Logo3D />
+        <LogoMark />
       </>
     )
   }

@@ -131,3 +131,185 @@
 @plugin './hero.ts';
 @source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @variant dark (&:is(.dark *));
+
+/* ---------------------------------------------------------------------------
+   HERO MARK — the SVG figure that replaced the WebGL scene.
+
+   All colour is driven by the theme tokens so the drawing follows light/dark
+   without a JS theme read, and every animation is wrapped in a reduced-motion
+   guard: with motion off the figure still renders complete and legible, it just
+   arrives without the drawing-in.
+--------------------------------------------------------------------------- */
+
+.logo-mark {
+  /* Pointer parallax, written by useParallax. Defaults keep the mark centred
+     before the first pointer event and on touch devices, where it never moves. */
+  --px: 0;
+  --py: 0;
+}
+
+/* The plate carries the parallax so guidelines and mark move as one drawing. */
+.logo-mark .mk-plate {
+  transform: translate(calc(var(--px) * 5px), calc(var(--py) * 3.5px));
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* --- palette ------------------------------------------------------------ */
+
+/* One flat, neutral value — no hue at all. The sheet is a near-monochrome zinc
+   ramp, so the mark reads as ink on paper: near-white on the dark ground,
+   near-black on the light one. Colour on the page is left to the two places
+   that earn it, the status dots and the verified badge.
+
+   Held as three identical stops so the mark's colour is one value to edit, and
+   a ramp can be reinstated later by changing the stops alone. */
+.logo-mark { --mark: #fafafa; }
+:root:not(.dark) .logo-mark { --mark: #18181b; }
+
+.logo-mark .mk-a,
+.logo-mark .mk-b,
+.logo-mark .mk-c { stop-color: var(--mark); }
+
+/* The bloom is neutral too, and dialled well back: it exists to lift the mark
+   off the ground, not to tint it. */
+.logo-mark .mk-bloom-in { stop-color: #ffffff; stop-opacity: 0.10; }
+.logo-mark .mk-bloom-out { stop-color: #ffffff; stop-opacity: 0; }
+
+:root:not(.dark) .logo-mark .mk-bloom-in { stop-color: #18181b; stop-opacity: 0.07; }
+:root:not(.dark) .logo-mark .mk-bloom-out { stop-color: #18181b; }
+
+/* Guidelines are drawn with explicit ink rather than the default-* ramp: at
+   these weights the ramp's dark end (#3f3f46 on #09090b) is invisible, so the
+   drawing needs its own values that hold up as hairlines in both themes. */
+.logo-mark {
+  --ink-rule: rgb(255 255 255 / 0.07);
+  --ink-line: rgb(255 255 255 / 0.20);
+  --ink-mark: rgb(255 255 255 / 0.34);
+  --ink-text: rgb(255 255 255 / 0.40);
+}
+
+:root:not(.dark) .logo-mark {
+  --ink-rule: rgb(0 0 0 / 0.06);
+  --ink-line: rgb(0 0 0 / 0.24);
+  --ink-mark: rgb(0 0 0 / 0.40);
+  --ink-text: rgb(0 0 0 / 0.48);
+}
+
+.logo-mark .mk-rule { stroke: var(--ink-rule); }
+.logo-mark .mk-box,
+.logo-mark .mk-dim line { stroke: var(--ink-line); }
+.logo-mark .mk-tick line { stroke: var(--ink-mark); stroke-width: 1.2; }
+.logo-mark .mk-solid { fill: var(--ink-mark); stroke: none; }
+
+.logo-mark .mk-label {
+  fill: var(--ink-text);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 7px;
+  letter-spacing: 0.08em;
+}
+
+/* --- entrance ----------------------------------------------------------- */
+
+/* Guidelines fade up first, then the mark draws over them — the order a plan
+   is actually drafted in. Held at opacity 0 until [data-ready] so the sequence
+   cannot be partway through when hydration lands. */
+.logo-mark .mk-guides,
+.logo-mark .mk-label,
+.logo-mark .mk-bloom-el { opacity: 0; }
+
+.logo-mark[data-ready] .mk-guides { animation: mk-ink 700ms ease-out both; }
+.logo-mark[data-ready] .mk-label { animation: mk-ink 700ms ease-out 260ms both; }
+.logo-mark[data-ready] .mk-bloom-el { animation: mk-bloom-in 1.4s ease-out 200ms both; }
+
+@keyframes mk-ink {
+  from { opacity: 0; }
+  to { opacity: 0.9; }
+}
+
+@keyframes mk-bloom-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* The mark is pure linework — no fill. Two passes per path:
+     .mk-ghost  a constant faint outline — the silhouette is never invisible
+     .mk-path   the animated stroke that draws the shape on
+
+   The paths carry pathLength={100}, so the dash values below are in percent of
+   each path regardless of its real length — 100 draws exactly end to end. */
+.logo-mark .mk-ghost {
+  fill: none;
+  stroke: var(--mark);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+.logo-mark .mk-path {
+  fill: none;
+  stroke: var(--mark);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+}
+
+.logo-mark[data-ready] .mk-ghost {
+  animation: mk-ghost-in 700ms ease-out 500ms both;
+}
+
+/* The draw itself. Slow and eased so the stroke reads as a pen travelling the
+   outline rather than a wipe. */
+.logo-mark[data-ready] .mk-path {
+  animation: mk-stroke 1600ms cubic-bezier(0.65, 0, 0.35, 1) 420ms both;
+}
+
+@keyframes mk-stroke {
+  from { stroke-dashoffset: 100; opacity: 1; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes mk-ghost-in {
+  from { opacity: 0; }
+  to { opacity: 0.28; }
+}
+
+/* --- ambient motion ----------------------------------------------------- */
+
+/* The bloom breathes so the figure is never entirely static. */
+.logo-mark[data-ready] .mk-bloom-el {
+  animation:
+    mk-bloom-in 1.4s ease-out 200ms both,
+    mk-breathe 7s ease-in-out 1.6s infinite;
+}
+
+@keyframes mk-breathe {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+/* Light mode holds the bloom still. On the white sheet the ground has no depth
+   for it to lift the mark off, so the breathing reads as flicker rather than
+   atmosphere. The entrance and the pointer parallax still run. */
+:root:not(.dark) .logo-mark[data-ready] .mk-bloom-el {
+  animation: mk-bloom-in 1.4s ease-out 200ms both;
+}
+
+/* Reduced motion: keep the drawing, drop the movement. Everything resolves to
+   its final state immediately — nothing loops, nothing translates. */
+@media (prefers-reduced-motion: reduce) {
+  .logo-mark .mk-guides,
+  .logo-mark .mk-label { opacity: 0.9; }
+  .logo-mark .mk-bloom-el { opacity: 1; }
+  .logo-mark .mk-path { opacity: 1; stroke-dashoffset: 0; }
+  .logo-mark .mk-ghost { opacity: 0.28; }
+
+  .logo-mark[data-ready] .mk-guides,
+  .logo-mark[data-ready] .mk-label,
+  .logo-mark[data-ready] .mk-bloom-el,
+  .logo-mark[data-ready] .mk-path,
+  .logo-mark[data-ready] .mk-ghost,
+  .logo-mark .mk-plate { animation: none; transition: none; transform: none; }
+}
