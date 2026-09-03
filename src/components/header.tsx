@@ -152,10 +152,23 @@ export default function Header() {
             caption in the corner. border-x gives the column its continuous
             vertical rails.
           */}
-          <section className='relative border-x border-b rule-line'>
+          <section className='relative border-x border-b border-default-50'>
+            {/*
+              Inline rather than a custom @utility: a project-defined utility
+              did not survive the production build on Vercel, which silently
+              left these rules at Tailwind's default (near-white) colour. The
+              `currentColor` trick keeps the grid tied to the theme without
+              needing a generated class.
+            */}
             <div
-              className='absolute inset-0 blueprint-grid opacity-60'
+              className='absolute inset-0 opacity-60 text-default-50'
               aria-hidden='true'
+              style={{
+                backgroundImage:
+                  'linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)',
+                backgroundSize: '68px 68px',
+                backgroundPosition: 'center',
+              }}
             />
 
             {/* The scene renders into this box — short, because the mark is a
@@ -181,8 +194,8 @@ export default function Header() {
             rows — the avatar's cell is taller than the two text rows, which is
             what gives the block its stepped silhouette in the reference.
           */}
-          <section className='grid grid-cols-[auto_1fr] border-x rule-line'>
-            <div className='border-r rule-line p-3 sm:p-4 flex items-end'>
+          <section className='grid grid-cols-[auto_1fr] border-x border-default-50'>
+            <div className='border-r border-default-50 p-3 sm:p-4 flex items-end'>
               <div className='relative size-20 sm:size-[6.5rem] overflow-hidden rounded-full border border-default-50 bg-default-100'>
                 <Image
                   src={PROFILE.avatar}
@@ -200,7 +213,7 @@ export default function Header() {
             </div>
 
             <div className='grid grid-rows-[1fr_auto] min-w-0'>
-              <div className='flex items-center gap-2 border-b rule-line px-4 sm:px-6 pb-2 pt-6'>
+              <div className='flex items-center gap-2 border-b border-default-50 px-4 sm:px-6 pb-2 pt-6'>
                 <h1 className='font-sans text-display font-semibold tracking-tight truncate'>
                   {PROFILE.name}
                 </h1>
@@ -226,7 +239,7 @@ export default function Header() {
             THE DATA BLOCK. Two columns of labelled facts — the densest part of
             the sheet, and the reason it reads as a spec rather than a bio.
           */}
-          <section className='border-x border-b rule-line'>
+          <section className='border-x border-b border-default-50'>
             <div className='grid gap-x-10 gap-y-4 p-4 sm:p-6 sm:grid-cols-2'>
               {SPEC_ROWS.map((row, i) => (
                 <SpecItem key={i} row={row} time={time} />
@@ -235,7 +248,7 @@ export default function Header() {
           </section>
 
           {/* THE FOOTER STRIP: social plates, then the way into the page. */}
-          <section className='flex flex-wrap items-center justify-between gap-4 p-4 sm:px-6 border-x rule-line'>
+          <section className='flex flex-wrap items-center justify-between gap-4 p-4 sm:px-6 border-x border-default-50'>
             <ul className='flex items-center gap-2'>
               {SOCIALS.map((s) => {
                 const Icon = SOCIAL_ICONS[s.icon]
