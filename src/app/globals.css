@@ -109,34 +109,6 @@
   }
 }
 
-/* ── Spec-sheet hero ──────────────────────────────────────────────────────
-   A technical-drawing vocabulary for the header. The defining trick: rules and
-   hatching BLEED to the full viewport while the content stays in the 768px
-   column, so the page reads as a drawing sheet the column is laid on top of. */
-
-/* The construction grid the mark is drawn on — faint graph paper, never a
-   table. Sized so the cells stay square and centred on the figure. */
-@utility blueprint-grid {
-  background-image:
-    linear-gradient(
-      to right,
-      hsl(var(--meeradev-default-50)) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      hsl(var(--meeradev-default-50)) 1px,
-      transparent 1px
-    );
-  background-size: 68px 68px;
-  background-position: center;
-}
-
-/* Hairline rules between spec rows and around cells. */
-@utility rule-line {
-  border-color: hsl(var(--meeradev-default-50));
-}
-
 @keyframes fade-in {
   from {
     opacity: 0;
