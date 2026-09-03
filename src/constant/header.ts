@@ -23,31 +23,10 @@ export type HeroBackdrop =
   | 'rule'
   | 'none'
 
-/**
- *  'split'    — intro beside a ROLE/EXP/STACK/STATUS metadata column
- *  'stacked'  — name and intro stacked, left aligned, full height
- *  'compact'  — shorter hero so the first section peeks above the fold
- *  'terminal' — framed as a shell session: prompt, typed command, output
- *  'index'    — a numbered contents table; the hero IS the table of contents
- *  'marquee'  — oversized name spanning the full viewport width, data below
- *  'card'     — everything inside one bordered box with corner registration ticks
- *  'aside'    — text column beside the 3D mark, sharing one grid (for 'logo')
- */
-export type HeaderVariant =
-  | 'split'
-  | 'stacked'
-  | 'compact'
-  | 'terminal'
-  | 'index'
-  | 'marquee'
-  | 'card'
-  | 'aside'
-
 export const HERO_BACKDROP: HeroBackdrop = 'logo'
 
 /** Radius in px of the cursor spotlight on the interactive grid. */
 export const GRID_SPOTLIGHT = 260
-export const HEADER_VARIANT: HeaderVariant = 'aside'
 
 /**
  * Silk shader palette, per theme — only used when HERO_BACKDROP is 'shader'.
@@ -82,32 +61,63 @@ export const SILK_CONFIG: Record<
  * transmission pass re-renders the scene into a buffer every frame.
  */
 export const GLASS = {
+  /** Resting rotation, in radians [x, y, z] — the pose the mark settles back to
+   *  when the cursor leaves. Square to the camera: the glow and the ribbons
+   *  behind it now carry the depth, so the mark does not need a turn to read as
+   *  dimensional. */
+  restRotation: [0, 0, 0] as [number, number, number],
+  /**
+   * Motion. These are tuned for the SMALL figure cell — the mark is ~300px in
+   * a bordered box now, so the lateral dials that read as gentle parallax at
+   * full-viewport size would slide it out of its frame. Rotation carries the
+   * motion instead; translation is deliberately tiny.
+   */
   /** How far the mark tilts toward the cursor, in radians at the edge. */
-  tilt: 0.16,
+  tilt: 0.2,
   /** Damping toward the cursor target; higher = snappier. */
-  follow: 0.07,
-  /** Extra roll and lateral drift, so the response reads as parallax. */
-  roll: 0.02,
-  shift: 0.05,
-  /** On-screen height of the mark in world units (drives the scale). */
-  height: 1.55,
+  follow: 0.06,
+  /** Extra roll, so the response reads as parallax rather than a flat hinge. */
+  roll: 0.03,
+  /** Lateral drift in world units. Small: the cell has hard edges. */
+  shift: 0.012,
+  /**
+   * Idle motion is OFF. Both are kept at 0 rather than deleted so the drift can
+   * be dialled back in without touching the component: `envSpin` is the rate of
+   * a continuous yaw and `sway` its amplitude in radians, `bob` a slow vertical
+   * float. With all three at zero the mark is still until the cursor moves.
+   */
+  envSpin: 0,
+  sway: 0,
+  bob: 0,
+
+  /**
+   * Frame cap. The mark is small now (a ~300px figure cell, not the viewport),
+   * so a frame is cheap — but on a 120/240Hz display an uncapped loop still
+   * renders 2-4x more frames than this motion needs. 60 is the dial to lower
+   * first if the GPU ever matters again; the quality dials are not.
+   */
+  fps: 60,
+  /** On-screen height of the mark in world units (drives the scale). The mark
+   *  now sits inside a small framed figure cell rather than filling the hero,
+   *  so this is much smaller than it was. */
+  height: 1.8,
   /** Cap on the mark's width as a fraction of the visible frustum — keeps it
    *  inside the frame on narrow screens where world units alone overflow. */
-  maxWidthFraction: 0.9,
-  /** Desktop resting position, centred above the copy. */
-  position: [0, 0.55, 0] as [number, number, number],
+  maxWidthFraction: 1.05,
+  /** Centred in its figure cell. */
+  position: [0, 0, 0] as [number, number, number],
   /**
    * On narrow screens the frustum is short and the copy sits closer, so the
    * mark is lifted and shrunk to keep clear of it.
    */
   mobile: {
-    position: [0, 0.5, 0] as [number, number, number],
+    position: [0, 0, 0] as [number, number, number],
     /**
      * NOTE: on phones the width cap below always wins over `height` (the
      * frustum is much narrower than it is tall), so THIS is the mobile size
      * control — `height` is effectively ignored here.
      */
-    maxWidthFraction: 0.78,
+    maxWidthFraction: 0.95,
     height: 1.5,
     /** Below this viewport width (px) the mobile values apply. */
     breakpoint: 640,
@@ -119,53 +129,98 @@ export const GLASS = {
    * apartment, city, dawn, forest, lobby, night, park, studio, sunset, warehouse.
    */
   envDark: 'studio' as const,
-  envLight: 'park' as const,
-  envIntensity: 3.2,
+  /** Neutral on purpose: 'park' is outdoor greenery, and a transmissive mark
+   *  picks that up as an olive cast — clean glass needs a colourless room. */
+  envLight: 'studio' as const,
+  envIntensity: 2.2,
+
+  /**
+   * The soft plane behind the mark. A transmissive material shows what is
+   * BEHIND it, so without this the glass refracts an empty background and the
+   * mark reads as dark grey. Greyscale on purpose — it brightens the glass
+   * without tinting it.
+   */
+  backdropInner: '#b9bcf5' as const,
+  backdropOuter: '#3a2f8f' as const,
+  /**
+   * Must stay comfortably LARGER than the mark (`height` / `maxWidthFraction`)
+   * — the glow only reads as a halo if it spills past the geometry. Grow this
+   * whenever the mark grows, or the mark simply covers its own light.
+   */
+  backdropSize: 4.4,
+  /** Overall strength. Raise if the mark still reads too dark. */
+  backdropAlpha: 0.7,
   /** PMREM size for the environment. Low-roughness glass only ever samples the
    *  sharpest mip, so anything above this is built and stored for nothing. */
   envResolution: 128,
   /**
-   * Frame cap for the whole scene. THIS is the primary GPU dial — on a 120Hz
-   * ProMotion display an uncapped loop does twice the work of this for motion
-   * almost nobody can see on a slow, drifting mark. Lower it before touching
-   * `samples`, `resolution`, or `maxDpr`, all of which cost image quality.
+   * Safari/WebKit pixel-ratio cap. Its WebGL fill rate and transmission
+   * handling are markedly weaker than Blink's, so it also gets a cheaper
+   * material — see logo-3d.tsx.
    */
-  fps: 60,
-
-  /** Rate of the mark's continuous yaw, which travels the reflections. */
-  envSpin: 0.35,
-  /** Amplitude of that yaw, in radians. */
-  sway: 0.32,
-  /** Gradient glow behind the mark — what the glass actually transmits. */
-  glowInner: '#c9caff' as const,
-  glowOuter: '#4b3fd0' as const,
-  glowSize: 5.0,
+  webkitMaxDpr: 1.5,
 
   /** Material. Thin + smooth + high dispersion reads as clean optical glass. */
-  thickness: 0.55,
-  roughness: 0.02,
-  ior: 1.45,
-  chromaticAberration: 0.35,
+  thickness: 0.75,
+  roughness: 0.03,
+  ior: 1.55,
+  chromaticAberration: 0.5,
   anisotropy: 0.1,
   distortion: 0,
   distortionScale: 0,
   temporalDistortion: 0,
   backside: false,
 
-  /** Cost dials: more samples = cleaner refraction, more frame time.
-   *  The transmission pass re-renders the scene into a `resolution`² buffer and
-   *  blurs it with `samples` taps per fragment, so these two are multiplicative
-   *  and dominate the cost of a SINGLE frame.
+  /** Quality dials for the transmission pass, which renders the scene into a
+   *  `resolution`² buffer and blurs it with `samples` taps per fragment.
    *
-   *  They are back at full quality on purpose: `fps` caps how many frames are
-   *  drawn at all, which on a high-refresh display saves far more than these
-   *  ever did. Cap the RATE first; only then trade away quality. */
+   *  Both are at full quality on purpose: the scene is STATIC, so this cost is
+   *  paid once on mount rather than every frame. There is no longer a frame
+   *  budget to protect, so there is no reason to trade the image down. */
   samples: 10,
   resolution: 1024,
 
   /** Device-pixel-ratio cap for the canvas. This governs how clean the mark's
    *  SILHOUETTE is: the transmission blur hides interior detail, but the
-   *  outline is a hard edge against the page. Kept at full 2 — capping `fps`
-   *  bought back the headroom, and this is what stops the edge crawling. */
+   *  outline is a hard edge against the page. Full 2 — with a static scene the
+   *  extra fragments cost one frame, and this is what keeps the edge smooth. */
   maxDpr: 2,
 } as const
+
+/**
+ * The hero's spec-sheet data block. Each row is one labelled fact; `href` makes
+ * it actionable, `note` is the dim trailing comment (the `// same time` in the
+ * reference). Order here is the order on screen.
+ */
+export type SpecRow = {
+  icon: 'role' | 'location' | 'phone' | 'clock' | 'mail' | 'link'
+  value: string
+  /** Rendered brighter, for the part that carries the meaning. */
+  strong?: string
+  note?: string
+  href?: string
+}
+
+export const PROFILE = {
+  name: 'Meer Bahadin',
+  title: 'Frontend & Mobile Developer',
+  /** Drop a square image at this path to fill the avatar cell. */
+  avatar: '/avatar.png',
+  /** The figure caption, bottom-right of the drawing cell. */
+  figure: 'FIG_001',
+} as const
+
+export const SPEC_ROWS: SpecRow[] = [
+  { icon: 'role', value: 'Frontend Engineering Manager @', strong: 'Ruyat Technologies' },
+  { icon: 'location', value: 'Sulaymaniyah, Kurdistan Region, Iraq' },
+  { icon: 'clock', value: '', note: 'local time' },
+  { icon: 'mail', value: 'meerbahadin10@gmail.com', href: 'mailto:meerbahadin10@gmail.com' },
+  { icon: 'link', value: 'meera.dev', href: 'https://meera.dev' },
+]
+
+export const SOCIALS = [
+  { label: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/in/meerbahadin/' },
+  { label: 'GitHub', icon: 'github', href: 'https://github.com/meerbahadin' },
+  { label: 'X', icon: 'x', href: 'https://x.com/meerbahadin' },
+  { label: 'Resume', icon: 'resume', href: 'https://wa.link/oonm1g' },
+] as const
