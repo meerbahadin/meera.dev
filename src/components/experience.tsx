@@ -52,7 +52,7 @@ const YearLabel = ({ year }: { year: Experience['year'] }) =>
 export default function Experiences() {
   return (
     <section
-      className='container max-w-3xl pt-18 apply-edge'
+      className='container max-w-3xl pt-10 apply-edge'
       id='experiences-wrapper'
     >
       <SectionHeader

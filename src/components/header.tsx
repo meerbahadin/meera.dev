@@ -1,330 +1,274 @@
 'use client'
 
-import { Button } from '@heroui/button'
-
-// By adding only the specific animation features we need, we reduce the bundle size of the motion component.
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 import { LazyMotion, domAnimation } from 'motion/react'
 import * as motion from 'motion/react-m'
-import { IconChevronDown, IconArrowUpRight } from '@tabler/icons-react'
+import {
+  IconCode,
+  IconMapPin,
+  IconClock,
+  IconMail,
+  IconLink,
+  IconPhone,
+  IconBrandLinkedin,
+  IconBrandGithub,
+  IconBrandX,
+  IconFileText,
+  IconRosetteDiscountCheckFilled,
+  IconChevronDown,
+} from '@tabler/icons-react'
 
-// check out my gradflow project at: https://grad-flow.vercel.app/
-import Link from 'next/link'
-import { ThemeToggle } from './theme-toggle'
+import Divider from './divider'
 import HeroBackdrop from './hero-backdrop'
-import { HEADER_VARIANT, HERO_BACKDROP } from '@/constant/header'
+import { ThemeToggle } from './theme-toggle'
+import {
+  HERO_BACKDROP,
+  PROFILE,
+  SPEC_ROWS,
+  SOCIALS,
+  type SpecRow,
+} from '@/constant/header'
 
-const NAME = 'Meer Bahadin'
+const ICONS = {
+  role: IconCode,
+  location: IconMapPin,
+  clock: IconClock,
+  mail: IconMail,
+  link: IconLink,
+  phone: IconPhone,
+} as const
 
-const META = [
-  { label: 'role', value: 'Frontend & Mobile' },
-  { label: 'exp', value: '5+ years' },
-  { label: 'stack', value: 'React · Next.js · Expo' },
-  { label: 'status', value: 'Available' },
-]
-
-const INTRO = [
-  `Hi, I'm Meer Bahadin — a frontend developer building fast, accessible, high-quality web applications with React, Next.js and TypeScript, and mobile apps with React Native and Expo.`,
-]
-
-const CONTENTS = [
-  { n: '01', title: 'Experience', note: 'Where I have worked', id: 'experiences-wrapper' },
-  { n: '02', title: 'Recent Work', note: 'What I have shipped', id: 'recent-work' },
-  { n: '03', title: 'Tech Stack', note: 'What I build with', id: 'tech-stack' },
-  { n: '04', title: "Let's Work Together", note: 'How to reach me', id: 'contact' },
-]
+const SOCIAL_ICONS = {
+  linkedin: IconBrandLinkedin,
+  github: IconBrandGithub,
+  x: IconBrandX,
+  resume: IconFileText,
+} as const
 
 const scrollTo = (id: string) =>
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
-/** On the shader the copy sits on a dark image in BOTH themes, so it is pinned light. */
-const onShader = HERO_BACKDROP === 'shader'
-const dim = onShader ? 'text-zinc-400' : 'text-default-500'
-const body = onShader ? 'text-zinc-300' : 'text-default-600'
-const strong = onShader ? 'text-zinc-100' : 'text-foreground'
-const hairline = onShader ? 'border-white/15' : 'border-default-50'
+/**
+ * The live local clock. Rendered empty on the server and filled after mount —
+ * a time formatted during SSR would not match the client's and would trip a
+ * hydration warning.
+ */
+function useLocalTime() {
+  const [time, setTime] = useState('')
 
-const WorkButton = () => (
-  <Button
-    aria-label='view work experience'
-    variant='bordered'
-    radius='none'
-    className={
-      onShader
-        ? 'border-white/30 text-zinc-100 data-[hover=true]:bg-white/10'
-        : undefined
-    }
-    endContent={<IconChevronDown className='animate-pulse' size={16} />}
-    onPress={() => scrollTo('experiences-wrapper')}
-  >
-    Work Experience
-  </Button>
-)
+  useEffect(() => {
+    const tick = () =>
+      setTime(
+        new Date().toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+        })
+      )
+    tick()
+    // Aligned to the minute rather than a 1s interval: the display only shows
+    // hours and minutes, so a per-second timer would re-render for nothing.
+    const id = setInterval(tick, 30_000)
+    return () => clearInterval(id)
+  }, [])
 
-const Intro = () => (
-  <div className='space-y-3 max-w-prose'>
-    {INTRO.map((p) => (
-      <p key={p} className={`text-lead ${body}`}>
-        {p}
-      </p>
-    ))}
-  </div>
-)
+  return time
+}
 
-const Credit = () =>
-  onShader ? (
-    <p className={`label ${dim} text-balance`}>
-      Background made with{' '}
-      <Link
-        href='https://gradflow.meerbahadin.dev/'
-        target='_blank'
-        className={`${strong} underline underline-offset-2 transition-colors`}
+/** One row of the data block: icon chip, then the fact. */
+function SpecItem({ row, time }: { row: SpecRow; time: string }) {
+  const Icon = ICONS[row.icon]
+  const value = row.icon === 'clock' ? time : row.value
+
+  // The clock row is blank until the client fills it; reserve its height so the
+  // grid does not jump on hydration.
+  const body = (
+    <span className='text-meta font-mono text-default-600 truncate'>
+      {value}
+      {row.strong && (
+        <span className='text-foreground font-medium'>{row.strong}</span>
+      )}
+      {row.note && (
+        <span className='text-default-400'>
+          {value ? ' ' : ''}
+          {`// ${row.note}`}
+        </span>
+      )}
+    </span>
+  )
+
+  return (
+    <div
+      className={`flex items-center gap-3 min-w-0 ${
+        // The role line is the longest fact on the sheet; letting it span both
+        // columns is what stops the employer name from being clipped.
+        row.icon === 'role' ? 'sm:col-span-2' : ''
+      }`}
+    >
+      <span
+        className='grid size-7 shrink-0 place-items-center rounded-md border border-default-50 bg-default-100/50 text-default-500'
+        aria-hidden='true'
       >
-        GradFlow
-      </Link>
-    </p>
-  ) : null
+        <Icon size={14} stroke={1.6} />
+      </span>
+
+      {row.href ? (
+        <Link
+          href={row.href}
+          target={row.href.startsWith('http') ? '_blank' : undefined}
+          className='min-w-0 hover:text-foreground transition-colors'
+        >
+          {body}
+        </Link>
+      ) : (
+        body
+      )}
+    </div>
+  )
+}
 
 export default function Header() {
-  const v = HEADER_VARIANT
-  const compact = v === 'compact'
+  const time = useLocalTime()
 
   return (
     <LazyMotion features={domAnimation}>
-      <header
-        className={`relative isolate ${compact ? 'min-h-[68svh]' : 'min-h-svh'} ${
-          onShader ? 'text-zinc-100' : ''
-        }`}
-      >
-        {/*
-          The backdrop is NOT wrapped in a fading motion.div: lazily-loaded
-          backdrops (the 3D logo) mount after that animation has already run,
-          and would stay stuck at opacity 0. Each backdrop owns its own entrance.
-        */}
-        <HeroBackdrop variant={HERO_BACKDROP} />
+      {/*
+        The sheet. Content is held to the page's 768px column, but the rules and
+        hatching inside bleed to the full viewport — that contrast is what makes
+        it read as a technical drawing rather than a boxed card.
 
-        <div
-          className={`container max-w-3xl flex flex-col pb-8 pt-12 sm:pt-16 ${
-            compact ? 'min-h-[68svh] justify-end' : 'min-h-svh justify-between'
-          }`}
+        pt-14 clears the fixed navbar.
+      */}
+      <header className='relative isolate pt-14 overflow-x-clip'>
+        <motion.div
+          className='container max-w-3xl px-0'
+          initial={{ opacity: 0, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 0.5 }}
         >
-          {!compact && (
-            <div className='flex items-center justify-between'>
-              <span className={`label ${dim}`}>meera.dev</span>
+          {/*
+            THE PLATE. The mark centred on construction grid, with the figure
+            caption in the corner. border-x gives the column its continuous
+            vertical rails.
+          */}
+          <section className='relative border-x border-b rule-line'>
+            <div
+              className='absolute inset-0 blueprint-grid opacity-60'
+              aria-hidden='true'
+            />
+
+            {/* The scene renders into this box — short, because the mark is a
+                figure on the sheet now, not the whole hero. */}
+            <div className='relative h-[14rem] sm:h-[17rem]'>
+              <HeroBackdrop variant={HERO_BACKDROP} />
+            </div>
+
+            <span
+              className='absolute bottom-2.5 right-3.5 label font-mono text-default-400 select-none tracking-wider'
+              aria-hidden='true'
+            >
+              {PROFILE.figure}
+            </span>
+
+            <div className='absolute top-3 right-3'>
               <ThemeToggle />
             </div>
-          )}
+          </section>
 
-          <motion.div
-            className='space-y-5 justify-self-end w-full'
-            initial={{ opacity: 0.5, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, filter: 'blur(0px)' }}
-          >
-            {v === 'aside' ? (
-              /*
-                Scene occupies the upper half of the hero; the copy sits beneath
-                it, centred on the same axis, so the two read as one column.
-              */
-              <div className='flex flex-col items-center text-center min-h-[70svh] sm:min-h-[78svh]'>
-                {/* Reserved space the 3D mark renders into. */}
-                <div
-                  className='w-full flex-1 min-h-[17rem] sm:min-h-[22rem]'
-                  aria-hidden='true'
+          {/*
+            THE NAMEPLATE. Avatar cell, then name and title in their own ruled
+            rows — the avatar's cell is taller than the two text rows, which is
+            what gives the block its stepped silhouette in the reference.
+          */}
+          <section className='grid grid-cols-[auto_1fr] border-x rule-line'>
+            <div className='border-r rule-line p-3 sm:p-4 flex items-end'>
+              <div className='relative size-20 sm:size-[6.5rem] overflow-hidden rounded-full border border-default-50 bg-default-100'>
+                <Image
+                  src={PROFILE.avatar}
+                  alt={PROFILE.name}
+                  fill
+                  sizes='104px'
+                  className='object-cover'
+                  // Nothing at PROFILE.avatar yet: hide the broken image and let
+                  // the neutral circle behind it stand in.
+                  onError={(e) => {
+                    e.currentTarget.style.visibility = 'hidden'
+                  }}
                 />
-
-                <div className='space-y-3 sm:space-y-5 max-w-2xl'>
-                  <div className='space-y-2'>
-                    <p className={`label ${dim}`}>
-                      frontend & mobile developer · 5+ years
-                    </p>
-                    <h1 className='capitalize text-display font-medium'>
-                      {NAME}
-                    </h1>
-                  </div>
-
-                  <div className='space-y-3'>
-                    {INTRO.map((p) => (
-                      <p key={p} className={`text-lead ${body}`}>
-                        {p}
-                      </p>
-                    ))}
-                  </div>
-
-                  {/*
-                    One inline status line instead of a four-column label/value
-                    table: the same facts, but it reads as a sentence and does
-                    not compete with the name. Wraps naturally on phones.
-                  */}
-                  <div
-                    className={`flex flex-wrap items-center justify-center gap-x-3 gap-y-2 border-t ${hairline} pt-4`}
-                  >
-                    <span className={`label ${dim}`}>React · Next.js · Expo</span>
-                    <span
-                      className={`${dim} select-none hidden sm:inline`}
-                      aria-hidden='true'
-                    >
-                      /
-                    </span>
-                    <span className={`label ${dim}`}>5+ years</span>
-                    <span
-                      className={`${dim} select-none hidden sm:inline`}
-                      aria-hidden='true'
-                    >
-                      /
-                    </span>
-                    <span className='label inline-flex items-center gap-1.5'>
-                      <span className='relative flex size-1.5'>
-                        <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75' />
-                        <span className='relative inline-flex size-1.5 rounded-full bg-emerald-500' />
-                      </span>
-                      <span className={body}>Available for work</span>
-                    </span>
-                  </div>
-                </div>
               </div>
-            ) : v === 'terminal' ? (
-              <div className={`border ${hairline} divide-y divide-default-50`}>
-                <div className='flex items-center gap-2 px-3 py-1.5'>
-                  <span className='size-2 rounded-full bg-default-300' />
-                  <span className={`label ${dim}`}>~/meera.dev</span>
-                </div>
-                <div className='p-4 space-y-3'>
-                  <p className='text-meta'>
-                    <span className='text-emerald-500'>$</span>{' '}
-                    <span className={body}>whoami</span>
-                  </p>
-                  <h1 className='capitalize text-display font-medium'>{NAME}</h1>
-                  <dl className='grid grid-cols-2 sm:grid-cols-4 gap-3'>
-                    {META.map((m) => (
-                      <div key={m.label}>
-                        <dt className={`label ${dim}`}>{m.label}</dt>
-                        <dd className={`text-meta ${body}`}>{m.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                  <p className='text-meta pt-1'>
-                    <span className='text-emerald-500'>$</span>{' '}
-                    <span className={body}>cat about.txt</span>
-                  </p>
-                  <Intro />
-                  <p className='text-meta'>
-                    <span className='text-emerald-500'>$</span>{' '}
-                    <span className='inline-block w-2 h-4 align-middle bg-default-500 animate-pulse' />
-                  </p>
-                </div>
-              </div>
-            ) : v === 'index' ? (
-              <div className='space-y-6'>
-                <div className='space-y-1'>
-                  <h1 className='capitalize text-display font-medium'>{NAME}</h1>
-                  <p className={`label ${dim}`}>
-                      frontend & mobile developer · 5+ years
-                    </p>
-                </div>
-                <Intro />
-                <ul className={`border-t ${hairline}`}>
-                  {CONTENTS.map((c) => (
-                    <li key={c.n}>
-                      <button
-                        onClick={() => scrollTo(c.id)}
-                        className={`w-full flex items-baseline gap-4 py-2.5 border-b ${hairline} text-left group`}
-                      >
-                        <span className={`label ${dim} tabular-nums`}>{c.n}</span>
-                        <span className='text-title'>{c.title}</span>
-                        <span className='h-px flex-1 bg-default-50 self-center' />
-                        <span className={`label ${dim} hidden sm:block`}>{c.note}</span>
-                        <IconArrowUpRight
-                          size={14}
-                          className={`${dim} group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform`}
-                        />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : v === 'marquee' ? (
-              <div className='space-y-6'>
-                <h1
-                  className='font-medium uppercase leading-[0.85] tracking-tighter'
-                  style={{ fontSize: 'clamp(2.5rem, 13vw, 9rem)' }}
-                >
-                  Meer
-                  <br />
-                  Bahadin
-                </h1>
-                <div className={`grid gap-4 sm:grid-cols-4 border-t ${hairline} pt-4`}>
-                  {META.map((m) => (
-                    <div key={m.label}>
-                      <p className={`label ${dim}`}>{m.label}</p>
-                      <p className={`text-meta ${body}`}>{m.value}</p>
-                    </div>
-                  ))}
-                </div>
-                <Intro />
-              </div>
-            ) : v === 'card' ? (
-              // -mx cancels the container's inline padding so the card's borders land
-              // exactly on the backdrop grid lines rather than inset from them.
-              <div className={`border ${hairline} tick-corners p-6 sm:p-8 space-y-5 -mx-[1.2rem]`}>
-                <div className='flex items-start justify-between gap-4'>
-                  <div className='space-y-1'>
-                    <h1 className='capitalize text-display font-medium'>{NAME}</h1>
-                    <p className={`label ${dim}`}>
-                      frontend & mobile developer · 5+ years
-                    </p>
-                  </div>
-                  <span className={`label ${dim} tabular-nums shrink-0`}>2026</span>
-                </div>
-                <div className={`border-t ${hairline} pt-5`}>
-                  <Intro />
-                </div>
-                <dl className={`grid grid-cols-2 sm:grid-cols-4 gap-3 border-t ${hairline} pt-5`}>
-                  {META.map((m) => (
-                    <div key={m.label}>
-                      <dt className={`label ${dim}`}>{m.label}</dt>
-                      <dd className={`text-meta ${body}`}>{m.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            ) : v === 'split' ? (
-              <>
-                <h1 className='capitalize text-display font-medium'>{NAME}</h1>
-                <div className='grid gap-6 md:grid-cols-[1fr_auto] md:items-end'>
-                  <Intro />
-                  <dl className={`grid grid-cols-2 gap-x-6 gap-y-2 md:grid-cols-1 md:border-l ${hairline} md:pl-4 shrink-0`}>
-                    {META.map((m) => (
-                      <div key={m.label}>
-                        <dt className={`label ${dim}`}>{m.label}</dt>
-                        <dd className={`text-meta ${body}`}>{m.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className='space-y-1'>
-                  <h1 className='capitalize text-display font-medium'>{NAME}</h1>
-                  <p className={`label ${dim}`}>
-                      frontend & mobile developer · 5+ years
-                    </p>
-                </div>
-                <Intro />
-              </>
-            )}
-
-            <div
-              className={`flex items-center gap-3 flex-wrap ${
-                v === 'aside' ? 'justify-center pt-4 sm:pt-6' : ''
-              }`}
-            >
-              <WorkButton />
-              {compact && <ThemeToggle />}
             </div>
 
-            <Credit />
-          </motion.div>
-        </div>
+            <div className='grid grid-rows-[1fr_auto] min-w-0'>
+              <div className='flex items-center gap-2 border-b rule-line px-4 sm:px-6 pb-2 pt-6'>
+                <h1 className='font-sans text-display font-semibold tracking-tight truncate'>
+                  {PROFILE.name}
+                </h1>
+                <IconRosetteDiscountCheckFilled
+                  size={20}
+                  className='shrink-0 text-sky-500'
+                  aria-label='verified'
+                />
+              </div>
+
+              <p className='px-4 sm:px-6 py-3 text-meta font-mono text-default-500'>
+                {PROFILE.title}
+              </p>
+            </div>
+          </section>
+
+          {/* The same Divider the rest of the page uses — one implementation,
+              so the header's cut edges can never drift from the section
+              dividers below. my-0 keeps it flush against the cells. */}
+          <Divider className='my-0' />
+
+          {/*
+            THE DATA BLOCK. Two columns of labelled facts — the densest part of
+            the sheet, and the reason it reads as a spec rather than a bio.
+          */}
+          <section className='border-x border-b rule-line'>
+            <div className='grid gap-x-10 gap-y-4 p-4 sm:p-6 sm:grid-cols-2'>
+              {SPEC_ROWS.map((row, i) => (
+                <SpecItem key={i} row={row} time={time} />
+              ))}
+            </div>
+          </section>
+
+          {/* THE FOOTER STRIP: social plates, then the way into the page. */}
+          <section className='flex flex-wrap items-center justify-between gap-4 p-4 sm:px-6 border-x rule-line'>
+            <ul className='flex items-center gap-2'>
+              {SOCIALS.map((s) => {
+                const Icon = SOCIAL_ICONS[s.icon]
+                return (
+                  <li key={s.label}>
+                    <Link
+                      href={s.href}
+                      target='_blank'
+                      aria-label={s.label}
+                      className='grid size-8 place-items-center rounded-lg border border-default-50 bg-default-100/60 text-default-500 hover:text-foreground hover:border-default-300 transition-colors'
+                    >
+                      <Icon size={15} stroke={1.6} />
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+
+            <button
+              onClick={() => scrollTo('experiences-wrapper')}
+              className='group inline-flex items-center gap-1.5 label font-mono text-default-500 hover:text-foreground transition-colors'
+            >
+              view experience
+              <IconChevronDown
+                size={14}
+                className='group-hover:translate-y-0.5 transition-transform'
+              />
+            </button>
+          </section>
+
+          {/* Closing cut edge, same component. */}
+          <Divider className='my-0' />
+        </motion.div>
       </header>
     </LazyMotion>
   )
